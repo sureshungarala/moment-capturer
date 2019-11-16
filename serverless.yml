@@ -1,0 +1,28 @@
+org: venkatsuresh
+app: tmc-client-s3-copy
+service:
+  name: tmc-client-s3-sync
+
+plugins:
+  - serverless-hooks-plugin
+  - serverless-s3-sync
+  - serverless-cloudfront-invalidate
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  region: ap-southeast-1
+
+custom:
+  hooks:
+    before:package:createDeploymentArtifacts:
+      - npm run build
+  s3Sync:
+    - bucketName: momentcapturer.com
+      localDir: build/
+      acl: public-read
+      defaultContentType: text/html
+  cloudfrontInvalidate:
+    distributionId: 'E4KKDOKS9RE0A'
+    items:
+      - '/*'
