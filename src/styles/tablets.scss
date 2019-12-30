@@ -8,7 +8,7 @@
       justify-content: space-around;
 
       .logoSection {
-        flex-basis: 60%;
+        flex-basis: 55%;
         @include flexXalignCentered;
 
         .branding-title {
@@ -18,16 +18,42 @@
       }
 
       .actionSection {
-        flex-basis: 40%;
+        flex-basis: 45%;
         @include flexXalignCentered;
-        justify-content: space-evenly;
-        font-size      : calc(10px + 1.5vmin);
+        font-size: calc(10px + 1.5vmin);
+
+        &>* {
+          @include flexXalignCentered;
+        }
 
         .categories {
-          @include flexXalignCentered;
-          min-width: 5em;
-          font-size: calc(10px + 0.5vmin);
+          flex-basis: 40%;
+
+          .title {
+            font-size    : calc(10px + 1.25vmin);
+            padding-right: 0.5em;
+          }
+
+          .categories-dd,
+          .categories-dd .selectedCategory {
+            font-size: calc(10px + 0.75vmin);
+
+            li {
+              font-size: calc(10px + 1vmin);
+            }
+          }
         }
+
+        .profiles {
+          flex-basis     : 60%;
+          justify-content: space-around;
+        }
+      }
+    }
+
+    .mcBody {
+      .upload-form {
+        top: 20% !important;
       }
     }
   }

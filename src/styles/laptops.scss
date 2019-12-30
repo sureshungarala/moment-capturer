@@ -16,19 +16,23 @@
       }
 
       .actionSection {
-        flex-basis: 40%;
         @include flexXalignCentered;
-        justify-content: space-evenly;
-        font-size      : calc(10px + 2.5vmin);
+        flex-basis: 40%;
+        font-size : calc(10px + 2.5vmin);
 
         &>* {
+          @include flexXalignCentered;
           cursor: pointer;
         }
 
         .categories {
-          @include flexXalignCentered;
-          min-width: 10em;
-          font-size: calc(10px + 1.5vmin);
+          flex-basis: 40%;
+          font-size : calc(10px + 2vmin);
+        }
+
+        .profiles {
+          flex-basis     : 60%;
+          justify-content: space-around;
         }
       }
     }

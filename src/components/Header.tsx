@@ -1,5 +1,6 @@
 import React from 'react';
 import Categories from './Categories';
+import Profiles_Handheld from './Profiles';
 
 interface headerProps {
 
@@ -32,6 +33,7 @@ export default class extends React.Component<headerProps, headerState> {
                         <div className="someOther">So</div>
                         <div className="profilePic">Pp</div>
                     </div>
+                    <Profiles_Handheld />
                 </div>
             </header>
         );

@@ -29,23 +29,25 @@ const Categories: React.FunctionComponent = () => {
     return (
         <div className="categories">
             <span className="title">Categories: </span>
-            <div className="selectedCategory">
-                {state.category}
+            <div className="categories-dd">
+                <div className="selectedCategory">
+                    {state.category}
+                </div>
+                {
+                    !state.closeDropdown &&
+                    <ul onClick={changeCategory}>
+                        <li custom-value="Travel">Travel</li>
+                        <li custom-value="Abstract">Abstract</li>
+                        <li custom-value="">Wild life
+                            <ul>
+                                <li custom-value="Country">Country</li>
+                                <li custom-value="Safari">Safari</li>
+                            </ul>
+                        </li>
+                        <li custom-value="Fashion">Fashion</li>
+                    </ul>
+                }
             </div>
-            {
-                !state.closeDropdown &&
-                <ul onClick={changeCategory}>
-                    <li custom-value="Travel">Travel</li>
-                    <li custom-value="Abstract">Abstract</li>
-                    <li custom-value="">Wild life
-                    <ul>
-                            <li custom-value="Country">Country</li>
-                            <li custom-value="Safari">Safari</li>
-                        </ul>
-                    </li>
-                    <li custom-value="Fashion">Fashion</li>
-                </ul>
-            }
         </div>
     );
 }
