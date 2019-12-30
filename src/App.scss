@@ -1,0 +1,135 @@
+@import "./styles/fonts.scss";
+@import "./styles/common.scss";
+@import "./styles/handhelds.scss";
+@import "./styles/tablets.scss";
+@import "./styles/laptops.scss";
+@import "./styles/desktops.scss";
+
+.MC-App {
+  font-family: "Caveat", cursive;
+  font-weight: 400;
+
+  .mcHeader {
+    background-color: aliceblue;
+
+    .logoSection .branding-title {
+      font-weight: 700;
+    }
+
+    .actionSection .categories {
+      font-family: "Caveat", cursive;
+      outline    : none;
+    }
+
+    $transition: all 0.5s ease-in-out;
+
+    .initDropdownState {
+      opacity   : 0;
+      display   : none; //disable to get transition
+      position  : absolute;
+      list-style: none;
+      margin    : 0;
+      height    : 0;
+      top       : 0;
+      transition: $transition;
+    }
+
+    .showDropdown {
+      opacity         : 1;
+      display         : flex;
+      height          : auto;
+      flex-direction  : column;
+      padding         : 10px 0px;
+      background-color: #f1f1f1;
+      border-radius   : 5px;
+      min-width       : 120px;
+      box-shadow      : 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+      left            : 60%;
+      top             : 100%;
+    }
+
+    .categories {
+      @include flexXjustifyCentered;
+      position: relative;
+
+      .title {
+        padding-right: 0.75em;
+      }
+
+      .selectedCategory {
+        border       : 1px solid grey;
+        border-radius: 4px;
+        padding      : 0px 10px;
+        box-shadow   : 0px 4px 9px 0px rgba(0, 0, 0, 0.2);
+
+        &::after {
+          content  : '\00a0\00a0\25BC';
+          font-size: 0.6em;
+        }
+      }
+
+      ul,
+      ul li ul {
+        @extend .initDropdownState;
+      }
+
+      .selectedCategory:hover+ul,
+      ul:hover {
+        @extend .showDropdown;
+        z-index: 1;
+      }
+
+      li {
+        display : block;
+        position: relative;
+        padding : 5px 0px 5px 10px;
+
+        &:hover {
+          cursor          : pointer;
+          background-color: #ddd;
+        }
+      }
+
+      ul li:hover ul,
+      ul li:focus-within ul,
+      ul li ul:hover {
+        @extend .showDropdown;
+        top    : 60%;
+        z-index: 10;
+      }
+    }
+  }
+
+  .mcBody {
+    height: calc(100vh - 5vmax);
+    @include flexXjustifyCentered;
+
+    .upload-form {
+      display        : flex;
+      flex-direction : column;
+      align-items    : flex-start;
+      justify-content: space-evenly;
+      max-height     : 125px;
+      transform      : translateY(100%);
+
+      input[type="submit"],
+      input[type="button"] {
+        width        : 10em;
+        font-size    : 1em;
+        border-radius: 4px;
+        outline      : none;
+        font-family  : "Caveat", cursive;
+      }
+
+      input[type="submit"] {
+        font-weight: 600;
+      }
+
+      input[type="file"] {
+        visibility: hidden;
+        height    : 1px;
+        width     : 1px;
+      }
+    }
+  }
+}

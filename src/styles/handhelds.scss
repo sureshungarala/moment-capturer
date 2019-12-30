@@ -1,0 +1,57 @@
+@media only screen and (max-device-width: 599px) {
+    .MC-App {
+        .mcHeader {
+            @include flexXalignCentered;
+            height         : 7vmax;
+            justify-content: space-around;
+
+            .logoSection {
+                flex-basis: 60%;
+                @include flexXalignCentered;
+
+                .branding-title {
+                    font-size  : calc(10px + 3.5vmin);
+                    margin-left: 8vmin;
+                }
+            }
+
+            .actionSection {
+                flex-basis: 40%;
+                @include flexXalignCentered;
+                justify-content: space-evenly;
+                font-size      : calc(10px + 2.5vmin);
+
+                &>* {
+                    cursor: pointer;
+                }
+
+                .categories {
+                    @include flexXalignCentered;
+                    justify-content: flex-end;
+                    font-size      : calc(10px + 1.5vmin);
+
+                    .title {
+                        display: none;
+                    }
+
+                    .selectedCategory:hover+ul,
+                    ul:hover {
+                        left : auto;
+                        width: 110px;
+                    }
+
+                    ul li:hover ul,
+                    ul li:focus-within ul,
+                    ul li ul:hover {
+                        left : -95%;
+                        width: 110px;
+                    }
+                }
+
+                .profiles {
+                    display: none;
+                }
+            }
+        }
+    }
+}

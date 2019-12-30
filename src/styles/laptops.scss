@@ -1,0 +1,36 @@
+@media only screen and (min-device-width: 1200px) and (max-device-width: 1600px) {
+  .MC-App {
+    .mcHeader {
+      @include flexXalignCentered;
+      height         : 5vmax;
+      justify-content: space-around;
+
+      .logoSection {
+        flex-basis: 60%;
+        @include flexXalignCentered;
+
+        .branding-title {
+          font-size  : calc(10px + 4vmin);
+          margin-left: 15vmin;
+        }
+      }
+
+      .actionSection {
+        flex-basis: 40%;
+        @include flexXalignCentered;
+        justify-content: space-evenly;
+        font-size      : calc(10px + 2.5vmin);
+
+        &>* {
+          cursor: pointer;
+        }
+
+        .categories {
+          @include flexXalignCentered;
+          min-width: 10em;
+          font-size: calc(10px + 1.5vmin);
+        }
+      }
+    }
+  }
+}

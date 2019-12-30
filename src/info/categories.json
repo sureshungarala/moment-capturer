@@ -1,0 +1,27 @@
+{
+    "Travel": {
+        "title": "Travel",
+        "submenu": []
+    },
+    "Abstract": {
+        "title": "Abstract",
+        "submenu": []
+    },
+    "Wild life": {
+        "title": "Wild life",
+        "submenu": [
+            {
+                "title": "Country",
+                "submenu": []
+            },
+            {
+                "title": "Safari",
+                "submenu": []
+            }
+        ]
+    },
+    "Fashion": {
+        "title": "Fashion",
+        "submenu": []
+    }
+}

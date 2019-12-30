@@ -1,0 +1,23 @@
+input[type="button"],
+input[type="submit"],
+form {
+  -moz-appearance   : none;
+  -webkit-appearance: none;
+  appearance        : none;
+}
+
+@mixin flexXjustifyCentered {
+  display        : flex;
+  justify-content: center;
+}
+
+@mixin flexXalignCentered {
+  display    : flex;
+  align-items: center;
+}
+
+@mixin flexXcentered {
+  display        : flex;
+  align-items    : center;
+  justify-content: center;
+}
