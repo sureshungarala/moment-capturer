@@ -1,12 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 interface profileState {
 
 }
 
 const Profiles: React.FunctionComponent = () => {
-
-    const [state, setState] = useState({});
 
     return (
         <div className="profiles-handheld">

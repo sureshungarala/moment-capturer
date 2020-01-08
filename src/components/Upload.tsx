@@ -37,6 +37,22 @@ export default class extends React.Component<uploadProps, uploadState>{
     handleSubmit(event: React.FormEvent) {
         event.preventDefault();
         console.log('Files submitted.');
+        if (this.state.files && this.state.files.length !== 0) {
+            let formdata = new window.FormData();
+            formdata.append('image', this.state.files[0], this.state.files[0].name);
+            try {
+                const response = fetch('https://api.momentcapturer.com/csr', {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'multipart/form-data'
+                    },
+                    body: formdata
+                });
+                console.log('CSR succeeded with response ', response);
+            } catch (err) {
+                console.log('CSR failed with error ', err);
+            }
+        }
     }
 
     render() {
