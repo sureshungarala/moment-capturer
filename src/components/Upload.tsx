@@ -38,39 +38,39 @@ export default class extends React.Component<uploadProps, uploadState>{
         event.preventDefault();
         console.log('Files submitted.');
         if (this.state.files && this.state.files.length !== 0) {
-            const start = window.performance.now();
-            let image = new window.Image(),
-                base64 = '',
-                imageName = this.state.files[0].name
-            image.onload = () => {
-                let canvas = document.createElement('canvas'),
-                    context = canvas.getContext('2d');
-                context && context.drawImage(image, 0, 0, image.width, image.height);
-                base64 = canvas.toDataURL('image/jpeg', 1.0);
-                console.log(window.performance.now() - start);
-                console.log(base64);
-                let body = JSON.stringify({
-                    image: base64,
-                    imageName: imageName,
-                    resolution: image.width + ':' + image.height
-                });
+            const file = this.state.files[0],
+                start = window.performance.now();
+            let reader = new FileReader(),
+                image = new Image(),
+                imageName = this.state.files[0].name;
 
-                try {
-                    const response = fetch('https://api.momentcapturer.com/csr', {
-                        method: 'POST',
-                        mode: 'cors',
-                        headers: {
-                            'content-type': 'application/json',
-                            'accept': 'application/json'
-                        },
-                        body: body
+            reader.addEventListener('load', () => {
+                image.addEventListener('load', () => {
+                    console.log(window.performance.now() - start);
+                    let body = JSON.stringify({
+                        image: reader.result,
+                        imageName: imageName,
+                        resolution: image.width + ':' + image.height
                     });
-                    console.log('CSR succeeded with response ', response);
-                } catch (err) {
-                    console.log('CSR failed with error ', err);
-                }
-            };
-            image.src = window.URL.createObjectURL(this.state.files[0]);
+
+                    try {
+                        const response = fetch('https://api.momentcapturer.com/csr', {
+                            method: 'POST',
+                            mode: 'cors',
+                            headers: {
+                                'content-type': 'application/json',
+                                'accept': 'application/json'
+                            },
+                            body: body
+                        });
+                        console.log('CSR succeeded with response ', response);
+                    } catch (err) {
+                        console.log('CSR failed with error ', err);
+                    }
+                });
+                image.src = window.URL.createObjectURL(file);
+            });
+            reader.readAsDataURL(file);
         }
     }
 
