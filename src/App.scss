@@ -21,64 +21,6 @@
       outline    : none;
     }
 
-    .categories {
-      @include flexXjustifyCentered;
-
-      .title {
-        padding-right: 0.75em;
-      }
-
-      .categories-dd {
-        position       : relative;
-        display        : flex;
-        justify-content: flex-start;
-        font-size      : calc(10px + 1.5vmin);
-
-        .selectedCategory {
-          border       : 1px solid grey;
-          border-radius: 4px;
-          padding      : 0px 10px;
-          font-size    : calc(10px + 1.25vmin);
-          box-shadow   : 0px 4px 9px 0px rgba(0, 0, 0, 0.2);
-
-          &::after {
-            content  : '\00a0\00a0\25BC';
-            font-size: 0.6em;
-          }
-        }
-
-        ul,
-        ul li ul {
-          @include initDropdownState;
-        }
-
-        .selectedCategory:hover+ul,
-        ul:hover {
-          @include showDropdown;
-          z-index: 1;
-        }
-
-        li {
-          position: relative;
-          padding : 5px 0px 5px 10px;
-
-          &:hover {
-            cursor          : pointer;
-            background-color: #ddd;
-          }
-        }
-
-        ul li:hover ul,
-        ul li:focus-within ul,
-        ul li ul:hover {
-          @include showDropdown;
-          top    : 60%;
-          left   : 60%;
-          z-index: 10;
-        }
-      }
-    }
-
     .profiles-handheld {
       display: none;
     }
@@ -95,17 +37,37 @@
       flex-direction : column;
       align-items    : flex-start;
       justify-content: space-evenly;
-      height         : 120px;
+      height         : 250px;
       top            : 30%;
       transform      : translateY(-50%);
 
       input[type="submit"],
-      input[type="button"] {
+      input[type="button"],
+      textarea,
+      .categories {
         width        : 10em;
         font-size    : 1.5em;
         border-radius: 4px;
         outline      : none;
         font-family  : "Caveat", cursive;
+      }
+
+      textarea {
+        resize: none;
+
+        &.error {
+          border: 1px solid red;
+        }
+      }
+
+      .categories {
+        .title {
+          font-size: 0.75em;
+        }
+
+        .selectedCategory {
+          box-shadow: none;
+        }
       }
 
       input[type="submit"] {
@@ -116,6 +78,31 @@
         visibility: hidden;
         height    : 1px;
         width     : 1px;
+      }
+    }
+
+    .category-home {
+      .images-container {
+        @include flexXjustifyCentered;
+        flex-wrap: wrap;
+
+        &>* {
+          flex-basis   : 46%;
+          margin       : 1.25%;
+          border       : 1px solid #40383838;
+          border-radius: 5px;
+          box-shadow   : 2px 2px 10px #40383838;
+
+          picture {
+            width: 100%;
+
+            img {
+              display      : block;
+              width        : 100%;
+              border-radius: 5px;
+            }
+          }
+        }
       }
     }
   }

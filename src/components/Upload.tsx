@@ -1,22 +1,30 @@
 import React from 'react';
+import categories from '../info/categories.json';
+import Categories from './Categories';
 
 interface uploadProps {
 
 }
 
 interface uploadState {
-    files: FileList | null
+    files: FileList | null,
+    description: string,
+    categorySelected: string
 }
 
 export default class extends React.Component<uploadProps, uploadState>{
     fileRef: React.RefObject<HTMLInputElement>;
+    descriptionRef: React.RefObject<HTMLTextAreaElement>;
 
     constructor(props: uploadProps) {
         super(props);
         this.state = {
-            files: null
+            files: null,
+            description: '',
+            categorySelected: categories[0].name
         };
         this.fileRef = React.createRef();
+        this.descriptionRef = React.createRef();
         this.openFileDialog = this.openFileDialog.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -29,6 +37,11 @@ export default class extends React.Component<uploadProps, uploadState>{
     handleChange(event: React.ChangeEvent<HTMLInputElement>) {
         this.setState({
             files: event.target.files
+        }, () => {
+            this.state.files &&
+                this.state.files.length &&
+                this.descriptionRef.current &&
+                this.descriptionRef.current.focus();
         });
         console.log(event.target.files);
         console.log('value changed');
@@ -36,7 +49,7 @@ export default class extends React.Component<uploadProps, uploadState>{
 
     handleSubmit(event: React.FormEvent) {
         event.preventDefault();
-        console.log('Files submitted.');
+        console.log('File submitted.', this.state);
         if (this.state.files && this.state.files.length !== 0) {
             const file = this.state.files[0],
                 start = window.performance.now();
@@ -50,7 +63,9 @@ export default class extends React.Component<uploadProps, uploadState>{
                     let body = JSON.stringify({
                         image: reader.result,
                         imageName: imageName,
-                        resolution: image.width + ':' + image.height
+                        resolution: image.width + ':' + image.height,
+                        category: this.state.categorySelected.toLowerCase(),
+                        description: this.state.description
                     });
 
                     try {
@@ -75,12 +90,27 @@ export default class extends React.Component<uploadProps, uploadState>{
     }
 
     render() {
-        let fileCount = this.state.files ? this.state.files.length : 0;
         return (
             <form onSubmit={this.handleSubmit} className="upload-form">
                 <input type="button" value="Choose files to Upload" onClick={this.openFileDialog} />
-                <span>{`${fileCount} file${fileCount === 1 ? 's' : ''}`} selected</span>
+                {
+                    <span>{this.state.files && this.state.files.length ? `${this.state.files[0].name} is` : 'No file'} selected</span>
+                }
                 <input type="file" accept="image/*" ref={this.fileRef} onChange={this.handleChange} style={{ visibility: 'hidden' }} />
+                <textarea placeholder="Give some description" ref={this.descriptionRef}
+                    value={this.state.description} onChange={(event) => {
+                        this.setState({
+                            description: event.target.value.trim()
+                        })
+                    }}
+                    className={this.state.files && this.state.files.length && !this.state.description.length ? 'error' : ''}>
+                </textarea>
+                <Categories onSelectCategory={(category) => {
+                    console.log('in upload ', category);
+                    this.setState({
+                        categorySelected: category
+                    })
+                }} />
                 <input type="submit" value="Upload" />
             </form>
         );

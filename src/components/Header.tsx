@@ -26,7 +26,7 @@ export default class extends React.Component<headerProps, headerState> {
                     <span className="branding-title">Moment Capturer</span>
                 </div>
                 <div className="actionSection">
-                    <Categories />
+                    <Categories onSelectCategory={(category) => { }} />
                     <div className="profiles">
                         <div className="instagram">In</div>
                         <div className="facebook">Fb</div>

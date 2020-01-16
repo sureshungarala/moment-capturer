@@ -103,6 +103,36 @@
 
         .mcBody {
             height: calc(100vh - 8vmax);
+
+            .upload-form {
+                .categories {
+                    .categories-dd {
+                        justify-content: flex-end;
+
+                        .selectedCategory:hover+ul,
+                        ul:hover {
+                            left : auto;
+                            width: 110px;
+                        }
+
+                        ul li:hover ul,
+                        ul li:focus-within ul,
+                        ul li ul:hover {
+                            left : -95%;
+                            width: 110px;
+                        }
+                    }
+                }
+            }
+
+            .category-home {
+                .images-container {
+                    &>* {
+                        flex-basis: 90% !important;
+                        margin    : 1.75% !important;
+                    }
+                }
+            }
         }
     }
 }

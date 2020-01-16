@@ -1,27 +1,27 @@
-{
-    "Travel": {
-        "title": "Travel",
+[
+    {
+        "name": "Travel",
         "submenu": []
     },
-    "Abstract": {
-        "title": "Abstract",
+    {
+        "name": "Abstract",
         "submenu": []
     },
-    "Wild life": {
-        "title": "Wild life",
+    {
+        "name": "Wild life",
         "submenu": [
             {
-                "title": "Country",
+                "name": "Country",
                 "submenu": []
             },
             {
-                "title": "Safari",
+                "name": "Safari",
                 "submenu": []
             }
         ]
     },
-    "Fashion": {
-        "title": "Fashion",
+    {
+        "name": "Fashion",
         "submenu": []
     }
-}
+]
