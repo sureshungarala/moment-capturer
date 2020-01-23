@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { MouseEvent, KeyboardEvent, useState, useEffect } from 'react';
 import categories from '../info/categories.json';
 
 
@@ -8,7 +8,7 @@ interface category {
 }
 
 interface dropDownProps {
-    onClickHandler: (event: React.MouseEvent | React.KeyboardEvent) => void
+    onClickHandler: (event: MouseEvent | KeyboardEvent) => void
 }
 
 const CategoriesDropDown: React.FunctionComponent<dropDownProps> = (props: dropDownProps) => {
@@ -60,7 +60,7 @@ const Categories: React.FunctionComponent<categoriesProps> = (props: categoriesP
         }
     }, [state.closeDropdown]);
 
-    const changeCategory = (event: React.MouseEvent | React.KeyboardEvent) => {
+    const changeCategory = (event: MouseEvent | KeyboardEvent) => {
         const selectedCategory = (event.target as HTMLLIElement).getAttribute('custom-value');
         console.log(selectedCategory);
         selectedCategory && selectedCategory.length && selectedCategory !== state.category &&

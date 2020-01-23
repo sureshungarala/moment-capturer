@@ -1,59 +1,49 @@
 import React from 'react';
-import Image from './Image'
+import { connect } from 'react-redux';
+import { Image } from '../actions';
+import { McState } from '../reducers';
+import ImageComponent from './Image'
 
-interface homeProps {
 
+interface MapStateToProps {
+    images: Image[]
 }
 
-interface homeState {
-    images: []
+interface homeProps extends MapStateToProps {
 }
 
-interface image {
-    original: string,
-    updateTime: number,
-    srcSet: {
-        [key: string]: string
-    },
-    description: string
-}
-
-export default class Home extends React.Component<homeProps, homeState> {
+class Home extends React.Component<homeProps> {
 
     constructor(props: homeProps) {
         super(props);
-        this.state = {
-            images: []
-        };
-    }
-
-    componentDidMount() {
-        fetch(`https://api.momentcapturer.com/getData?category=travel`, {
-            headers: {
-                'accept': 'application/json'
-            }
-        }).then((response) => {
-            response.json().then((data) => {
-                console.log('fetched data ', data);
-                this.setState({
-                    images: data.images.map((image: image) => {
-                        return <Image original={image.original} srcSet={image.srcSet} description={image.description} updateTime={image.updateTime} key={image.updateTime} />
-                    })
-                });
-            });
-        }, (err) => {
-            console.log(`Couldn't fetch data`, err);
-        });
     }
 
     render() {
         return (
             <div className="category-home">
                 <div>Suresh Ungarala</div>
-                <div className="images-container">
-                    {this.state.images}
-                </div>
+                {
+                    <div className="images-container">
+                        {
+                            this.props.images.map((image: Image) => {
+                                return <ImageComponent original={image.original}
+                                    srcSet={image.srcSet}
+                                    description={image.description}
+                                    updateTime={image.updateTime}
+                                    key={image.updateTime} />
+                            })
+                        }
+                    </div>
+                }
             </div>
         )
     }
 }
+
+const mapStateToProps = (state: McState): MapStateToProps => {
+    return {
+        images: state.images || []
+    }
+}
+
+export default connect<MapStateToProps>(mapStateToProps)(Home);

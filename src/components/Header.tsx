@@ -1,21 +1,36 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { setCategory, getImages, McAction, SET_IMAGES } from '../actions';
+import { McState } from '../reducers';
 import Categories from './Categories';
 import Profiles_Handheld from './Profiles';
+import { ThunkDispatch } from 'redux-thunk';
 
-interface headerProps {
-
-}
-
-interface headerState {
+interface MapStateToProps {
     category: string
 }
 
-export default class extends React.Component<headerProps, headerState> {
+interface MapDispatchToProps {
+    setCategory: (category: string) => McAction,
+    getImages: (category: string, actionType: string) => Promise<void>
+}
+
+interface headerProps extends MapStateToProps, MapDispatchToProps {
+}
+
+class Header extends React.Component<headerProps> {
     constructor(props: headerProps) {
         super(props);
-        this.state = {
-            category: 'Abstract'
-        }
+        this.updateCategory = this.updateCategory.bind(this);
+    }
+
+    componentDidMount() {
+        this.props.getImages(this.props.category, SET_IMAGES);
+    }
+
+    updateCategory(category: string) {
+        this.props.setCategory(category);
+        this.props.getImages(category, SET_IMAGES);
     }
 
     render() {
@@ -26,7 +41,7 @@ export default class extends React.Component<headerProps, headerState> {
                     <span className="branding-title">Moment Capturer</span>
                 </div>
                 <div className="actionSection">
-                    <Categories onSelectCategory={(category) => { }} />
+                    <Categories onSelectCategory={this.updateCategory} />
                     <div className="profiles">
                         <div className="instagram">In</div>
                         <div className="facebook">Fb</div>
@@ -39,3 +54,21 @@ export default class extends React.Component<headerProps, headerState> {
         );
     }
 }
+
+const mapStateToProps = (state: McState): MapStateToProps => {
+    return {
+        category: state.category || ''
+    }
+}
+
+//If mapDispatchToProps is object, dispatchProps will be merged to component's props.
+const mapDispatchToProps = (dispatch: ThunkDispatch<McState, {}, McAction>): MapDispatchToProps => {
+    return {
+        getImages: async (category: string, actionType: string) => {
+            await dispatch(getImages(category, actionType));
+        },
+        setCategory
+    }
+}
+
+export default connect<MapStateToProps, MapDispatchToProps>(mapStateToProps, mapDispatchToProps)(Header);

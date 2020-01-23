@@ -19,7 +19,7 @@ export default class Image extends React.Component<imageProps, imageState> {
     constructor(props: imageProps) {
         super(props);
         this.state = {
-            children: <React.Fragment />
+            children: <picture />
         }
         this.containerRef = React.createRef();
         this.handleImgError = this.handleImgError.bind(this);
@@ -30,23 +30,25 @@ export default class Image extends React.Component<imageProps, imageState> {
     }
 
     componentDidMount() {
-        const observer = new window.IntersectionObserver((entries) => {
+        //For later: if no support for IntersectionObserver, renders image
+        const observer = new window.IntersectionObserver((entries: Array<IntersectionObserverEntry>) => {
             const entry = entries[0],
                 { isIntersecting } = entry;
+            console.log('isIntersecting ', isIntersecting);
             if (isIntersecting) {
                 let sources = [];
                 for (let key in this.props.srcSet) {
                     sources.push(
-                        <source media={`(max-width:${key})`} srcSet={this.props.srcSet[key]} type="image/jpeg" key={key} />
+                        <source media={`(max-width: ${key})`} srcSet={this.props.srcSet[key]} title={this.props.description} type="image/jpeg" key={key} />
                     );
                 }
                 this.setState({
-                    children: <React.Fragment>
+                    children: <picture>
                         {
                             sources
                         }
-                        <img alt={this.props.description} src={this.props.original} onError={this.handleImgError} />
-                    </React.Fragment>
+                        <img alt={this.props.description} src={this.props.original} title={this.props.description} />
+                    </picture>
                 }, () => observer.disconnect());
             }
         },
@@ -61,9 +63,7 @@ export default class Image extends React.Component<imageProps, imageState> {
     render() {
         return (
             <div className="imageContainer" ref={this.containerRef}>
-                <picture onLoad={() => { }}>
-                    {this.state.children}
-                </picture>
+                {this.state.children}
             </div>
         );
     }

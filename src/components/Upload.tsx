@@ -1,5 +1,5 @@
 import React from 'react';
-import categories from '../info/categories.json';
+import categoryArray from '../info/categories.json';
 import Categories from './Categories';
 
 interface uploadProps {
@@ -21,7 +21,7 @@ export default class extends React.Component<uploadProps, uploadState>{
         this.state = {
             files: null,
             description: '',
-            categorySelected: categories[0].name
+            categorySelected: categoryArray[0].name
         };
         this.fileRef = React.createRef();
         this.descriptionRef = React.createRef();
