@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { ThunkDispatch } from 'redux-thunk';
+import { Link, NavLink } from 'react-router-dom';
 import { setCategory, getImages, McAction, SET_IMAGES } from '../actions';
 import { McState } from '../reducers';
 import Categories from './Categories';
 import Profiles_Handheld from './Profiles';
-import { ThunkDispatch } from 'redux-thunk';
-
 interface MapStateToProps {
     category: string
 }
@@ -36,10 +36,12 @@ class Header extends React.Component<headerProps> {
     render() {
         return (
             <header className="mcHeader">
-                <div className="logoSection">
-                    <span className="logo"></span>
-                    <span className="branding-title">Moment Capturer</span>
-                </div>
+                <NavLink to="/">
+                    <div className="logoSection">
+                        <span className="logo"></span>
+                        <span className="branding-title">Moment Capturer</span>
+                    </div>
+                </NavLink>
                 <div className="actionSection">
                     <Categories onSelectCategory={this.updateCategory} />
                     <div className="profiles">

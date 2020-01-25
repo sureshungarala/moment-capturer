@@ -11,9 +11,15 @@
         flex-basis: 55%;
         @include flexXalignCentered;
 
+        .logo {
+          width      : 5vmax;
+          height     : 5vmax;
+          margin-left: 5vmin;
+        }
+
         .branding-title {
           font-size  : calc(10px + 3vmin);
-          margin-left: 10vmin;
+          margin-left: 2vmin;
         }
       }
 
@@ -47,11 +53,19 @@
         .profiles {
           flex-basis     : 60%;
           justify-content: space-around;
+
+          &>* {
+            width      : 3vmin !important;
+            height     : 3vmin !important;
+            line-height: 3vmin !important;
+          }
         }
       }
     }
 
     .mcBody {
+      min-height: calc(100vh - 5vmax);
+
       .upload-form {
         top: 20% !important;
       }

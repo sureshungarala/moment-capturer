@@ -1,12 +1,58 @@
-$transition: all 0.5s ease-in-out;
+$primaryColor              : #5bba47;
+$secondaryColor            : rgba(0, 0, 0, 0.85);
+$secondaryColorInverted    : invert($color: $secondaryColor);
+$secondaryColorHovered     : rgba(0, 0, 0, 0.75);
+$secondaryColorDisabled    : rgba(0, 0, 0, 0.5);
+$alternateDarkOrange       : rgba(230, 128, 3, 1);
+$alternateDarkOrangeHovered: rgba(230, 128, 3, 0.75);
+$transition                : all 0.5s ease-in-out;
 
 input[type="button"],
 input[type="submit"],
 form,
-textarea {
+a {
   -moz-appearance   : none;
   -webkit-appearance: none;
   appearance        : none;
+  padding           : 0;
+  margin            : 0;
+  text-decoration   : none;
+  color             : $secondaryColorInverted;
+}
+
+button,
+input[type="button"],
+input[type="submit"] {
+  background-color: $secondaryColor;
+  color           : $secondaryColorInverted;
+  cursor          : pointer;
+
+  &:hover {
+    background-color: $secondaryColorHovered;
+  }
+}
+
+input[type="submit"].disabled {
+  cursor          : not-allowed;
+  background-color: $secondaryColorDisabled;
+
+  &:active,
+  &:focus {
+    border: 2px solid $primaryColor;
+  }
+}
+
+input[type="button"] {
+  background-color: $alternateDarkOrange;
+
+  &:hover {
+    background-color: $alternateDarkOrangeHovered;
+  }
+
+  &:active,
+  &:focus {
+    border: 1px solid $secondaryColor;
+  }
 }
 
 @mixin flexXjustifyCentered {
@@ -26,14 +72,15 @@ textarea {
 }
 
 @mixin initDropdownState {
-  opacity   : 0;
-  display   : none; //disable to get transition
-  position  : absolute;
-  list-style: none;
-  margin    : 0;
-  height    : 0;
-  top       : 0;
-  transition: $transition;
+  opacity         : 0;
+  background-color: $secondaryColor;
+  display         : none; //disable to get transition
+  position        : absolute;
+  list-style      : none;
+  margin          : 0;
+  height          : 0;
+  top             : 0;
+  transition      : $transition;
 }
 
 @mixin showDropdown {
@@ -63,7 +110,7 @@ textarea {
     font-size      : calc(10px + 1.5vmin);
 
     .selectedCategory {
-      border       : 1px solid grey;
+      border       : 2px solid $primaryColor;
       border-radius: 4px;
       padding      : 0px 10px;
       font-size    : calc(10px + 1.25vmin);
@@ -83,16 +130,18 @@ textarea {
     .selectedCategory:hover+ul,
     ul:hover {
       @include showDropdown;
-      z-index: 1;
+      background-color: $secondaryColor;
+      z-index         : 1;
     }
 
     li {
       position: relative;
+      color   : $secondaryColorInverted;
       padding : 5px 0px 5px 10px;
 
       &:hover {
         cursor          : pointer;
-        background-color: #ddd;
+        background-color: $primaryColor;
       }
     }
 
@@ -100,9 +149,14 @@ textarea {
     ul li:focus-within ul,
     ul li ul:hover {
       @include showDropdown;
-      top    : 60%;
-      left   : 60%;
-      z-index: 10;
+      background-color: $secondaryColor;
+      top             : 60%;
+      left            : 60%;
+      z-index         : 10;
+    }
+
+    ul li:focus-within {
+      background-color: $primaryColor;
     }
   }
 }

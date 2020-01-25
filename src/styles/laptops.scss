@@ -3,15 +3,21 @@
     .mcHeader {
       @include flexXalignCentered;
       height         : 5vmax;
-      justify-content: space-around;
+      justify-content: space-between;
 
       .logoSection {
         flex-basis: 60%;
         @include flexXalignCentered;
 
+        .logo {
+          width      : 5vmax;
+          height     : 5vmax;
+          margin-left: 7vmin;
+        }
+
         .branding-title {
           font-size  : calc(10px + 4vmin);
-          margin-left: 15vmin;
+          margin-left: 5vmin;
         }
       }
 
@@ -35,6 +41,10 @@
           justify-content: space-around;
         }
       }
+    }
+
+    .mcBody {
+      min-height: calc(100vh - 5vmax);
     }
   }
 }

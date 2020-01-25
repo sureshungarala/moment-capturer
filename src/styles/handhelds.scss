@@ -9,9 +9,14 @@
                 flex-basis: 55%;
                 @include flexXalignCentered;
 
+                .logo {
+                    width      : 8vmax;
+                    height     : 8vmax;
+                }
+
                 .branding-title {
-                    font-size  : calc(10px + 3.5vmin);
-                    margin-left: 8vmin;
+                    font-size  : calc(10px + 2.75vmin);
+                    margin-left: 1vmin;
                 }
             }
 

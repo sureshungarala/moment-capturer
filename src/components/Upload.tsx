@@ -8,18 +8,25 @@ interface uploadProps {
 
 interface uploadState {
     files: FileList | null,
+    fileStatusSuccess: boolean,
+    fileStatusMsg: string,
     description: string,
     categorySelected: string
 }
 
 export default class extends React.Component<uploadProps, uploadState>{
+
     fileRef: React.RefObject<HTMLInputElement>;
     descriptionRef: React.RefObject<HTMLTextAreaElement>;
+    maxFileSizeInKB: number;
 
     constructor(props: uploadProps) {
         super(props);
+        this.maxFileSizeInKB = 350;
         this.state = {
             files: null,
+            fileStatusSuccess: true,
+            fileStatusMsg: 'No file selected',
             description: '',
             categorySelected: categoryArray[0].name
         };
@@ -35,22 +42,39 @@ export default class extends React.Component<uploadProps, uploadState>{
     }
 
     handleChange(event: React.ChangeEvent<HTMLInputElement>) {
-        this.setState({
-            files: event.target.files
-        }, () => {
-            this.state.files &&
-                this.state.files.length &&
-                this.descriptionRef.current &&
-                this.descriptionRef.current.focus();
-        });
+        const files = event.target.files;
+        if (files && files.length) {
+            if (files[0].size <= this.maxFileSizeInKB * 1024) {
+                this.setState({
+                    files,
+                    fileStatusSuccess: true,
+                    fileStatusMsg: `${files[0].name} is selected`
+                }, () => {
+                    this.descriptionRef.current &&
+                        this.descriptionRef.current.focus();
+                });
+            } else {
+                this.setState({
+                    files: files,
+                    fileStatusSuccess: false,
+                    fileStatusMsg: `Max file size: ${this.maxFileSizeInKB}KB`
+                });
+            }
+        } else {
+            this.setState({
+                files,
+                fileStatusSuccess: true,
+                fileStatusMsg: 'No file selected'
+            })
+        }
+
         console.log(event.target.files);
         console.log('value changed');
     }
 
     handleSubmit(event: React.FormEvent) {
         event.preventDefault();
-        console.log('File submitted.', this.state);
-        if (this.state.files && this.state.files.length !== 0) {
+        if (this.state.files && this.state.files.length !== 0 && this.state.description.length) {
             const file = this.state.files[0],
                 start = window.performance.now();
             let reader = new FileReader(),
@@ -92,18 +116,29 @@ export default class extends React.Component<uploadProps, uploadState>{
     render() {
         return (
             <form onSubmit={this.handleSubmit} className="upload-form">
-                <input type="button" value="Choose files to Upload" onClick={this.openFileDialog} />
-                {
-                    <span>{this.state.files && this.state.files.length ? `${this.state.files[0].name} is` : 'No file'} selected</span>
-                }
+                <input type="button" value="Choose file to Upload" onClick={this.openFileDialog} />
+                <span style={{ color: this.state.fileStatusSuccess ? 'black' : 'red' }}>{this.state.fileStatusMsg}</span>
                 <input type="file" accept="image/*" ref={this.fileRef} onChange={this.handleChange} style={{ visibility: 'hidden' }} />
                 <textarea placeholder="Give some description" ref={this.descriptionRef}
-                    value={this.state.description} onChange={(event) => {
+                    onBlur={(event) => {
                         this.setState({
                             description: event.target.value.trim()
-                        })
+                        }, () => {
+                            !this.state.description.length ?
+                                this.descriptionRef.current && this.descriptionRef.current.classList.add('error') :
+                                this.descriptionRef.current && this.descriptionRef.current.classList.remove('error');
+                        });
                     }}
-                    className={this.state.files && this.state.files.length && !this.state.description.length ? 'error' : ''}>
+                    value={this.state.description}
+                    onChange={(event) => {
+                        this.setState({
+                            description: event.target.value
+                        }, () => {
+                            !this.state.description.length ?
+                                this.descriptionRef.current && this.descriptionRef.current.classList.add('error') :
+                                this.descriptionRef.current && this.descriptionRef.current.classList.remove('error');
+                        });
+                    }}>
                 </textarea>
                 <Categories onSelectCategory={(category) => {
                     console.log('in upload ', category);
@@ -111,7 +146,10 @@ export default class extends React.Component<uploadProps, uploadState>{
                         categorySelected: category
                     })
                 }} />
-                <input type="submit" value="Upload" />
+                <div>
+                    {/* {set checkbox for main image and portrait category} */}
+                </div>
+                <input type="submit" value="Upload" className={this.state.files && this.state.files.length && this.state.description.length ? '' : 'disabled'} />
             </form>
         );
     }
