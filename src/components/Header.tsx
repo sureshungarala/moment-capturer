@@ -1,18 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { ThunkDispatch } from 'redux-thunk';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { setCategory, getImages, McAction, SET_IMAGES } from '../actions';
 import { McState } from '../reducers';
 import Categories from './Categories';
 import Profiles_Handheld from './Profiles';
+
 interface MapStateToProps {
-    category: string
+    category: string,
+    categoryTag: string
 }
 
 interface MapDispatchToProps {
-    setCategory: (category: string) => McAction,
-    getImages: (category: string, actionType: string) => Promise<void>
+    setCategory: (category: string, categoryTag: string) => McAction,
+    getImages: (categoryTag: string, actionType: string) => Promise<void>
 }
 
 interface headerProps extends MapStateToProps, MapDispatchToProps {
@@ -25,12 +27,12 @@ class Header extends React.Component<headerProps> {
     }
 
     componentDidMount() {
-        this.props.getImages(this.props.category, SET_IMAGES);
+        this.props.getImages(this.props.categoryTag, SET_IMAGES);
     }
 
-    updateCategory(category: string) {
-        this.props.setCategory(category);
-        this.props.getImages(category, SET_IMAGES);
+    updateCategory(category: string, categoryTag: string) {
+        this.props.setCategory(category, categoryTag);
+        this.props.getImages(categoryTag, SET_IMAGES);
     }
 
     render() {
@@ -59,15 +61,16 @@ class Header extends React.Component<headerProps> {
 
 const mapStateToProps = (state: McState): MapStateToProps => {
     return {
-        category: state.category || ''
+        category: state.category || '',
+        categoryTag: state.categoryTag || ''
     }
 }
 
 //If mapDispatchToProps is object, dispatchProps will be merged to component's props.
 const mapDispatchToProps = (dispatch: ThunkDispatch<McState, {}, McAction>): MapDispatchToProps => {
     return {
-        getImages: async (category: string, actionType: string) => {
-            await dispatch(getImages(category, actionType));
+        getImages: async (categoryTag: string, actionType: string) => {
+            await dispatch(getImages(categoryTag, actionType));
         },
         setCategory
     }

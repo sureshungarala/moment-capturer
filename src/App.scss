@@ -17,7 +17,9 @@
       cursor: pointer;
 
       .logo {
-        background-image: url('logo.svg');
+        background-image : url('logo.svg');
+        background-repeat: no-repeat;
+        ;
       }
 
       .branding-title {
@@ -64,11 +66,14 @@
       top            : 30%;
       transform      : translateY(-50%);
 
+      &>* {
+        width: 100%;
+      }
+
       input[type="submit"],
       input[type="button"],
       textarea,
       .categories {
-        width        : 10em;
         font-size    : 1.5em;
         border-radius: 4px;
         outline      : none;
@@ -94,6 +99,17 @@
         }
       }
 
+      .resolutionCbToggles {
+        width          : 100%;
+        display        : flex;
+        flex-wrap      : wrap;
+        justify-content: space-evenly;
+
+        &>* {
+          margin: 0px 1vmin;
+        }
+      }
+
       input[type="submit"] {
         font-weight: 600;
       }
@@ -113,8 +129,8 @@
         flex-wrap: wrap;
 
         &>* {
-          flex-basis   : 46vw; //keeping aspect ratio => 4:3
-          height       : calc(.46 * 75vw); //change them both simultaneously
+          flex-basis   : 46vw; //keeping aspect ratio => 3:2
+          height       : calc(46vw * .666); //change them both simultaneously
           margin       : 1%;
           border       : 1px solid #40383838;
           border-radius: 5px;

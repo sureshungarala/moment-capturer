@@ -4,6 +4,7 @@ import categories from '../info/categories.json';
 
 interface category {
     name: string,
+    tag: string,
     submenu: Array<category>
 }
 
@@ -17,8 +18,8 @@ const CategoriesDropDown: React.FunctionComponent<dropDownProps> = (props: dropD
         return (
             categories.map((category) => {
                 return !category.submenu.length ?
-                    <li custom-value={category.name} key={category.name}>{category.name}</li> :
-                    <li custom-value="" key={category.name}>{category.name}
+                    <li custom-value={category.name} custom-tag={category.tag} key={category.name}>{category.name}</li> :
+                    <li custom-value="" custom-tag="" key={category.name}>{category.name}
                         <ul>
                             {
                                 renderDropDown(category.submenu)
@@ -40,32 +41,39 @@ const CategoriesDropDown: React.FunctionComponent<dropDownProps> = (props: dropD
 
 interface categoriesState {
     category: string,
+    categoryTag: string,
     closeDropdown: boolean
 }
 
 interface categoriesProps {
-    onSelectCategory: (category: string) => void
+    onSelectCategory: (category: string, categoryTag: string) => void
 }
 
 const Categories: React.FunctionComponent<categoriesProps> = (props: categoriesProps) => {
 
-    const [state, setState] = useState<categoriesState>({ category: categories[0].name, closeDropdown: false });  //observe router later for category
+    const [state, setState] = useState<categoriesState>({
+        category: categories[0].tag.length ? categories[0].name : categories[0].submenu[0].name,
+        categoryTag: categories[0].tag.length ? categories[0].tag : categories[0].submenu[0].tag,
+        closeDropdown: false
+    });  //observe router later for category
 
     useEffect(() => {
         if (state.closeDropdown) {
             setState({
                 ...state, closeDropdown: !state.closeDropdown
             });
-            props.onSelectCategory && props.onSelectCategory(state.category);
+            props.onSelectCategory && props.onSelectCategory(state.category, state.categoryTag);
         }
     }, [state.closeDropdown]);
 
     const changeCategory = (event: MouseEvent | KeyboardEvent) => {
-        const selectedCategory = (event.target as HTMLLIElement).getAttribute('custom-value');
+        const selectedCategory = (event.target as HTMLLIElement).getAttribute('custom-value'),
+            seletedCategoryTag = (event.target as HTMLLIElement).getAttribute('custom-tag');
         console.log(selectedCategory);
         selectedCategory && selectedCategory.length && selectedCategory !== state.category &&
             setState({
                 category: '' + selectedCategory,
+                categoryTag: '' + seletedCategoryTag,
                 closeDropdown: true
             });
     }

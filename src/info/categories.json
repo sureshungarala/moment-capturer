@@ -1,27 +1,79 @@
 [
     {
         "name": "Travel",
-        "submenu": []
-    },
-    {
-        "name": "Abstract",
-        "submenu": []
-    },
-    {
-        "name": "Wild life",
+        "tag": "",
         "submenu": [
             {
-                "name": "Country",
+                "name": "Architecture and Interior",
+                "tag": "architectureAndInterior",
                 "submenu": []
             },
             {
-                "name": "Safari",
+                "name": "Street",
+                "tag": "street",
+                "submenu": []
+            },
+            {
+                "name": "People",
+                "tag": "people",
+                "submenu": []
+            },
+            {
+                "name": "Nature Landscapes",
+                "tag": "natureLandscapes",
+                "submenu": []
+            },
+            {
+                "name": "Storytelling",
+                "tag": "storytelling",
+                "submenu": []
+            },
+            {
+                "name": "Wildlife",
+                "tag": "wildlife",
+                "submenu": []
+            },
+            {
+                "name": "Long-exposure",
+                "tag": "longExposure",
+                "submenu": []
+            }
+        ]
+    },
+    {
+        "name": "Product",
+        "tag": "",
+        "submenu": [
+            {
+                "name": "Commercial",
+                "tag": "commercial",
+                "submenu": []
+            },
+            {
+                "name": "Editorial",
+                "tag": "editorial",
                 "submenu": []
             }
         ]
     },
     {
         "name": "Fashion",
+        "tag": "fashion",
+        "submenu": []
+    },
+    {
+        "name": "Sports",
+        "tag": "sports",
+        "submenu": []
+    },
+    {
+        "name": "Tilt–shift",
+        "tag": "tiltShift",
+        "submenu": []
+    },
+    {
+        "name": "Black and White",
+        "tag": "blackAndWhite",
         "submenu": []
     }
 ]

@@ -1,9 +1,5 @@
 import React from 'react';
 
-interface profileState {
-
-}
-
 const Profiles: React.FunctionComponent = () => {
 
     return (

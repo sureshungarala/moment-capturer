@@ -3,13 +3,15 @@ import categories from '../info/categories.json';
 
 export interface McState {
     readonly category?: string,
+    readonly categoryTag?: string,
     readonly images?: Array<Image>,
     readonly fetchingImages?: boolean,
     readonly fetchingFailed?: boolean
 }
 
 export const initState: McState = {
-    category: categories[0].name,
+    category: categories[0].tag.length ? categories[0].name : categories[0].submenu[0].name,
+    categoryTag: categories[0].tag.length ? categories[0].tag : categories[0].submenu[0].tag,
     images: [],
     fetchingImages: false,
     fetchingFailed: false
@@ -20,7 +22,8 @@ export function reducer(state: McState = initState, action: McAction): McState {
         case SET_CATEGORY:
             return {
                 ...state,
-                category: action.category
+                category: action.category,
+                categoryTag: action.categoryTag
             }
         case SET_IMAGES:
             return {

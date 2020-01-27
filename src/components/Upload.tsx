@@ -11,7 +11,10 @@ interface uploadState {
     fileStatusSuccess: boolean,
     fileStatusMsg: string,
     description: string,
-    categorySelected: string
+    categorySelected: string,
+    isBiotc: boolean,
+    isPanorama: boolean,
+    isPortrait: boolean
 }
 
 export default class extends React.Component<uploadProps, uploadState>{
@@ -28,7 +31,10 @@ export default class extends React.Component<uploadProps, uploadState>{
             fileStatusSuccess: true,
             fileStatusMsg: 'No file selected',
             description: '',
-            categorySelected: categoryArray[0].name
+            categorySelected: categoryArray[0].tag.length ? categoryArray[0].tag : categoryArray[0].submenu[0].tag,
+            isBiotc: false,
+            isPanorama: false,
+            isPortrait: false
         };
         this.fileRef = React.createRef();
         this.descriptionRef = React.createRef();
@@ -74,6 +80,7 @@ export default class extends React.Component<uploadProps, uploadState>{
 
     handleSubmit(event: React.FormEvent) {
         event.preventDefault();
+        console.log(this.state);
         if (this.state.files && this.state.files.length !== 0 && this.state.description.length) {
             const file = this.state.files[0],
                 start = window.performance.now();
@@ -89,6 +96,9 @@ export default class extends React.Component<uploadProps, uploadState>{
                         imageName: imageName,
                         resolution: image.width + ':' + image.height,
                         category: this.state.categorySelected.toLowerCase(),
+                        biotc: this.state.isBiotc,
+                        panorama: this.state.isPanorama,
+                        portrait: this.state.isPanorama,
                         description: this.state.description
                     });
 
@@ -140,14 +150,40 @@ export default class extends React.Component<uploadProps, uploadState>{
                         });
                     }}>
                 </textarea>
-                <Categories onSelectCategory={(category) => {
+                <Categories onSelectCategory={(category, categoryTag) => {
                     console.log('in upload ', category);
                     this.setState({
-                        categorySelected: category
+                        categorySelected: categoryTag
                     })
                 }} />
-                <div>
-                    {/* {set checkbox for main image and portrait category} */}
+                <div className="resolutionCbToggles">
+                    <label htmlFor="biotcCb" className="mcCheckboxContainer">
+                        <input type="checkbox" id="biotcCb"
+                            checked={this.state.isBiotc}
+                            onChange={(event) => this.setState({
+                                isBiotc: event.target.checked
+                            })} />
+                        <div className="mcCheckboxHidden"></div>
+                        <span className="mcCheckboxLabel" title="Best Image of the Category">Biotc</span>
+                    </label>
+                    <label htmlFor="portraitCb" className="mcCheckboxContainer">
+                        <input type="checkbox" id="portraitCb"
+                            checked={this.state.isPortrait}
+                            onChange={(event) => this.setState({
+                                isPortrait: event.target.checked
+                            })} />
+                        <div className="mcCheckboxHidden"></div>
+                        <span className="mcCheckboxLabel" title="Portrait">Portrait</span>
+                    </label>
+                    <label htmlFor="panaromaCb" className="mcCheckboxContainer">
+                        <input type="checkbox" id="panaromaCb"
+                            checked={this.state.isPanorama}
+                            onChange={(event) => this.setState({
+                                isPanorama: event.target.checked
+                            })} />
+                        <div className="mcCheckboxHidden"></div>
+                        <span className="mcCheckboxLabel" title="Panorama">Panorama</span>
+                    </label>
                 </div>
                 <input type="submit" value="Upload" className={this.state.files && this.state.files.length && this.state.description.length ? '' : 'disabled'} />
             </form>

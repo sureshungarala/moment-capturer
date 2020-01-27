@@ -5,6 +5,7 @@ $secondaryColorHovered     : rgba(0, 0, 0, 0.75);
 $secondaryColorDisabled    : rgba(0, 0, 0, 0.5);
 $alternateDarkOrange       : rgba(230, 128, 3, 1);
 $alternateDarkOrangeHovered: rgba(230, 128, 3, 0.75);
+$mcCheckboxSize            : 18px;
 $transition                : all 0.5s ease-in-out;
 
 input[type="button"],
@@ -131,7 +132,7 @@ input[type="button"] {
     ul:hover {
       @include showDropdown;
       background-color: $secondaryColor;
-      z-index         : 1;
+      z-index         : 10;
     }
 
     li {
@@ -158,5 +159,71 @@ input[type="button"] {
     ul li:focus-within {
       background-color: $primaryColor;
     }
+  }
+}
+
+.mcCheckboxContainer {
+  position: relative;
+  display : flex;
+  cursor  : pointer;
+
+  input[type="checkbox"] {
+    position: absolute;
+    width   : 1px;
+    height  : 1px;
+    border  : 0;
+    opacity : 0;
+    z-index : -1;
+  }
+
+  @mixin showCheckmark {
+    top         : 0px;
+    left        : 6px;
+    content     : '';
+    width       : 4px;
+    position    : absolute;
+    height      : 14px;
+    border      : solid $primaryColor;
+    border-width: 0 2px 2px 0;
+    transform   : rotate(38deg);
+  }
+
+  input[type="checkbox"]+.mcCheckboxHidden {
+    position     : absolute;
+    width        : $mcCheckboxSize;
+    height       : $mcCheckboxSize;
+    border       : 1px solid $secondaryColor;
+    border-radius: 3px;
+    transition   : all 150ms;
+    z-index      : 1;
+  }
+
+  input[type="checkbox"]:not(:checked)+.mcCheckboxHidden:hover {
+    background-color: $secondaryColor;
+    box-shadow      : 0 0 2px 2px $primaryColor;
+
+    &::before {
+      @include showCheckmark;
+    }
+  }
+
+  input[type="checkbox"]:active,
+  input[type="checkbox"]:focus,
+  input[type="checkbox"]:focus-within {
+    &+.mcCheckboxHidden {
+      box-shadow: 0 0 2px 2px $primaryColor;
+    }
+  }
+
+  input[type="checkbox"]:checked+.mcCheckboxHidden {
+    background-color: $secondaryColor;
+  }
+
+  input[type="checkbox"]:checked+.mcCheckboxHidden::before {
+    @include showCheckmark;
+  }
+
+  .mcCheckboxLabel {
+    margin-left: calc(10px + #{$mcCheckboxSize});
   }
 }

@@ -13,6 +13,7 @@ export interface Image {
 
 export interface McAction extends AnyAction {
     category?: string,
+    categoryTag?: string,
     images?: Array<Image>
 }
 
@@ -22,10 +23,11 @@ export const ADD_IMAGES = 'ADD_IMAGES';
 export const FETCHING_IMAGES = 'FETCHING_IMAGES';
 export const FETCH_FAILED = 'FETCH_FAILED';
 
-export function setCategory(category: string): McAction {
+export function setCategory(category: string, categoryTag: string): McAction {
     return {
         type: SET_CATEGORY,
-        category
+        category,
+        categoryTag
     }
 }
 
