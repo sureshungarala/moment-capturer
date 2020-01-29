@@ -1,6 +1,7 @@
 import { AnyAction } from 'redux';
 import { ThunkDispatch, ThunkAction } from 'redux-thunk';
 import { McState } from '../reducers';
+import columns from '../info/columns.json';
 
 export interface Image {
     original: string,
@@ -8,13 +9,20 @@ export interface Image {
     srcSet: {
         [key: string]: string
     },
-    description: string
+    description: string,
+    biotc: boolean,
+    panorama: boolean
+}
+
+export interface McMoments {
+    biotc: Image,
+    moments: Array<Image>
 }
 
 export interface McAction extends AnyAction {
     category?: string,
     categoryTag?: string,
-    images?: Array<Image>
+    images?: McMoments
 }
 
 export const SET_CATEGORY = 'SET_CATEGORY';
@@ -22,6 +30,18 @@ export const SET_IMAGES = 'SET_IMAGES';
 export const ADD_IMAGES = 'ADD_IMAGES';
 export const FETCHING_IMAGES = 'FETCHING_IMAGES';
 export const FETCH_FAILED = 'FETCH_FAILED';
+
+export const initMoments: McMoments = {
+    biotc: {
+        original: '',
+        updateTime: 0,
+        srcSet: {},
+        description: '',
+        biotc: false,
+        panorama: false
+    },
+    moments: []
+};
 
 export function setCategory(category: string, categoryTag: string): McAction {
     return {
@@ -42,7 +62,17 @@ export function getImages(category: string, actionType: string): ThunkAction<Pro
                     'accept': 'application/json'
                 }
             });
-            const data = await response.json();
+            const data = await response.json(), images: McMoments = {
+                biotc: {},
+                moments: []
+            };
+            (data.images as Image[]).forEach((image: Image) => {
+                if (image.biotc) {
+                    images.biotc = image;
+                } else {
+                    images.moments.push(image);
+                }
+            });
             dispatch({
                 type: actionType,
                 images: data.images
@@ -55,14 +85,14 @@ export function getImages(category: string, actionType: string): ThunkAction<Pro
     }
 }
 
-export function setImages(category: string, images: Array<Image>): McAction {
+export function setImages(category: string, images: McMoments): McAction {
     return {
         type: SET_IMAGES,
         images
     }
 }
 
-export function addImages(images: Array<Image>): McAction {
+export function addImages(images: McMoments): McAction {
     return {
         type: ADD_IMAGES,
         images

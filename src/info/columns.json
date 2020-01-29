@@ -1,0 +1,39 @@
+{
+    "category": {
+        "name": "category",
+        "type": "S"
+    },
+    "uploadTime": {
+        "name": "uploadTime",
+        "type": "N"
+    },
+    "srcSet": {
+        "name": "srcSet",
+        "type": "M",
+        "subType": "S"
+    },
+    "biotc": {
+        "name": "biotc",
+        "type": "BOOL"
+    },
+    "panorama": {
+        "name": "panorama",
+        "type": "BOOL"
+    },
+    "original": {
+        "name": "original",
+        "type": "S"
+    },
+    "description": {
+        "name": "description",
+        "type": "S"
+    },
+    "updateTime": {
+        "name": "updateTime",
+        "type": "N"
+    },
+    "removed": {
+        "name": "removed",
+        "type": "BOOL"
+    }
+}

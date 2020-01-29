@@ -1,15 +1,21 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Image } from '../actions';
+import { ThunkDispatch } from 'redux-thunk';
+import { Image, McMoments, initMoments, getImages, McAction, SET_IMAGES } from '../actions';
 import { McState } from '../reducers';
 import ImageComponent from './Image'
 
 
 interface MapStateToProps {
-    images: Image[]
+    categoryTag: string,
+    images: McMoments
 }
 
-interface homeProps extends MapStateToProps {
+interface MapDispatchToProps {
+    getImages: (categoryTag: string, actionType: string) => Promise<void>
+}
+
+interface homeProps extends MapStateToProps, MapDispatchToProps {
 }
 
 class Home extends React.Component<homeProps> {
@@ -18,23 +24,34 @@ class Home extends React.Component<homeProps> {
         super(props);
     }
 
+    componentDidMount() {
+        this.props.getImages(this.props.categoryTag, SET_IMAGES);
+    }
+
     render() {
+        const biotc = this.props.images.biotc,
+            images = this.props.images.moments;
         return (
             <div className="category-home">
-                <div>Suresh Ungarala</div>
                 {
-                    <div className="images-container">
-                        {
-                            this.props.images.map((image: Image) => {
-                                return <ImageComponent original={image.original}
-                                    srcSet={image.srcSet}
-                                    description={image.description}
-                                    updateTime={image.updateTime}
-                                    key={image.updateTime} />
-                            })
-                        }
-                    </div>
+                    biotc.original.length &&
+                    <ImageComponent original={biotc.original}
+                        srcSet={biotc.srcSet}
+                        description={biotc.description}
+                        updateTime={biotc.updateTime}
+                        key={biotc.updateTime} />
                 }
+                <div className="images-container">
+                    {
+                        images.map((image: Image) => {
+                            return <ImageComponent original={image.original}
+                                srcSet={image.srcSet}
+                                description={image.description}
+                                updateTime={image.updateTime}
+                                key={image.updateTime} />
+                        })
+                    }
+                </div>
             </div>
         )
     }
@@ -42,7 +59,16 @@ class Home extends React.Component<homeProps> {
 
 const mapStateToProps = (state: McState): MapStateToProps => {
     return {
-        images: state.images || []
+        categoryTag: state.categoryTag || '',
+        images: state.images || initMoments
+    }
+}
+
+const mapDispatchToProps = (dispatch: ThunkDispatch<McState, {}, McAction>): MapDispatchToProps => {
+    return {
+        getImages: async (categoryTag: string, actionType: string) => {
+            await dispatch(getImages(categoryTag, actionType));
+        }
     }
 }
 

@@ -1,10 +1,10 @@
-import { Image, McAction, SET_CATEGORY, SET_IMAGES, ADD_IMAGES, FETCHING_IMAGES, FETCH_FAILED } from '../actions';
+import { Image, McAction, McMoments, SET_CATEGORY, SET_IMAGES, ADD_IMAGES, FETCHING_IMAGES, FETCH_FAILED } from '../actions';
 import categories from '../info/categories.json';
 
 export interface McState {
     readonly category?: string,
     readonly categoryTag?: string,
-    readonly images?: Array<Image>,
+    readonly images?: McMoments,
     readonly fetchingImages?: boolean,
     readonly fetchingFailed?: boolean
 }
@@ -12,7 +12,10 @@ export interface McState {
 export const initState: McState = {
     category: categories[0].tag.length ? categories[0].name : categories[0].submenu[0].name,
     categoryTag: categories[0].tag.length ? categories[0].tag : categories[0].submenu[0].tag,
-    images: [],
+    images: {
+        biotc: {},
+        moments: []
+    },
     fetchingImages: false,
     fetchingFailed: false
 }
@@ -36,7 +39,7 @@ export function reducer(state: McState = initState, action: McAction): McState {
                 fetchingImages: false,
                 fetchingFailed: false,
                 images: state.images && action.images ?
-                    [...state.images, ...action.images] :
+                    { biotc: state.images.biotc, moments: [...state.images.moments, ...action.images.moments] } :
                     action.images ? action.images : state.images
             }
         case FETCHING_IMAGES:
