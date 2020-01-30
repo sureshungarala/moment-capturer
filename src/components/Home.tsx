@@ -25,16 +25,19 @@ class Home extends React.Component<homeProps> {
     }
 
     componentDidMount() {
+        console.log('this.props.categoryTag ', this.props.categoryTag);
         this.props.getImages(this.props.categoryTag, SET_IMAGES);
     }
 
     render() {
+        console.log('this.props.images ', this.props.images);
         const biotc = this.props.images.biotc,
             images = this.props.images.moments;
         return (
             <div className="category-home">
                 {
-                    biotc.original.length &&
+                    biotc.original.length > 0
+                    &&
                     <ImageComponent original={biotc.original}
                         srcSet={biotc.srcSet}
                         description={biotc.description}
@@ -72,4 +75,4 @@ const mapDispatchToProps = (dispatch: ThunkDispatch<McState, {}, McAction>): Map
     }
 }
 
-export default connect<MapStateToProps>(mapStateToProps)(Home);
+export default connect<MapStateToProps, MapDispatchToProps>(mapStateToProps, mapDispatchToProps)(Home);

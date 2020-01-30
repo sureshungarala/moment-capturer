@@ -62,10 +62,7 @@ export function getImages(category: string, actionType: string): ThunkAction<Pro
                     'accept': 'application/json'
                 }
             });
-            const data = await response.json(), images: McMoments = {
-                biotc: {},
-                moments: []
-            };
+            const data = await response.json(), images: McMoments = initMoments;
             (data.images as Image[]).forEach((image: Image) => {
                 if (image.biotc) {
                     images.biotc = image;
@@ -75,7 +72,7 @@ export function getImages(category: string, actionType: string): ThunkAction<Pro
             });
             dispatch({
                 type: actionType,
-                images: data.images
+                images
             })
         } catch (err) {
             dispatch({

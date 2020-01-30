@@ -26,10 +26,6 @@ class Header extends React.Component<headerProps> {
         this.updateCategory = this.updateCategory.bind(this);
     }
 
-    componentDidMount() {
-        this.props.getImages(this.props.categoryTag, SET_IMAGES);
-    }
-
     updateCategory(category: string, categoryTag: string) {
         this.props.setCategory(category, categoryTag);
         this.props.getImages(categoryTag, SET_IMAGES);

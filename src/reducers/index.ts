@@ -1,4 +1,4 @@
-import { Image, McAction, McMoments, SET_CATEGORY, SET_IMAGES, ADD_IMAGES, FETCHING_IMAGES, FETCH_FAILED } from '../actions';
+import { Image, McAction, McMoments, initMoments, SET_CATEGORY, SET_IMAGES, ADD_IMAGES, FETCHING_IMAGES, FETCH_FAILED } from '../actions';
 import categories from '../info/categories.json';
 
 export interface McState {
@@ -12,10 +12,7 @@ export interface McState {
 export const initState: McState = {
     category: categories[0].tag.length ? categories[0].name : categories[0].submenu[0].name,
     categoryTag: categories[0].tag.length ? categories[0].tag : categories[0].submenu[0].tag,
-    images: {
-        biotc: {},
-        moments: []
-    },
+    images: initMoments,
     fetchingImages: false,
     fetchingFailed: false
 }
