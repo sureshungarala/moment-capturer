@@ -38,6 +38,7 @@ class Home extends React.Component<homeProps> {
                         srcSet={biotc.srcSet}
                         description={biotc.description}
                         updateTime={biotc.updateTime}
+                        resolution={biotc.resolution}
                         key={biotc.updateTime} />
                 }
                 <div className="images-container">
@@ -49,6 +50,7 @@ class Home extends React.Component<homeProps> {
                                 portrait={image.portrait}
                                 description={image.description}
                                 updateTime={image.updateTime}
+                                resolution={image.resolution}
                                 key={image.updateTime} />
                         })
                     }

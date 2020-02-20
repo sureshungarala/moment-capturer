@@ -1,10 +1,12 @@
 import React from 'react';
+import McModal from './McModal';
 
 interface imageProps {
     srcSet: {
-        [resolution: string]: string
+        [size: string]: string
     },
     original: string,
+    resolution: string,
     panorama?: boolean,
     portrait?: boolean,
     description: string,
@@ -12,7 +14,8 @@ interface imageProps {
 }
 
 interface imageState {
-    children: React.ReactFragment
+    children: React.ReactFragment,
+    showModal: boolean
 }
 
 export default class Image extends React.Component<imageProps, imageState> {
@@ -21,14 +24,39 @@ export default class Image extends React.Component<imageProps, imageState> {
     constructor(props: imageProps) {
         super(props);
         this.state = {
-            children: <picture />
+            children: <picture />,
+            showModal: false
         }
         this.containerRef = React.createRef();
+        this.openModal = this.openModal.bind(this);
+        this.closeModal = this.closeModal.bind(this);
+        this.escapeModal = this.escapeModal.bind(this);
         this.handleImgError = this.handleImgError.bind(this);
     }
 
     handleImgError() {
         console.log(`${this.props.original} failed to load!`);
+    }
+
+    openModal() {
+        this.setState({
+            showModal: true
+        });
+    }
+
+    closeModal(event: React.MouseEvent | React.KeyboardEvent) {
+        event.stopPropagation();
+        this.setState({
+            showModal: false
+        });
+    }
+
+    escapeModal(event: KeyboardEvent) {
+        if (event.keyCode === 27) {
+            this.state.showModal && this.setState({
+                showModal: false
+            })
+        }
     }
 
     componentDidMount() {
@@ -60,12 +88,19 @@ export default class Image extends React.Component<imageProps, imageState> {
             }
         );
         observer.observe(this.containerRef.current as Element);
+
+        document.addEventListener('keyup', this.escapeModal);
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener('keyup', this.escapeModal);
     }
 
     render() {
         return (
-            <div className={`imageContainer ${this.props.panorama ? 'panorama' : this.props.portrait ? 'portrait' : ''}`} ref={this.containerRef}>
+            <div className={`imageContainer ${this.props.panorama ? 'panorama' : this.props.portrait ? 'portrait' : ''}`} ref={this.containerRef} onClick={this.openModal}>
                 {this.state.children}
+                {this.state.showModal && <McModal src={this.props.original} resoution={this.props.resolution} description={this.props.description} closeModal={this.closeModal} />}
             </div>
         );
     }

@@ -69,6 +69,7 @@
 
     .mcBody {
       min-height: calc(100vh - 5vmax);
+      padding-top: 5vmax; //w.r.to header height
 
       .upload-form {
         top: 20% !important;

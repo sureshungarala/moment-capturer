@@ -14,7 +14,11 @@ interface uploadState {
     categorySelected: string,
     isBiotc: boolean,
     isPanorama: boolean,
-    isPortrait: boolean
+    isPortrait: boolean,
+    requestStarted: boolean,
+    requestProcessing: boolean,
+    requestStatusSuccess: boolean,
+    requestStatusMsg: string
 }
 
 export default class extends React.Component<uploadProps, uploadState>{
@@ -34,7 +38,11 @@ export default class extends React.Component<uploadProps, uploadState>{
             categorySelected: categoryArray[0].tag.length ? categoryArray[0].tag : categoryArray[0].submenu[0].tag,
             isBiotc: false,
             isPanorama: false,
-            isPortrait: false
+            isPortrait: false,
+            requestStarted: false,
+            requestProcessing: false,
+            requestStatusSuccess: false,
+            requestStatusMsg: ''
         };
         this.fileRef = React.createRef();
         this.descriptionRef = React.createRef();
@@ -82,6 +90,10 @@ export default class extends React.Component<uploadProps, uploadState>{
         event.preventDefault();
         console.log(this.state);
         if (this.state.files && this.state.files.length !== 0 && this.state.description.length) {
+            this.setState({
+                requestStarted: true,
+                requestProcessing: true
+            });
             const file = this.state.files[0],
                 start = window.performance.now();
             let reader = new FileReader(),
@@ -111,9 +123,20 @@ export default class extends React.Component<uploadProps, uploadState>{
                                 'accept': 'application/json'
                             },
                             body: body
+                        }).then(() => {
+                            this.setState({
+                                requestProcessing: false,
+                                requestStatusSuccess: true,
+                                requestStatusMsg: `${imageName} processed successfully.`
+                            });
+                            console.log('CSR succeeded with response ', response);
                         });
-                        console.log('CSR succeeded with response ', response);
                     } catch (err) {
+                        this.setState({
+                            requestProcessing: false,
+                            requestStatusSuccess: false,
+                            requestStatusMsg: `Failed to process ${imageName}. Try again!`
+                        });
                         console.log('CSR failed with error ', err);
                     }
                 });
@@ -186,6 +209,21 @@ export default class extends React.Component<uploadProps, uploadState>{
                     </label>
                 </div>
                 <input type="submit" value="Upload" className={this.state.files && this.state.files.length && this.state.description.length ? '' : 'disabled'} />
+                {
+                    this.state.requestStarted &&
+                    <div className="requestStatus">
+                        {
+                            this.state.requestProcessing && <div>
+                                <span className="processing"></span>
+                                &nbsp;&nbsp;
+                                <span> Processing...</span>
+                            </div>
+                        }
+                        {
+                            !this.state.requestProcessing && <div className={`${this.state.requestStatusSuccess ? 'success' : 'error'}`}>{this.state.requestStatusMsg}</div>
+                        }
+                    </div>
+                }
             </form>
         );
     }

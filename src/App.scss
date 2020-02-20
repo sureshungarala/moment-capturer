@@ -10,6 +10,9 @@
   font-weight: 400;
 
   .mcHeader {
+    position        : fixed;
+    width           : 100%;
+    z-index         : 1;
     background-color: $secondaryColor;
     color           : $secondaryColorInverted;
 
@@ -62,7 +65,7 @@
       align-items    : flex-start;
       justify-content: space-evenly;
       color          : $secondaryColor;
-      height         : 250px;
+      height         : 300px;
       top            : 30%;
       transform      : translateY(-50%);
 
@@ -119,6 +122,29 @@
         height    : 1px;
         width     : 1px;
       }
+
+      .requestStatus {
+        &>div {
+          display    : flex;
+          align-items: center;
+
+          .processing {
+            background-image: url('assets/loading.svg');
+            width           : 16px;
+            height          : 16px;
+            display         : inline-block;
+            animation       : rotation 0.75s infinite linear;
+          }
+        }
+
+        .success {
+          color: $primaryColor;
+        }
+
+        .error {
+          color: red;
+        }
+      }
     }
 
     .category-home {
@@ -151,6 +177,7 @@
           border       : 1px solid #40383838;
           border-radius: 5px;
           box-shadow   : 2px 2px 10px #40383838;
+          cursor       : pointer;
 
           picture {
             width: 100%;
@@ -162,6 +189,56 @@
             }
           }
         }
+      }
+    }
+
+    .mcModal {
+      position        : fixed;
+      top             : 0;
+      right           : 0;
+      bottom          : 0;
+      left            : 0;
+      z-index         : 1000;
+      overflow        : hidden;
+      outline         : 0;
+      background-color: rgba(0, 0, 0, 0.8);
+      cursor          : auto;
+
+      .mcModalContent {
+        position : absolute;
+        top      : 50%;
+        left     : 50%;
+        transform: translate(-50%, -50%);
+
+        .mcModalBody {
+          position: relative;
+          width   : 100%;
+          height  : 100%;
+
+          img {
+            width        : 100%;
+            height       : 100%;
+            border-radius: 3px;
+          }
+
+          .description {
+            position: absolute;
+            left    : 0;
+            bottom  : 0;
+          }
+        }
+      }
+
+      .close {
+        position           : absolute;
+        background-image   : url('assets/close.svg');
+        width              : 30px;
+        height             : 30px;
+        top                : 15px;
+        right              : 15px;
+        background-repeat  : no-repeat;
+        background-position: center;
+        cursor             : pointer;
       }
     }
   }
