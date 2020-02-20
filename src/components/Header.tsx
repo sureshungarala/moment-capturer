@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 import { setCategory, getImages, McAction, SET_IMAGES } from '../actions';
 import { McState } from '../reducers';
 import Categories from './Categories';
-import Profiles_Handheld from './Profiles';
+import ProfilesHandheld from './Profiles';
 
 interface MapStateToProps {
     category: string,
@@ -48,7 +48,7 @@ class Header extends React.Component<headerProps> {
                         <div className="someOther">So</div>
                         <div className="profilePic">Pp</div>
                     </div>
-                    <Profiles_Handheld />
+                    <ProfilesHandheld />
                 </div>
             </header>
         );

@@ -28,6 +28,10 @@
         "name": "description",
         "type": "S"
     },
+    "resolution": {
+        "name": "resolution",
+        "type": "S"
+    },
     "updateTime": {
         "name": "updateTime",
         "type": "N"

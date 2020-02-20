@@ -5,6 +5,8 @@ interface imageProps {
         [resolution: string]: string
     },
     original: string,
+    panorama?: boolean,
+    portrait?: boolean,
     description: string,
     updateTime?: number
 }
@@ -62,7 +64,7 @@ export default class Image extends React.Component<imageProps, imageState> {
 
     render() {
         return (
-            <div className="imageContainer" ref={this.containerRef}>
+            <div className={`imageContainer ${this.props.panorama ? 'panorama' : this.props.portrait ? 'portrait' : ''}`} ref={this.containerRef}>
                 {this.state.children}
             </div>
         );

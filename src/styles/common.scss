@@ -92,7 +92,7 @@ input[type="button"] {
   padding         : 10px 0px;
   background-color: #f1f1f1;
   border-radius   : 5px;
-  width           : 140px;
+  width           : 150px;
   box-shadow      : 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   top             : 100%;
 }
@@ -108,7 +108,7 @@ input[type="button"] {
     position       : relative;
     display        : flex;
     justify-content: flex-start;
-    font-size      : calc(10px + 1.5vmin);
+    font-size      : calc(10px + 1.25vmin);
 
     .selectedCategory {
       border       : 2px solid $primaryColor;
@@ -150,6 +150,7 @@ input[type="button"] {
     ul li:focus-within ul,
     ul li ul:hover {
       @include showDropdown;
+      width           : 155px;
       background-color: $secondaryColor;
       top             : 60%;
       left            : 60%;

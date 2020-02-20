@@ -1,8 +1,10 @@
+$laptop_header_height: 4vmax;
+
 @media only screen and (min-device-width: 1200px) and (max-device-width: 1899px) {
   .MC-App {
     .mcHeader {
       @include flexXalignCentered;
-      height         : 5vmax;
+      height         : $laptop_header_height;
       justify-content: space-between;
 
       .logoSection {
@@ -10,8 +12,8 @@
         @include flexXalignCentered;
 
         .logo {
-          width      : 5vmax;
-          height     : 5vmax;
+          width      : $laptop_header_height;
+          height     : $laptop_header_height;
           margin-left: 7vmin;
         }
 

@@ -12,9 +12,8 @@
         @include flexXalignCentered;
 
         .logo {
-          width      : 5vmax;
-          height     : 5vmax;
-          margin-left: 5vmin;
+          width : 5vmax;
+          height: 5vmax;
         }
 
         .branding-title {
@@ -42,11 +41,16 @@
 
           .categories-dd,
           .categories-dd .selectedCategory {
-            font-size: calc(10px + 0.75vmin);
+            font-size: calc(10px + 0.25vmin);
+
 
             li {
               font-size: calc(10px + 1vmin);
             }
+          }
+
+          .categories-dd .selectedCategory {
+            border: 1px solid $primaryColor;
           }
         }
 

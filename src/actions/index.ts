@@ -1,7 +1,6 @@
 import { AnyAction } from 'redux';
 import { ThunkDispatch, ThunkAction } from 'redux-thunk';
 import { McState } from '../reducers';
-import columns from '../info/columns.json';
 
 export interface Image {
     original: string,
@@ -11,7 +10,9 @@ export interface Image {
     },
     description: string,
     biotc: boolean,
-    panorama: boolean
+    panorama: boolean,
+    portrait: boolean,
+    resolution: string
 }
 
 export interface McMoments {
@@ -38,7 +39,9 @@ export const initMoments: McMoments = {
         srcSet: {},
         description: '',
         biotc: false,
-        panorama: false
+        panorama: false,
+        portrait: false,
+        resolution: ''
     },
     moments: []
 };
@@ -62,7 +65,7 @@ export function getImages(category: string, actionType: string): ThunkAction<Pro
                     'accept': 'application/json'
                 }
             });
-            const data = await response.json(), images: McMoments = initMoments;
+            const data = await response.json(), images: McMoments = JSON.parse(JSON.stringify(initMoments));
             (data.images as Image[]).forEach((image: Image) => {
                 if (image.biotc) {
                     images.biotc = image;

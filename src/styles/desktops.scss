@@ -1,2 +1,52 @@
+$desktop_header_height: 4vmax;
+
 @media only screen and (min-device-width: 1900px) {
+    .MC-App {
+        .mcHeader {
+            @include flexXalignCentered;
+            height         : $desktop_header_height;
+            justify-content: space-between;
+
+            .logoSection {
+                flex-basis: 60%;
+                @include flexXalignCentered;
+
+                .logo {
+                    width      : $desktop_header_height;
+                    height     : $desktop_header_height;
+                    margin-left: 7vmin;
+                }
+
+                .branding-title {
+                    font-size  : calc(10px + 4vmin);
+                    margin-left: 5vmin;
+                }
+            }
+
+            .actionSection {
+                @include flexXalignCentered;
+                flex-basis: 40%;
+                font-size : calc(10px + 2.5vmin);
+
+                &>* {
+                    @include flexXalignCentered;
+                    cursor: pointer;
+                }
+
+                .categories {
+                    flex-basis: 40%;
+                    font-size : calc(10px + 2vmin);
+                }
+
+                .profiles {
+                    flex-basis     : 60%;
+                    justify-content: space-around;
+                }
+            }
+        }
+
+        .mcBody {
+            min-height: calc(100vh - 5vmax);
+        }
+    }
 }

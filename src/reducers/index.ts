@@ -1,4 +1,4 @@
-import { Image, McAction, McMoments, initMoments, SET_CATEGORY, SET_IMAGES, ADD_IMAGES, FETCHING_IMAGES, FETCH_FAILED } from '../actions';
+import { McAction, McMoments, initMoments, SET_CATEGORY, SET_IMAGES, ADD_IMAGES, FETCHING_IMAGES, FETCH_FAILED } from '../actions';
 import categories from '../info/categories.json';
 
 export interface McState {

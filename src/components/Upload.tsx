@@ -98,7 +98,7 @@ export default class extends React.Component<uploadProps, uploadState>{
                         category: this.state.categorySelected.toLowerCase(),
                         biotc: this.state.isBiotc,
                         panorama: this.state.isPanorama,
-                        portrait: this.state.isPanorama,
+                        portrait: this.state.isPortrait,
                         description: this.state.description
                     });
 

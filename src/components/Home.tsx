@@ -20,10 +20,6 @@ interface homeProps extends MapStateToProps, MapDispatchToProps {
 
 class Home extends React.Component<homeProps> {
 
-    constructor(props: homeProps) {
-        super(props);
-    }
-
     componentDidMount() {
         console.log('this.props.categoryTag ', this.props.categoryTag);
         this.props.getImages(this.props.categoryTag, SET_IMAGES);
@@ -49,6 +45,8 @@ class Home extends React.Component<homeProps> {
                         images.map((image: Image) => {
                             return <ImageComponent original={image.original}
                                 srcSet={image.srcSet}
+                                panorama={image.panorama}
+                                portrait={image.portrait}
                                 description={image.description}
                                 updateTime={image.updateTime}
                                 key={image.updateTime} />
