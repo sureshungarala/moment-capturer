@@ -5,6 +5,12 @@
 @import "./styles/laptops.scss";
 @import "./styles/desktops.scss";
 
+@mixin spinner {
+  background-image: url('assets/loading.svg');
+  display         : inline-block;
+  animation       : rotation 1.75s infinite linear;
+}
+
 .MC-App {
   font-family: "Caveat", cursive;
   font-weight: 400;
@@ -129,11 +135,9 @@
           align-items: center;
 
           .processing {
-            background-image: url('assets/loading.svg');
-            width           : 16px;
-            height          : 16px;
-            display         : inline-block;
-            animation       : rotation 0.75s infinite linear;
+            @include spinner;
+            width : 16px;
+            height: 16px;
           }
         }
 
@@ -148,7 +152,25 @@
     }
 
     .category-home {
-      width: 100vw;
+      position: relative;
+      width   : 100vw;
+
+      .fetchingImages {
+        position: absolute;
+        top     : 0;
+        left    : 0;
+        right   : 0;
+        bottom  : 0;
+
+        .spinner {
+          @include spinner;
+          position: absolute;
+          width   : 8vmin;
+          height  : 8vmin;
+          top     : 40%;
+          left    : 50%;
+        }
+      }
 
       &>.imageContainer {
         width: 100%;
@@ -240,6 +262,41 @@
         background-position: center;
         cursor             : pointer;
       }
+    }
+  }
+
+  .mcFooter {
+    @include flexXalignCentered;
+    justify-content : center;
+    background-color: $secondaryColor;
+    color           : $secondaryColorInverted;
+    height          : 8vmin;
+
+    .row {
+      @include flexXalignCentered;
+
+      .gmail,
+      .github {
+        height           : 3vmin;
+        width            : 3vmin;
+        background-repeat: no-repeat;
+        cursor           : pointer;
+      }
+
+      .gmail {
+        display         : inline-block;
+        background-image: url('assets/gmail.svg');
+        margin-right    : 20px;
+      }
+
+      .github {
+        display         : inline-block;
+        background-image: url('assets/github.svg');
+      }
+    }
+
+    a {
+      text-decoration: underline;
     }
   }
 }

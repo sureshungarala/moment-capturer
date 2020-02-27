@@ -28,6 +28,7 @@ export function reducer(state: McState = initState, action: McAction): McState {
         case SET_IMAGES:
             return {
                 ...state,
+                fetchingImages: false,
                 images: action.images
             }
         case ADD_IMAGES:

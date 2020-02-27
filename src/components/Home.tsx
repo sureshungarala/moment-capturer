@@ -8,7 +8,8 @@ import ImageComponent from './Image'
 
 interface MapStateToProps {
     categoryTag: string,
-    images: McMoments
+    images: McMoments,
+    fetchingImages: boolean
 }
 
 interface MapDispatchToProps {
@@ -32,29 +33,40 @@ class Home extends React.Component<homeProps> {
         return (
             <div className="category-home">
                 {
-                    biotc.original.length > 0
-                    &&
-                    <ImageComponent original={biotc.original}
-                        srcSet={biotc.srcSet}
-                        description={biotc.description}
-                        updateTime={biotc.updateTime}
-                        resolution={biotc.resolution}
-                        key={biotc.updateTime} />
+                    this.props.fetchingImages &&
+                    <div className="fetchingImages">
+                        <div className="spinner"></div>
+                    </div>
                 }
-                <div className="images-container">
-                    {
-                        images.map((image: Image) => {
-                            return <ImageComponent original={image.original}
-                                srcSet={image.srcSet}
-                                panorama={image.panorama}
-                                portrait={image.portrait}
-                                description={image.description}
-                                updateTime={image.updateTime}
-                                resolution={image.resolution}
-                                key={image.updateTime} />
-                        })
-                    }
-                </div>
+                {
+                    !this.props.fetchingImages &&
+                    <React.Fragment>
+                        {
+                            biotc.original.length > 0
+                            &&
+                            <ImageComponent original={biotc.original}
+                                srcSet={biotc.srcSet}
+                                description={biotc.description}
+                                updateTime={biotc.updateTime}
+                                resolution={biotc.resolution}
+                                key={biotc.updateTime} />
+                        }
+                        < div className="images-container">
+                            {
+                                images.map((image: Image) => {
+                                    return <ImageComponent original={image.original}
+                                        srcSet={image.srcSet}
+                                        panorama={image.panorama}
+                                        portrait={image.portrait}
+                                        description={image.description}
+                                        updateTime={image.updateTime}
+                                        resolution={image.resolution}
+                                        key={image.updateTime} />
+                                })
+                            }
+                        </div>
+                    </React.Fragment>
+                }
             </div>
         )
     }
@@ -63,7 +75,8 @@ class Home extends React.Component<homeProps> {
 const mapStateToProps = (state: McState): MapStateToProps => {
     return {
         categoryTag: state.categoryTag || '',
-        images: state.images || initMoments
+        images: state.images || initMoments,
+        fetchingImages: state.fetchingImages || false
     }
 }
 

@@ -108,7 +108,7 @@
         }
 
         .mcBody {
-            height    : calc(100vh - 8vmax);
+            height     : calc(100vh - 8vmax);
             padding-top: 8vmax; //w.r.to header height
 
             .upload-form {
@@ -141,6 +141,10 @@
                     }
                 }
             }
+        }
+
+        .mcFooter {
+            height: 8vmax;
         }
     }
 }
