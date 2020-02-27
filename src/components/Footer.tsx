@@ -8,7 +8,7 @@ const Footer: React.FunctionComponent = () => {
                 <a href="mailto:iamuvvsuresh@gmail.com" title="iamuvvsuresh@gmail.com">
                     <span className="gmail" ></span>
                 </a>
-                <a href="https://github.com/sureshUngarala/moment-capturer" target="_blank">
+                <a href="https://github.com/sureshUngarala/moment-capturer" rel="noopener noreferrer" target="_blank">
                     <div className="github"></div>
                 </a>
             </div>

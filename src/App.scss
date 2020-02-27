@@ -62,6 +62,7 @@
     position        : relative;
     color           : $secondaryColor;
     background-color: $secondaryColorInverted;
+    overflow-y      : auto;
     @include flexXjustifyCentered;
 
     .upload-form {
@@ -270,7 +271,6 @@
     justify-content : center;
     background-color: $secondaryColor;
     color           : $secondaryColorInverted;
-    height          : 8vmin;
 
     .row {
       @include flexXalignCentered;
