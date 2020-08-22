@@ -1,150 +1,154 @@
 @media only screen and (max-device-width: 599px) {
-    .MC-App {
-        .mcHeader {
-            @include flexXalignCentered;
-            height         : 8vmax;
-            justify-content: space-around;
+  .MC-App {
+    .mcHeader {
+      @include flexXalignCentered;
+      height: 8vmax;
+      justify-content: space-around;
 
-            .logoSection {
-                flex-basis: 55%;
-                @include flexXalignCentered;
+      .logoSection {
+        flex-basis: 55%;
+        @include flexXalignCentered;
 
-                .logo {
-                    width : 6vmax;
-                    height: 6vmax;
-                }
-
-                .branding-title {
-                    font-size  : calc(10px + 3vmin);
-                    margin-left: 1vmin;
-                }
-            }
-
-            .actionSection {
-                flex-basis: 45%;
-                @include flexXalignCentered;
-                justify-content: space-evenly;
-                font-size      : calc(10px + 2.5vmin);
-
-                &>* {
-                    cursor: pointer;
-                }
-
-                .categories {
-                    @include flexXalignCentered;
-
-                    .title {
-                        display: none;
-                    }
-
-                    .categories-dd {
-                        justify-content: flex-end;
-                        font-size      : calc(10px + 1.5vmin);
-
-                        .selectedCategory {
-                            font-size: calc(10px + 1.5vmin);
-                        }
-
-                        .selectedCategory:hover+ul,
-                        ul:hover {
-                            left : auto;
-                            width: 110px;
-                        }
-
-                        ul li:hover ul,
-                        ul li:focus-within ul,
-                        ul li ul:hover {
-                            left : -95%;
-                            width: 110px;
-                        }
-                    }
-                }
-
-                .profiles {
-                    display: none;
-                }
-
-                .profiles-handheld {
-                    position       : relative;
-                    display        : flex !important;
-                    justify-content: flex-end;
-                    margin-left    : 5px;
-
-                    .profilePic {
-                        border       : 1px solid grey;
-                        border-radius: 50px;
-                        min-width    : 1.5em;
-                        min-height   : 1.5em;
-                    }
-
-                    ul {
-                        @include initDropdownState;
-
-                        li {
-                            position : relative;
-                            font-size: calc(10px + 1.5vmin);
-                            padding  : 5px 0px 5px 10px;
-
-                            a {
-                                display        : block;
-                                color          : black;
-                                text-decoration: none;
-                            }
-
-                            &:active,
-                            &:focus {
-                                background-color: #ddd;
-                            }
-                        }
-                    }
-
-                    .profilePic:hover+ul,
-                    ul:hover {
-                        @include showDropdown;
-                        z-index: 1;
-                    }
-                }
-            }
+        .logo {
+          width: 6vmax;
+          height: 6vmax;
         }
 
-        .mcBody {
-            height     : calc(100vh - 8vmax);
-            padding-top: 8vmax; //w.r.to header height
+        .branding-title {
+          font-size: calc(10px + 3vmin);
+          margin-left: 1vmin;
+        }
+      }
 
-            .upload-form {
-                .categories {
-                    .categories-dd {
-                        justify-content: flex-end;
+      .actionSection {
+        flex-basis: 45%;
+        @include flexXalignCentered;
+        justify-content: space-evenly;
+        font-size: calc(10px + 2.5vmin);
 
-                        .selectedCategory:hover+ul,
-                        ul:hover {
-                            left : auto;
-                            width: 110px;
-                        }
-
-                        ul li:hover ul,
-                        ul li:focus-within ul,
-                        ul li ul:hover {
-                            left : -95%;
-                            width: 110px;
-                        }
-                    }
-                }
-            }
-
-            .category-home {
-                .images-container {
-                    &>* {
-                        flex-basis: 90% !important;
-                        height    : auto !important;
-                        margin    : 1.75% !important;
-                    }
-                }
-            }
+        & > * {
+          cursor: pointer;
         }
 
-        .mcFooter {
-            height: 5vmin;
+        .categories {
+          @include flexXalignCentered;
+
+          .title {
+            display: none;
+          }
+
+          .categories-dd {
+            justify-content: flex-end;
+            font-size: calc(10px + 1.5vmin);
+
+            .selectedCategory {
+              font-size: calc(10px + 1.5vmin);
+            }
+
+            .selectedCategory:hover + ul,
+            ul:hover {
+              left: auto;
+              width: 110px;
+            }
+
+            ul li:hover ul,
+            ul li:focus-within ul,
+            ul li ul:hover {
+              left: -95%;
+              width: 110px;
+            }
+          }
         }
+
+        .profiles {
+          display: none;
+        }
+
+        .profiles-handheld {
+          position: relative;
+          display: flex !important;
+          justify-content: flex-end;
+          margin-left: 5px;
+
+          .profilePic {
+            border: 1px solid grey;
+            border-radius: 50px;
+            min-width: 1.5em;
+            min-height: 1.5em;
+          }
+
+          ul {
+            @include initDropdownState;
+
+            li {
+              position: relative;
+              font-size: calc(10px + 1.5vmin);
+              padding: 5px 0px 5px 10px;
+
+              a {
+                display: block;
+                color: black;
+                text-decoration: none;
+              }
+
+              &:active,
+              &:focus {
+                background-color: #ddd;
+              }
+            }
+          }
+
+          .profilePic:hover + ul,
+          ul:hover {
+            @include showDropdown;
+            z-index: 1;
+          }
+        }
+      }
     }
+
+    .mcBody {
+      height: calc(100vh - 8vmax);
+      padding-top: 8vmax; //w.r.to header height
+
+      .upload-form {
+        .categories {
+          .categories-dd {
+            justify-content: flex-end;
+
+            .selectedCategory:hover + ul,
+            ul:hover {
+              left: auto;
+              width: 110px;
+            }
+
+            ul li:hover ul,
+            ul li:focus-within ul,
+            ul li ul:hover {
+              left: -95%;
+              width: 110px;
+            }
+          }
+        }
+      }
+
+      .category-home {
+        .imageContainer {
+          pointer-events: none !important;
+        }
+
+        .images-container {
+          & > * {
+            flex-basis: 90% !important;
+            height: auto !important;
+            margin: 1.75% !important;
+          }
+        }
+      }
+    }
+
+    .mcFooter {
+      height: 5vmin;
+    }
+  }
 }

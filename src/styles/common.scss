@@ -1,32 +1,34 @@
-$primaryColor              : #5bba47;
-$secondaryColor            : rgba(0, 0, 0, 0.85);
-$secondaryColorInverted    : invert($color: $secondaryColor);
-$secondaryColorHovered     : rgba(0, 0, 0, 0.75);
-$secondaryColorDisabled    : rgba(0, 0, 0, 0.5);
-$alternateDarkOrange       : rgba(230, 128, 3, 1);
+$primaryColor: #5bba47;
+$secondaryColor: rgba(0, 0, 0, 0.85);
+$secondaryColorInverted: invert(
+  $color: $secondaryColor,
+);
+$secondaryColorHovered: rgba(0, 0, 0, 0.75);
+$secondaryColorDisabled: rgba(0, 0, 0, 0.5);
+$alternateDarkOrange: rgba(230, 128, 3, 1);
 $alternateDarkOrangeHovered: rgba(230, 128, 3, 0.75);
-$mcCheckboxSize            : 18px;
-$transition                : all 0.5s ease-in-out;
+$mcCheckboxSize: 18px;
+$transition: all 0.5s ease-in-out;
 
 input[type="button"],
 input[type="submit"],
 form,
 a {
-  -moz-appearance   : none;
+  -moz-appearance: none;
   -webkit-appearance: none;
-  appearance        : none;
-  padding           : 0;
-  margin            : 0;
-  text-decoration   : none;
-  color             : $secondaryColorInverted;
+  appearance: none;
+  padding: 0;
+  margin: 0;
+  text-decoration: none;
+  color: $secondaryColorInverted;
 }
 
 button,
 input[type="button"],
 input[type="submit"] {
   background-color: $secondaryColor;
-  color           : $secondaryColorInverted;
-  cursor          : pointer;
+  color: $secondaryColorInverted;
+  cursor: pointer;
 
   &:hover {
     background-color: $secondaryColorHovered;
@@ -34,7 +36,7 @@ input[type="submit"] {
 }
 
 input[type="submit"].disabled {
-  cursor          : not-allowed;
+  cursor: not-allowed;
   background-color: $secondaryColorDisabled;
 
   &:active,
@@ -57,44 +59,44 @@ input[type="button"] {
 }
 
 @mixin flexXjustifyCentered {
-  display        : flex;
+  display: flex;
   justify-content: center;
 }
 
 @mixin flexXalignCentered {
-  display    : flex;
+  display: flex;
   align-items: center;
 }
 
 @mixin flexXcentered {
-  display        : flex;
-  align-items    : center;
+  display: flex;
+  align-items: center;
   justify-content: center;
 }
 
 @mixin initDropdownState {
-  opacity         : 0;
+  opacity: 0;
   background-color: $secondaryColor;
-  display         : none; //disable to get transition
-  position        : absolute;
-  list-style      : none;
-  margin          : 0;
-  height          : 0;
-  top             : 0;
-  transition      : $transition;
+  display: none; //disable to get transition
+  position: absolute;
+  list-style: none;
+  margin: 0;
+  height: 0;
+  top: 0;
+  transition: $transition;
 }
 
 @mixin showDropdown {
-  opacity         : 1;
-  display         : flex;
-  height          : auto;
-  flex-direction  : column;
-  padding         : 10px 0px;
+  opacity: 1;
+  display: flex;
+  height: auto;
+  flex-direction: column;
+  padding: 10px 0px;
   background-color: #f1f1f1;
-  border-radius   : 5px;
-  width           : 150px;
-  box-shadow      : 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  top             : 100%;
+  border-radius: 5px;
+  width: 150px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  top: 100%;
 }
 
 @keyframes rotation {
@@ -115,20 +117,20 @@ input[type="button"] {
   }
 
   .categories-dd {
-    position       : relative;
-    display        : flex;
+    position: relative;
+    display: flex;
     justify-content: flex-start;
-    font-size      : calc(10px + 1.25vmin);
+    font-size: calc(10px + 1.25vmin);
 
     .selectedCategory {
-      border       : 2px solid $primaryColor;
+      border: 2px solid $primaryColor;
       border-radius: 4px;
-      padding      : 0px 10px;
-      font-size    : calc(10px + 1.25vmin);
-      box-shadow   : 0px 4px 9px 0px rgba(0, 0, 0, 0.2);
+      padding: 0px 10px;
+      font-size: calc(10px + 1.25vmin);
+      box-shadow: 0px 4px 9px 0px rgba(0, 0, 0, 0.2);
 
       &::after {
-        content  : '\00a0\00a0\25BC';
+        content: "\00a0\00a0\25BC";
         font-size: 0.6em;
       }
     }
@@ -138,20 +140,20 @@ input[type="button"] {
       @include initDropdownState;
     }
 
-    .selectedCategory:hover+ul,
+    .selectedCategory:hover + ul,
     ul:hover {
       @include showDropdown;
       background-color: $secondaryColor;
-      z-index         : 10;
+      z-index: 10;
     }
 
     li {
       position: relative;
-      color   : $secondaryColorInverted;
-      padding : 5px 0px 5px 10px;
+      color: $secondaryColorInverted;
+      padding: 5px 0px 5px 10px;
 
       &:hover {
-        cursor          : pointer;
+        cursor: pointer;
         background-color: $primaryColor;
       }
     }
@@ -160,11 +162,11 @@ input[type="button"] {
     ul li:focus-within ul,
     ul li ul:hover {
       @include showDropdown;
-      width           : 155px;
+      width: 155px;
       background-color: $secondaryColor;
-      top             : 60%;
-      left            : 60%;
-      z-index         : 10;
+      top: 60%;
+      left: 60%;
+      z-index: 10;
     }
 
     ul li:focus-within {
@@ -175,43 +177,43 @@ input[type="button"] {
 
 .mcCheckboxContainer {
   position: relative;
-  display : flex;
-  cursor  : pointer;
+  display: flex;
+  cursor: pointer;
 
   input[type="checkbox"] {
     position: absolute;
-    width   : 1px;
-    height  : 1px;
-    border  : 0;
-    opacity : 0;
-    z-index : -1;
+    width: 1px;
+    height: 1px;
+    border: 0;
+    opacity: 0;
+    z-index: -1;
   }
 
   @mixin showCheckmark {
-    top         : 0px;
-    left        : 6px;
-    content     : '';
-    width       : 4px;
-    position    : absolute;
-    height      : 14px;
-    border      : solid $primaryColor;
+    top: 0px;
+    left: 6px;
+    content: "";
+    width: 4px;
+    position: absolute;
+    height: 14px;
+    border: solid $primaryColor;
     border-width: 0 2px 2px 0;
-    transform   : rotate(38deg);
+    transform: rotate(38deg);
   }
 
-  input[type="checkbox"]+.mcCheckboxHidden {
-    position     : absolute;
-    width        : $mcCheckboxSize;
-    height       : $mcCheckboxSize;
-    border       : 1px solid $secondaryColor;
+  input[type="checkbox"] + .mcCheckboxHidden {
+    position: absolute;
+    width: $mcCheckboxSize;
+    height: $mcCheckboxSize;
+    border: 1px solid $secondaryColor;
     border-radius: 3px;
-    transition   : all 150ms;
-    z-index      : 1;
+    transition: all 150ms;
+    z-index: 1;
   }
 
-  input[type="checkbox"]:not(:checked)+.mcCheckboxHidden:hover {
+  input[type="checkbox"]:not(:checked) + .mcCheckboxHidden:hover {
     background-color: $secondaryColor;
-    box-shadow      : 0 0 2px 2px $primaryColor;
+    box-shadow: 0 0 2px 2px $primaryColor;
 
     &::before {
       @include showCheckmark;
@@ -221,16 +223,16 @@ input[type="button"] {
   input[type="checkbox"]:active,
   input[type="checkbox"]:focus,
   input[type="checkbox"]:focus-within {
-    &+.mcCheckboxHidden {
+    & + .mcCheckboxHidden {
       box-shadow: 0 0 2px 2px $primaryColor;
     }
   }
 
-  input[type="checkbox"]:checked+.mcCheckboxHidden {
+  input[type="checkbox"]:checked + .mcCheckboxHidden {
     background-color: $secondaryColor;
   }
 
-  input[type="checkbox"]:checked+.mcCheckboxHidden::before {
+  input[type="checkbox"]:checked + .mcCheckboxHidden::before {
     @include showCheckmark;
   }
 

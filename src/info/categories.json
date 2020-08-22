@@ -1,79 +1,84 @@
 [
-    {
-        "name": "Travel",
-        "tag": "",
-        "submenu": [
-            {
-                "name": "Architecture and Interior",
-                "tag": "architectureAndInterior",
-                "submenu": []
-            },
-            {
-                "name": "Street",
-                "tag": "street",
-                "submenu": []
-            },
-            {
-                "name": "People",
-                "tag": "people",
-                "submenu": []
-            },
-            {
-                "name": "Nature Landscapes",
-                "tag": "natureLandscapes",
-                "submenu": []
-            },
-            {
-                "name": "Storytelling",
-                "tag": "storytelling",
-                "submenu": []
-            },
-            {
-                "name": "Wildlife",
-                "tag": "wildlife",
-                "submenu": []
-            },
-            {
-                "name": "Long-exposure",
-                "tag": "longExposure",
-                "submenu": []
-            }
-        ]
-    },
-    {
-        "name": "Product",
-        "tag": "",
-        "submenu": [
-            {
-                "name": "Commercial",
-                "tag": "commercial",
-                "submenu": []
-            },
-            {
-                "name": "Editorial",
-                "tag": "editorial",
-                "submenu": []
-            }
-        ]
-    },
-    {
-        "name": "Fashion",
-        "tag": "fashion",
+  {
+    "name": "Astro",
+    "tag": "astro",
+    "submenu": []
+  },
+  {
+    "name": "Travel",
+    "tag": "",
+    "submenu": [
+      {
+        "name": "Architecture and Interior",
+        "tag": "architectureAndInterior",
         "submenu": []
-    },
-    {
-        "name": "Sports",
-        "tag": "sports",
+      },
+      {
+        "name": "Street",
+        "tag": "street",
         "submenu": []
-    },
-    {
-        "name": "Tilt–shift",
-        "tag": "tiltShift",
+      },
+      {
+        "name": "People",
+        "tag": "people",
         "submenu": []
-    },
-    {
-        "name": "Black and White",
-        "tag": "blackAndWhite",
+      },
+      {
+        "name": "Nature Landscapes",
+        "tag": "natureLandscapes",
         "submenu": []
-    }
+      },
+      {
+        "name": "Storytelling",
+        "tag": "storytelling",
+        "submenu": []
+      },
+      {
+        "name": "Wildlife",
+        "tag": "wildlife",
+        "submenu": []
+      },
+      {
+        "name": "Long-exposure",
+        "tag": "longExposure",
+        "submenu": []
+      }
+    ]
+  },
+  {
+    "name": "Product",
+    "tag": "",
+    "submenu": [
+      {
+        "name": "Commercial",
+        "tag": "commercial",
+        "submenu": []
+      },
+      {
+        "name": "Editorial",
+        "tag": "editorial",
+        "submenu": []
+      }
+    ]
+  },
+  {
+    "name": "Fashion",
+    "tag": "fashion",
+    "submenu": []
+  },
+  {
+    "name": "Sports",
+    "tag": "sports",
+    "submenu": []
+  },
+  {
+    "name": "Tilt–shift",
+    "tag": "tiltShift",
+    "submenu": []
+  },
+  {
+    "name": "Black and White",
+    "tag": "blackAndWhite",
+    "submenu": []
+  }
 ]

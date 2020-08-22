@@ -4,7 +4,7 @@ $laptop_header_height: 4vmax;
   .MC-App {
     .mcHeader {
       @include flexXalignCentered;
-      height         : $laptop_header_height;
+      height: $laptop_header_height;
       justify-content: space-between;
 
       .logoSection {
@@ -12,13 +12,13 @@ $laptop_header_height: 4vmax;
         @include flexXalignCentered;
 
         .logo {
-          width      : $laptop_header_height;
-          height     : $laptop_header_height;
+          width: $laptop_header_height;
+          height: $laptop_header_height;
           margin-left: 7vmin;
         }
 
         .branding-title {
-          font-size  : calc(10px + 4vmin);
+          font-size: calc(10px + 4vmin);
           margin-left: 5vmin;
         }
       }
@@ -26,27 +26,27 @@ $laptop_header_height: 4vmax;
       .actionSection {
         @include flexXalignCentered;
         flex-basis: 40%;
-        font-size : calc(10px + 2.5vmin);
+        font-size: calc(10px + 2.5vmin);
 
-        &>* {
+        & > * {
           @include flexXalignCentered;
           cursor: pointer;
         }
 
         .categories {
           flex-basis: 40%;
-          font-size : calc(10px + 2vmin);
+          font-size: calc(10px + 2vmin);
         }
 
         .profiles {
-          flex-basis     : 60%;
+          flex-basis: 60%;
           justify-content: space-around;
         }
       }
     }
 
     .mcBody {
-      min-height : calc(100vh - 5vmax);
+      min-height: calc(100vh - #{$laptop_header_height});
       padding-top: $laptop_header_height; //w.r.to header height
     }
 

@@ -4,7 +4,7 @@
   .MC-App {
     .mcHeader {
       @include flexXalignCentered;
-      height         : 5vmax;
+      height: 5vmax;
       justify-content: space-around;
 
       .logoSection {
@@ -12,12 +12,12 @@
         @include flexXalignCentered;
 
         .logo {
-          width : 5vmax;
+          width: 5vmax;
           height: 5vmax;
         }
 
         .branding-title {
-          font-size  : calc(10px + 3vmin);
+          font-size: calc(10px + 3vmin);
           margin-left: 2vmin;
         }
       }
@@ -27,7 +27,7 @@
         @include flexXalignCentered;
         font-size: calc(10px + 1.5vmin);
 
-        &>* {
+        & > * {
           @include flexXalignCentered;
         }
 
@@ -35,14 +35,13 @@
           flex-basis: 40%;
 
           .title {
-            font-size    : calc(10px + 1.25vmin);
+            font-size: calc(10px + 1.25vmin);
             padding-right: 0.5em;
           }
 
           .categories-dd,
           .categories-dd .selectedCategory {
             font-size: calc(10px + 0.25vmin);
-
 
             li {
               font-size: calc(10px + 1vmin);
@@ -55,12 +54,12 @@
         }
 
         .profiles {
-          flex-basis     : 60%;
+          flex-basis: 60%;
           justify-content: space-around;
 
-          &>* {
-            width      : 3vmin !important;
-            height     : 3vmin !important;
+          & > * {
+            width: 3vmin !important;
+            height: 3vmin !important;
             line-height: 3vmin !important;
           }
         }
@@ -68,7 +67,7 @@
     }
 
     .mcBody {
-      min-height : calc(100vh - 5vmax);
+      min-height: calc(100vh - 5vmax);
       padding-top: 5vmax; //w.r.to header height
 
       .upload-form {

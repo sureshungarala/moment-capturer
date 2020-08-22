@@ -6,9 +6,9 @@
 @import "./styles/desktops.scss";
 
 @mixin spinner {
-  background-image: url('assets/loading.svg');
-  display         : inline-block;
-  animation       : rotation 1.75s infinite linear;
+  background-image: url("assets/loading.svg");
+  display: inline-block;
+  animation: rotation 1.75s infinite linear;
 }
 
 .MC-App {
@@ -16,18 +16,18 @@
   font-weight: 400;
 
   .mcHeader {
-    position        : fixed;
-    width           : 100%;
-    z-index         : 1;
+    position: fixed;
+    width: 100%;
+    z-index: 1;
     background-color: $secondaryColor;
-    color           : $secondaryColorInverted;
+    color: $secondaryColorInverted;
 
     .logoSection {
       cursor: pointer;
 
       .logo {
-        background-image   : url('logo.svg');
-        background-repeat  : no-repeat;
+        background-image: url("logo.svg");
+        background-repeat: no-repeat;
         background-position: center;
       }
 
@@ -37,19 +37,19 @@
     }
 
     .actionSection {
-      .profiles>* {
-        width         : 4vmin;
-        height        : 4vmin;
-        line-height   : 4vmin;
-        text-align    : center;
+      .profiles > * {
+        width: 4vmin;
+        height: 4vmin;
+        line-height: 4vmin;
+        text-align: center;
         vertical-align: middle;
-        border-radius : 50%;
-        border        : 1px solid $secondaryColorInverted;
+        border-radius: 50%;
+        border: 1px solid $secondaryColorInverted;
       }
 
       .categories {
         font-family: "Caveat", cursive;
-        outline    : none;
+        outline: none;
       }
 
       .profiles-handheld {
@@ -59,24 +59,24 @@
   }
 
   .mcBody {
-    position        : relative;
-    color           : $secondaryColor;
+    position: relative;
+    color: $secondaryColor;
     background-color: $secondaryColorInverted;
-    overflow-y      : auto;
+    overflow-y: auto;
     @include flexXjustifyCentered;
 
     .upload-form {
-      position       : absolute;
-      display        : flex;
-      flex-direction : column;
-      align-items    : flex-start;
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
       justify-content: space-evenly;
-      color          : $secondaryColor;
-      height         : 300px;
-      top            : 30%;
-      transform      : translateY(-50%);
+      color: $secondaryColor;
+      height: 300px;
+      top: 30%;
+      transform: translateY(-50%);
 
-      &>* {
+      & > * {
         width: 100%;
       }
 
@@ -84,10 +84,10 @@
       input[type="button"],
       textarea,
       .categories {
-        font-size    : 1.5em;
+        font-size: 1.5em;
         border-radius: 4px;
-        outline      : none;
-        font-family  : "Caveat", cursive;
+        outline: none;
+        font-family: "Caveat", cursive;
       }
 
       textarea {
@@ -110,12 +110,12 @@
       }
 
       .resolutionCbToggles {
-        width          : 100%;
-        display        : flex;
-        flex-wrap      : wrap;
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
         justify-content: space-evenly;
 
-        &>* {
+        & > * {
           margin: 0px 1vmin;
         }
       }
@@ -126,18 +126,18 @@
 
       input[type="file"] {
         visibility: hidden;
-        height    : 1px;
-        width     : 1px;
+        height: 1px;
+        width: 1px;
       }
 
       .requestStatus {
-        &>div {
-          display    : flex;
+        & > div {
+          display: flex;
           align-items: center;
 
           .processing {
             @include spinner;
-            width : 16px;
+            width: 16px;
             height: 16px;
           }
         }
@@ -154,26 +154,26 @@
 
     .category-home {
       position: relative;
-      width   : 100vw;
+      width: 100vw;
 
       .fetchingImages {
         position: absolute;
-        top     : 0;
-        left    : 0;
-        right   : 0;
-        bottom  : 0;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
 
         .spinner {
           @include spinner;
           position: absolute;
-          width   : 8vmin;
-          height  : 8vmin;
-          top     : 40%;
-          left    : 50%;
+          width: 8vmin;
+          height: 8vmin;
+          top: 40%;
+          left: 50%;
         }
       }
 
-      &>.imageContainer {
+      & > .imageContainer {
         width: 100%;
 
         picture {
@@ -181,7 +181,7 @@
 
           img {
             display: block;
-            width  : 100%;
+            width: 100%;
           }
         }
       }
@@ -190,24 +190,24 @@
         @include flexXjustifyCentered;
         flex-wrap: wrap;
 
-        &>* {
+        & > * {
           &:not(.panorama):not(.portrait) {
             flex-basis: 46vw; //keeping aspect ratio => 3:2
-            height    : calc(46vw * .666); //change them both simultaneously
+            height: calc(46vw * 0.666); //change them both simultaneously
           }
 
-          margin       : 1%;
-          border       : 1px solid #40383838;
+          margin: 1%;
+          border: 1px solid #40383838;
           border-radius: 5px;
-          box-shadow   : 2px 2px 10px #40383838;
-          cursor       : pointer;
+          box-shadow: 2px 2px 10px #40383838;
+          cursor: pointer;
 
           picture {
             width: 100%;
 
             img {
-              display      : block;
-              width        : 100%;
+              display: block;
+              width: 100%;
               border-radius: 5px;
             }
           }
@@ -216,82 +216,87 @@
     }
 
     .mcModal {
-      position        : fixed;
-      top             : 0;
-      right           : 0;
-      bottom          : 0;
-      left            : 0;
-      z-index         : 1000;
-      overflow        : hidden;
-      outline         : 0;
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 1000;
+      overflow: hidden;
+      outline: 0;
       background-color: rgba(0, 0, 0, 0.8);
-      cursor          : auto;
+      cursor: auto;
 
       .mcModalContent {
-        position : absolute;
-        top      : 50%;
-        left     : 50%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
         transform: translate(-50%, -50%);
 
         .mcModalBody {
           position: relative;
-          width   : 100%;
-          height  : 100%;
+          width: 100%;
+          height: 100%;
 
           img {
-            width        : 100%;
-            height       : 100%;
+            width: 100%;
+            height: 100%;
             border-radius: 3px;
           }
 
           .description {
             position: absolute;
-            left    : 0;
-            bottom  : 0;
+            left: 0;
+            bottom: 0;
           }
         }
       }
 
       .close {
-        position           : absolute;
-        background-image   : url('assets/close.svg');
-        width              : 30px;
-        height             : 30px;
-        top                : 15px;
-        right              : 15px;
-        background-repeat  : no-repeat;
+        position: absolute;
+        background-image: url("assets/close.svg");
+        width: 30px;
+        height: 30px;
+        top: 15px;
+        right: 15px;
+        background-repeat: no-repeat;
         background-position: center;
-        cursor             : pointer;
+        cursor: pointer;
       }
     }
   }
 
   .mcFooter {
     @include flexXalignCentered;
-    justify-content : center;
+    justify-content: space-around;
     background-color: $secondaryColor;
-    color           : $secondaryColorInverted;
+    color: $secondaryColorInverted;
+
+    .column {
+      display: flex;
+      align-items: center;
+    }
 
     .row {
       @include flexXalignCentered;
 
       .gmail,
       .github {
-        height           : 3vmin;
-        width            : 3vmin;
+        height: 2vmin;
+        width: 2vmin;
         background-repeat: no-repeat;
-        cursor           : pointer;
+        cursor: pointer;
       }
 
       .gmail {
-        display         : inline-block;
-        background-image: url('assets/gmail.svg');
-        margin-right    : 20px;
+        display: inline-block;
+        background-image: url("assets/gmail.svg");
+        margin-right: 2vmin;
       }
 
       .github {
-        display         : inline-block;
-        background-image: url('assets/github.svg');
+        display: inline-block;
+        background-image: url("assets/github.svg");
       }
     }
 

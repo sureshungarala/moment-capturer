@@ -46,11 +46,13 @@ export const initMoments: McMoments = {
     moments: []
 };
 
-export function setCategory(category: string, categoryTag: string): McAction {
-    return {
-        type: SET_CATEGORY,
-        category,
-        categoryTag
+export function setCategory(category: string, categoryTag: string): ThunkAction<void, McState, {}, McAction> {
+    return (dispatch: ThunkDispatch<McState, {}, McAction>) => {
+        dispatch({
+            type: SET_CATEGORY,
+            category,
+            categoryTag
+        });
     }
 }
 
