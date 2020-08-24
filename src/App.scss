@@ -280,7 +280,7 @@
     .row {
       @include flexXalignCentered;
 
-      .gmail,
+      .linkedin,
       .github {
         height: 2vmin;
         width: 2vmin;
@@ -288,9 +288,9 @@
         cursor: pointer;
       }
 
-      .gmail {
+      .linkedin {
         display: inline-block;
-        background-image: url("assets/gmail.svg");
+        background-image: url("assets/linkedin.svg");
         margin-right: 2vmin;
       }
 

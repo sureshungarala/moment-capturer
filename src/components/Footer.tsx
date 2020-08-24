@@ -12,13 +12,14 @@ const Footer: React.FunctionComponent = () => {
         <span>Created by: </span>&nbsp;&nbsp;
         <div className="row">
           <a
-            href="mailto:iamuvvsuresh@gmail.com"
-            title="iamuvvsuresh@gmail.com"
+            href="https://www.linkedin.com/in/suresh-ungarala/"
+            title="LinkedIn"
           >
-            <span className="gmail"></span>
+            <span className="linkedin"></span>
           </a>
           <a
             href="https://github.com/sureshUngarala/moment-capturer"
+            title="GitHub"
             rel="noopener noreferrer"
             target="_blank"
           >
