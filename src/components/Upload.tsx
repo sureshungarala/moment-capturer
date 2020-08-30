@@ -127,7 +127,7 @@ export default class extends React.Component<uploadProps, uploadState> {
                 "content-type": "application/json",
                 accept: "application/json",
               },
-              body: body,
+              body,
             }).then(() => {
               this.setState({
                 requestProcessing: false,

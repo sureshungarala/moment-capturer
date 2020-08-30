@@ -261,7 +261,13 @@
         right: 15px;
         background-repeat: no-repeat;
         background-position: center;
+        border: 2px solid $primaryColor;
+        border-radius: 50px;
         cursor: pointer;
+        &:hover {
+          transform: rotate(360deg);
+          transition-duration: 500ms;
+        }
       }
     }
   }
