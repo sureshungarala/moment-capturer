@@ -86,6 +86,7 @@ const Categories: React.FunctionComponent<categoriesProps> = (
     }
   }, [state.closeDropdown]); //componentDidUpdate
 
+  // placing this after all `useState` & `useEffect` usage
   if (
     typeof props.routeCategoryTag !== "undefined" &&
     props.routeCategoryTag.length

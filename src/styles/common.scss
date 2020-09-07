@@ -37,8 +37,9 @@ input[type="submit"] {
 }
 
 input[type="submit"].disabled {
-  cursor: not-allowed;
   background-color: $secondaryColorDisabled;
+  pointer-events: none;
+  cursor: not-allowed;
 
   &:active,
   &:focus {
@@ -47,10 +48,10 @@ input[type="submit"].disabled {
 }
 
 input[type="button"] {
-  background-color: $alternateDarkOrange;
+  background-color: $secondaryColorDisabled;
 
   &:hover {
-    background-color: $alternateDarkOrangeHovered;
+    background-color: $secondaryColorHovered;
   }
 
   &:active,

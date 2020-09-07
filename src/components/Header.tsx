@@ -1,9 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
 import { ThunkDispatch } from "redux-thunk";
-import { withRouter, RouteComponentProps } from "react-router-dom";
-import { setCategory, getImages, McAction, SET_IMAGES } from "../actions";
-import { McState } from "../reducers";
+import { withRouter, RouteComponentProps, NavLink } from "react-router-dom";
+import { setCategory, getImages, McAction, SET_IMAGES } from "../redux/actions";
+import { McState } from "../redux/reducers";
 import Categories from "./Categories";
 import ProfilesHandheld from "./Profiles";
 
@@ -22,6 +22,7 @@ interface headerProps
 
 class Header extends React.Component<headerProps> {
   categoryTag: string;
+
   constructor(props: headerProps) {
     super(props);
     this.categoryTag = "";
@@ -29,12 +30,13 @@ class Header extends React.Component<headerProps> {
     this.redirectToHome = this.redirectToHome.bind(this);
   }
 
+  // updating the url in browser's url bar if url is changed manually or page is refreshed
+  // `this.props.location` gives browser url
   updateCategory(category: string, categoryTag: string) {
     this.categoryTag = categoryTag;
     this.props.setCategory(category, categoryTag);
-    if ("/upload" === this.props.location.pathname.trim()) {
-      this.props.history.push("/upload");
-    } else {
+    if ("/upload" !== this.props.location.pathname.trim()) {
+      // dont'fetch images from /upload screen
       this.props.history.push("/" + categoryTag);
       this.props.getImages(categoryTag, SET_IMAGES);
     }
@@ -62,7 +64,9 @@ class Header extends React.Component<headerProps> {
             <div className="instagram">In</div>
             <div className="facebook">Fb</div>
             <div className="someOther">So</div>
-            <div className="profilePic">Pp</div>
+            <div className="profilePic" onClick={() => {}}>
+              <NavLink to="/upload">Upload</NavLink>
+            </div>
           </div>
           <ProfilesHandheld />
         </div>

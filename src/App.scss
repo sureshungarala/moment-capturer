@@ -65,90 +65,163 @@
     overflow-y: auto;
     @include flexXjustifyCentered;
 
-    .upload-form {
-      position: absolute;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      justify-content: space-evenly;
-      color: $secondaryColor;
-      height: 300px;
-      top: 30%;
-      transform: translateY(-50%);
+    .uploadOrSignInContainer {
+      position: relative;
+      width: 100vw;
+      @include flexXjustifyCentered;
 
-      & > * {
-        width: 100%;
-      }
+      .upload-form,
+      .signin-form {
+        @include flexXcentered;
+        form {
+          @include flexXjustifyCentered;
+          flex-direction: column;
+          justify-content: space-evenly;
+          color: $secondaryColor;
+          height: 350px;
+          width: 350px;
+          color: $secondaryColor;
+          border-radius: 5px;
+          padding: 0px 15px;
+          font-weight: 600;
+          border-top: 5px solid $secondaryColor;
+          box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
 
-      input[type="submit"],
-      input[type="button"],
-      textarea,
-      .categories {
-        font-size: 1.5em;
-        border-radius: 4px;
-        outline: none;
-        font-family: "Caveat", cursive;
-      }
+          .requestStatus,
+          .loginStatus {
+            font-size: 1.25em;
+            & > div {
+              display: flex;
+              align-items: center;
 
-      textarea {
-        resize: none;
-        border: 1px solid $secondaryColor;
+              .processing {
+                @include spinner;
+                width: 16px;
+                height: 16px;
+              }
+            }
 
-        &.error {
-          border: 1px solid red;
-        }
-      }
+            .success {
+              color: $primaryColor;
+            }
 
-      .categories {
-        .title {
-          font-size: 0.75em;
-        }
-
-        .selectedCategory {
-          box-shadow: none;
-        }
-      }
-
-      .resolutionCbToggles {
-        width: 100%;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-evenly;
-
-        & > * {
-          margin: 0px 1vmin;
-        }
-      }
-
-      input[type="submit"] {
-        font-weight: 600;
-      }
-
-      input[type="file"] {
-        visibility: hidden;
-        height: 1px;
-        width: 1px;
-      }
-
-      .requestStatus {
-        & > div {
-          display: flex;
-          align-items: center;
-
-          .processing {
-            @include spinner;
-            width: 16px;
-            height: 16px;
+            .error {
+              color: red;
+            }
           }
         }
+      }
 
-        .success {
-          color: $primaryColor;
-        }
+      .upload-form {
+        form {
+          & > * {
+            width: 100%;
+          }
 
-        .error {
-          color: red;
+          input[type="submit"],
+          input[type="button"],
+          textarea,
+          .categories {
+            font-size: 1.5em;
+            border-radius: 4px;
+            outline: none;
+            font-family: "Caveat", cursive;
+          }
+
+          textarea {
+            resize: none;
+            border: 1px solid $secondaryColor;
+
+            &.error {
+              border: 1px solid red;
+            }
+          }
+
+          .categories {
+            .title {
+              font-size: 0.75em;
+            }
+
+            .selectedCategory {
+              box-shadow: none;
+            }
+          }
+
+          .resolutionCbToggles {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+
+            & > * {
+              margin: 0px 1vmin;
+            }
+          }
+
+          input[type="submit"] {
+            font-weight: 600;
+            font-family: "Caveat", cursive;
+          }
+
+          input[type="file"] {
+            visibility: hidden;
+            height: 1px;
+            width: 1px;
+          }
         }
+      }
+
+      .signin-form {
+        form {
+          & > label {
+            color: $alternateDarkOrange;
+            font-size: 1.75em;
+          }
+          & > * {
+            display: flex;
+            flex-direction: column;
+            margin: 10px 10px;
+            & > label {
+              font-size: 1.25em;
+              margin: 5px 0px;
+              &::after {
+                content: "*";
+                color: $alternateDarkOrange;
+              }
+            }
+          }
+          input {
+            min-height: 4vmin;
+            border: 1px solid $secondaryColor;
+            border-radius: 2px;
+            outline: none;
+            font-size: 1.25em;
+            font-family: "Caveat", cursive;
+            &:focus {
+              border: 1px solid #5bba47;
+            }
+          }
+          .signin {
+            flex-direction: row;
+            justify-content: space-between;
+            input {
+              width: 50%;
+              font-size: 1.25em;
+              font-weight: 600;
+              border-radius: 3px;
+              color: $primaryColor;
+            }
+          }
+        }
+      }
+
+      .fetchingCurrentUserDetails {
+        @include spinner;
+        position: absolute;
+        width: 8vmin;
+        height: 8vmin;
+        top: 40%;
+        left: 50%;
       }
     }
 

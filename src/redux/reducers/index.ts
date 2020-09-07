@@ -8,7 +8,7 @@ import {
   FETCHING_IMAGES,
   FETCH_FAILED,
 } from "../actions";
-import categories from "../info/categories.json";
+import categories from "../../info/categories.json";
 
 export interface McState {
   readonly category?: string;

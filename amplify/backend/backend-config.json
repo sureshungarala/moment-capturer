@@ -1,0 +1,10 @@
+{
+	"auth": {
+		"momentcapturer19a929f7": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation",
+			"dependsOn": [],
+			"customAuth": false
+		}
+	}
+}

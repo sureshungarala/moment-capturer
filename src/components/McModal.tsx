@@ -31,7 +31,7 @@ export default class McModal extends React.Component<
           }}
         >
           <div className="mcModalBody">
-            <img src={this.props.src} />
+            <img src={this.props.src} alt={this.props.description} />
             <div className="description">descriptionn</div>
           </div>
         </div>

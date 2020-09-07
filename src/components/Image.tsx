@@ -60,7 +60,7 @@ export default class Image extends React.Component<imageProps, imageState> {
   }
 
   componentDidMount() {
-    //For later: if no support for IntersectionObserver, renders image
+    //For later: if no support for IntersectionObserver, render image
     const observer = new window.IntersectionObserver(
       (entries: Array<IntersectionObserverEntry>) => {
         const entry = entries[0],

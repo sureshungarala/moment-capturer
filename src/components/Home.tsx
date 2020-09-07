@@ -1,9 +1,14 @@
 import React from "react";
-import { RouteComponentProps } from "react-router-dom";
 import { connect } from "react-redux";
 import { ThunkDispatch } from "redux-thunk";
-import { Image, McMoments, initMoments, getImages, McAction } from "../actions";
-import { McState } from "../reducers";
+import {
+  Image,
+  McMoments,
+  initMoments,
+  getImages,
+  McAction,
+} from "../redux/actions";
+import { McState } from "../redux/reducers";
 import ImageComponent from "./Image";
 
 interface MapStateToProps {
@@ -15,12 +20,8 @@ interface MapDispatchToProps {
   getImages: (categoryTag: string, actionType: string) => Promise<void>;
 }
 
-interface HomeRouterProps {}
+interface homeProps extends MapStateToProps, MapDispatchToProps {}
 
-interface homeProps
-  extends MapStateToProps,
-    MapDispatchToProps,
-    RouteComponentProps<HomeRouterProps> {}
 const Home: React.FunctionComponent<homeProps> = (props: homeProps) => {
   const biotc = props.images.biotc,
     images = props.images.moments;
