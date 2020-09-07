@@ -151,6 +151,99 @@ export default class extends React.Component<uploadProps, uploadState> {
     }
   }
 
+  textArea = () => (
+    <textarea
+      placeholder="Give some description"
+      ref={this.descriptionRef}
+      onBlur={(event) => {
+        this.setState(
+          {
+            description: event.target.value.trim(),
+          },
+          () => {
+            if (this.descriptionRef.current) {
+              if (!this.state.description.length) {
+                this.descriptionRef.current.classList.add("error");
+              } else {
+                this.descriptionRef.current.classList.remove("error");
+              }
+            }
+          }
+        );
+      }}
+      value={this.state.description}
+      onChange={(event) => {
+        this.setState(
+          {
+            description: event.target.value,
+          },
+          () => {
+            if (this.descriptionRef.current) {
+              if (!this.state.description.length) {
+                this.descriptionRef.current.classList.add("error");
+              } else {
+                this.descriptionRef.current.classList.remove("error");
+              }
+            }
+          }
+        );
+      }}
+    ></textarea>
+  );
+
+  checkBoxToggles = () => (
+    <div className="resolutionCbToggles">
+      <label htmlFor="biotcCb" className="mcCheckboxContainer">
+        <input
+          type="checkbox"
+          id="biotcCb"
+          checked={this.state.isBiotc}
+          onChange={(event) =>
+            this.setState({
+              isBiotc: event.target.checked,
+            })
+          }
+        />
+        <div className="mcCheckboxHidden"></div>
+        <span className="mcCheckboxLabel" title="Best Image of the Category">
+          Biotc
+        </span>
+      </label>
+      <label htmlFor="portraitCb" className="mcCheckboxContainer">
+        <input
+          type="checkbox"
+          id="portraitCb"
+          checked={this.state.isPortrait}
+          onChange={(event) =>
+            this.setState({
+              isPortrait: event.target.checked,
+            })
+          }
+        />
+        <div className="mcCheckboxHidden"></div>
+        <span className="mcCheckboxLabel" title="Portrait">
+          Portrait
+        </span>
+      </label>
+      <label htmlFor="panaromaCb" className="mcCheckboxContainer">
+        <input
+          type="checkbox"
+          id="panaromaCb"
+          checked={this.state.isPanorama}
+          onChange={(event) =>
+            this.setState({
+              isPanorama: event.target.checked,
+            })
+          }
+        />
+        <div className="mcCheckboxHidden"></div>
+        <span className="mcCheckboxLabel" title="Panorama">
+          Panorama
+        </span>
+      </label>
+    </div>
+  );
+
   render() {
     return (
       <section className="upload-form">
@@ -172,43 +265,7 @@ export default class extends React.Component<uploadProps, uploadState> {
             onChange={this.handleChange}
             style={{ visibility: "hidden" }}
           />
-          <textarea
-            placeholder="Give some description"
-            ref={this.descriptionRef}
-            onBlur={(event) => {
-              this.setState(
-                {
-                  description: event.target.value.trim(),
-                },
-                () => {
-                  if (this.descriptionRef.current) {
-                    if (!this.state.description.length) {
-                      this.descriptionRef.current.classList.add("error");
-                    } else {
-                      this.descriptionRef.current.classList.remove("error");
-                    }
-                  }
-                }
-              );
-            }}
-            value={this.state.description}
-            onChange={(event) => {
-              this.setState(
-                {
-                  description: event.target.value,
-                },
-                () => {
-                  if (this.descriptionRef.current) {
-                    if (!this.state.description.length) {
-                      this.descriptionRef.current.classList.add("error");
-                    } else {
-                      this.descriptionRef.current.classList.remove("error");
-                    }
-                  }
-                }
-              );
-            }}
-          ></textarea>
+          {this.textArea()}
           <Categories
             onSelectCategory={(category, categoryTag) => {
               console.log("in upload ", category);
@@ -217,59 +274,7 @@ export default class extends React.Component<uploadProps, uploadState> {
               });
             }}
           />
-          <div className="resolutionCbToggles">
-            <label htmlFor="biotcCb" className="mcCheckboxContainer">
-              <input
-                type="checkbox"
-                id="biotcCb"
-                checked={this.state.isBiotc}
-                onChange={(event) =>
-                  this.setState({
-                    isBiotc: event.target.checked,
-                  })
-                }
-              />
-              <div className="mcCheckboxHidden"></div>
-              <span
-                className="mcCheckboxLabel"
-                title="Best Image of the Category"
-              >
-                Biotc
-              </span>
-            </label>
-            <label htmlFor="portraitCb" className="mcCheckboxContainer">
-              <input
-                type="checkbox"
-                id="portraitCb"
-                checked={this.state.isPortrait}
-                onChange={(event) =>
-                  this.setState({
-                    isPortrait: event.target.checked,
-                  })
-                }
-              />
-              <div className="mcCheckboxHidden"></div>
-              <span className="mcCheckboxLabel" title="Portrait">
-                Portrait
-              </span>
-            </label>
-            <label htmlFor="panaromaCb" className="mcCheckboxContainer">
-              <input
-                type="checkbox"
-                id="panaromaCb"
-                checked={this.state.isPanorama}
-                onChange={(event) =>
-                  this.setState({
-                    isPanorama: event.target.checked,
-                  })
-                }
-              />
-              <div className="mcCheckboxHidden"></div>
-              <span className="mcCheckboxLabel" title="Panorama">
-                Panorama
-              </span>
-            </label>
-          </div>
+          {this.checkBoxToggles()}
           <input
             type="submit"
             value="Upload"

@@ -201,7 +201,8 @@
               border: 1px solid #5bba47;
             }
           }
-          .signin {
+          .signin,
+          .changePwd {
             flex-direction: row;
             justify-content: space-between;
             input {
