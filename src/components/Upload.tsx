@@ -17,12 +17,14 @@ const Upload: React.FunctionComponent = () => {
 
   useEffect(() => {
     Auth.currentAuthenticatedUser().then(
-      (user) => {
-        console.log("user ", user);
+      () => {
         allowUpload();
       },
       (error) => {
-        console.log("error ", error);
+        console.error(
+          "Failed to fetch current user details with error: ",
+          error
+        );
         setTemplateState({
           fetchingCurrentUserDetails: false,
           userPresent: false,

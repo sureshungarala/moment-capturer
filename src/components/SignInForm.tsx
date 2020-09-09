@@ -75,7 +75,6 @@ const SignInForm: React.FunctionComponent<signInFormProps> = (
 
     Auth.signIn(credentials.username, credentials.password).then(
       (data) => {
-        console.log("user data ", data);
         setCurrentUser(data);
         setFormState({
           processing: false,
@@ -89,7 +88,7 @@ const SignInForm: React.FunctionComponent<signInFormProps> = (
         }
       },
       (error) => {
-        console.log("erorrr in signIn", error);
+        console.error("Failed to sign with error: ", error);
         setFormState({
           processing: false,
           succeeded: false,
@@ -107,16 +106,16 @@ const SignInForm: React.FunctionComponent<signInFormProps> = (
     });
 
     Auth.completeNewPassword(currentUser, newPassword).then(
-      (data) => {
+      () => {
         setFormState({
           processing: false,
           failed: false,
           succeeded: true,
         });
-        // props.onUserFound();
+        props.onUserFound();
       },
       (error) => {
-        console.log("erorrr in updatePassword", error);
+        console.error("Failed to update password with error: ", error);
         setFormState({
           processing: false,
           succeeded: false,

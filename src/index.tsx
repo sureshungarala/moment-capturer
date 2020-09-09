@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import { createStore, applyMiddleware } from "redux";
 import thunk, { ThunkDispatch } from "redux-thunk";
 import { Provider } from "react-redux";
-import { Amplify, Hub } from "@aws-amplify/core";
+import { Amplify } from "@aws-amplify/core";
 
 import { McAction } from "./redux/actions";
 import reducer, { McState } from "./redux/reducers";

@@ -27,37 +27,33 @@ export default class Image extends React.Component<imageProps, imageState> {
       showModal: false,
     };
     this.containerRef = React.createRef();
-    this.openModal = this.openModal.bind(this);
-    this.closeModal = this.closeModal.bind(this);
-    this.escapeModal = this.escapeModal.bind(this);
-    this.handleImgError = this.handleImgError.bind(this);
   }
 
-  handleImgError() {
-    console.log(`${this.props.original} failed to load!`);
-  }
+  handleImgError = () => {
+    console.error(`${this.props.original} failed to load!`);
+  };
 
-  openModal() {
+  openModal = () => {
     this.setState({
       showModal: true,
     });
-  }
+  };
 
-  closeModal(event: React.MouseEvent | React.KeyboardEvent) {
+  closeModal = (event: React.MouseEvent | React.KeyboardEvent) => {
     event.stopPropagation();
     this.setState({
       showModal: false,
     });
-  }
+  };
 
-  escapeModal(event: KeyboardEvent) {
+  escapeModal = (event: KeyboardEvent) => {
     if (event.keyCode === 27) {
       this.state.showModal &&
         this.setState({
           showModal: false,
         });
     }
-  }
+  };
 
   componentDidMount() {
     //For later: if no support for IntersectionObserver, render image
@@ -65,7 +61,7 @@ export default class Image extends React.Component<imageProps, imageState> {
       (entries: Array<IntersectionObserverEntry>) => {
         const entry = entries[0],
           { isIntersecting } = entry;
-        console.log("isIntersecting ", isIntersecting);
+        console.info("isIntersecting ", isIntersecting);
         if (isIntersecting) {
           let sources = [];
           for (let key in this.props.srcSet) {

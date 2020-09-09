@@ -147,12 +147,12 @@ export default class extends React.Component<uploadProps, uploadState> {
                     requestStatusSuccess: false,
                     requestStatusMsg: `Failed to process ${imageName}. Try again!`,
                   });
-                  console.error("CSR failed with error ", error);
+                  console.error("CSR failed with error: ", error);
                 }
               );
             },
             (error) => {
-              console.error("Authorization failed ", error);
+              console.error("Authorization failed: ", error);
               window.location.reload();
             }
           );
