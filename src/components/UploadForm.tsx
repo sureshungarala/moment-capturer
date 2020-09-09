@@ -1,4 +1,7 @@
 import React from "react";
+import { Auth } from "@aws-amplify/auth";
+import { CognitoUserSession } from "amazon-cognito-identity-js";
+
 import categoryArray from "../info/categories.json";
 import Categories from "./Categories";
 
@@ -82,14 +85,14 @@ export default class extends React.Component<uploadProps, uploadState> {
         fileStatusMsg: "No file selected",
       });
     }
-
-    console.log(event.target.files);
-    console.log("value changed");
   }
 
+  /**
+   * Checks user authorization and uploads
+   * @param event
+   */
   handleSubmit(event: React.FormEvent) {
     event.preventDefault();
-    console.log(this.state);
     if (
       this.state.files &&
       this.state.files.length !== 0 &&
@@ -107,7 +110,7 @@ export default class extends React.Component<uploadProps, uploadState> {
 
       reader.addEventListener("load", () => {
         image.addEventListener("load", () => {
-          console.log(window.performance.now() - start);
+          console.info(window.performance.now() - start);
           let body = JSON.stringify({
             image: reader.result,
             imageName: imageName,
@@ -118,32 +121,41 @@ export default class extends React.Component<uploadProps, uploadState> {
             portrait: this.state.isPortrait,
             description: this.state.description,
           });
-
-          try {
-            const response = fetch("https://api.momentcapturer.com/csr", {
-              method: "POST",
-              mode: "cors",
-              headers: {
-                "content-type": "application/json",
-                accept: "application/json",
-              },
-              body,
-            }).then(() => {
-              this.setState({
-                requestProcessing: false,
-                requestStatusSuccess: true,
-                requestStatusMsg: `${imageName} processed successfully.`,
-              });
-              console.log("CSR succeeded with response ", response);
-            });
-          } catch (err) {
-            this.setState({
-              requestProcessing: false,
-              requestStatusSuccess: false,
-              requestStatusMsg: `Failed to process ${imageName}. Try again!`,
-            });
-            console.log("CSR failed with error ", err);
-          }
+          Auth.currentSession().then(
+            (session: CognitoUserSession) => {
+              const idToken = session.getIdToken().getJwtToken();
+              fetch("https://api.momentcapturer.com/csr", {
+                method: "POST",
+                mode: "cors",
+                headers: {
+                  "content-type": "application/json",
+                  accept: "application/json",
+                  Authorization: idToken,
+                },
+                body,
+              }).then(
+                () => {
+                  this.setState({
+                    requestProcessing: false,
+                    requestStatusSuccess: true,
+                    requestStatusMsg: `${imageName} processed successfully.`,
+                  });
+                },
+                (error) => {
+                  this.setState({
+                    requestProcessing: false,
+                    requestStatusSuccess: false,
+                    requestStatusMsg: `Failed to process ${imageName}. Try again!`,
+                  });
+                  console.error("CSR failed with error ", error);
+                }
+              );
+            },
+            (error) => {
+              console.error("Authorization failed ", error);
+              window.location.reload();
+            }
+          );
         });
         image.src = window.URL.createObjectURL(file);
       });
@@ -268,7 +280,6 @@ export default class extends React.Component<uploadProps, uploadState> {
           {this.textArea()}
           <Categories
             onSelectCategory={(category, categoryTag) => {
-              console.log("in upload ", category);
               this.setState({
                 categorySelected: categoryTag,
               });
