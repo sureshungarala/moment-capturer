@@ -213,13 +213,8 @@ input[type="button"] {
     z-index: 1;
   }
 
-  input[type="checkbox"]:not(:checked) + .mcCheckboxHidden:hover {
-    background-color: $secondaryColor;
+  input[type="checkbox"] + .mcCheckboxHidden:hover {
     box-shadow: 0 0 2px 2px $primaryColor;
-
-    &::before {
-      @include showCheckmark;
-    }
   }
 
   input[type="checkbox"]:active,
