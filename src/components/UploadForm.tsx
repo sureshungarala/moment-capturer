@@ -29,7 +29,7 @@ export default class extends React.Component<uploadProps, uploadState> {
 
   constructor(props: uploadProps) {
     super(props);
-    this.maxFileSizeInKB = 350;
+    this.maxFileSizeInKB = 5 * 1024;
     this.state = {
       files: null,
       fileStatusSuccess: true,
