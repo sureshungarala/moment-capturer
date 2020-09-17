@@ -2,9 +2,12 @@ import React from "react";
 import { connect } from "react-redux";
 import { ThunkDispatch } from "redux-thunk";
 import { withRouter, RouteComponentProps, NavLink } from "react-router-dom";
-import { setCategory, getImages, McAction, SET_IMAGES } from "../redux/actions";
-import { McState } from "../redux/reducers";
+
+import { setCategory, getImages, SET_IMAGES } from "../redux/actions";
+
 import Categories from "./Categories";
+import { McAction, McState } from "../info/types";
+
 import ProfilesHandheld from "./Profiles";
 
 interface MapDispatchToProps {

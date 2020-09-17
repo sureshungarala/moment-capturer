@@ -5,8 +5,8 @@ import thunk, { ThunkDispatch } from "redux-thunk";
 import { Provider } from "react-redux";
 import { Amplify } from "@aws-amplify/core";
 
-import { McAction } from "./redux/actions";
-import reducer, { McState } from "./redux/reducers";
+import reducer from "./redux/reducers";
+import { McAction, McState } from "./info/types";
 
 import App from "./App";
 import "./index.css";

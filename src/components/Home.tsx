@@ -1,15 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
 import { ThunkDispatch } from "redux-thunk";
-import {
-  Image,
-  McMoments,
-  initMoments,
-  getImages,
-  McAction,
-} from "../redux/actions";
-import { McState } from "../redux/reducers";
+
 import ImageComponent from "./Image";
+
+import { initMoments, getImages } from "../redux/actions";
+import { Image, McMoments, McAction, McState } from "../info/types";
 
 interface MapStateToProps {
   images: McMoments;
@@ -23,8 +19,7 @@ interface MapDispatchToProps {
 interface homeProps extends MapStateToProps, MapDispatchToProps {}
 
 const Home: React.FunctionComponent<homeProps> = (props: homeProps) => {
-  const biotc = props.images.biotc,
-    images = props.images.moments;
+  const { biotc, moments: images } = props.images;
   return (
     <div className="category-home">
       {props.fetchingImages && (
@@ -34,30 +29,10 @@ const Home: React.FunctionComponent<homeProps> = (props: homeProps) => {
       )}
       {!props.fetchingImages && (
         <React.Fragment>
-          {biotc.original.length > 0 && (
-            <ImageComponent
-              original={biotc.original}
-              srcSet={biotc.srcSet}
-              description={biotc.description}
-              updateTime={biotc.updateTime}
-              resolution={biotc.resolution}
-              key={biotc.updateTime}
-            />
-          )}
+          {biotc.original.length > 0 && <ImageComponent {...biotc} />}
           <div className="images-container">
             {images.map((image: Image) => {
-              return (
-                <ImageComponent
-                  original={image.original}
-                  srcSet={image.srcSet}
-                  panorama={image.panorama}
-                  portrait={image.portrait}
-                  description={image.description}
-                  updateTime={image.updateTime}
-                  resolution={image.resolution}
-                  key={image.updateTime}
-                />
-              );
+              return <ImageComponent {...image} />;
             })}
           </div>
         </React.Fragment>

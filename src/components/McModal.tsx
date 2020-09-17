@@ -1,9 +1,8 @@
 import React from "react";
 
-interface McModalProps {
-  src: string;
-  description: string;
-  resoution: string;
+import { Image } from "../info/types";
+
+interface McModalProps extends Image {
   closeModal: (event: React.MouseEvent | React.KeyboardEvent) => void;
 }
 
@@ -14,7 +13,7 @@ export default class McModal extends React.Component<
   McModalState
 > {
   render() {
-    const resolution = this.props.resoution.split(":").map(Number);
+    const resolution = this.props.resolution.split(":").map(Number);
     return (
       <div className="mcModal">
         <div
@@ -31,7 +30,7 @@ export default class McModal extends React.Component<
           }}
         >
           <div className="mcModalBody">
-            <img src={this.props.src} alt={this.props.description} />
+            <img src={this.props.original} alt={this.props.description} />
             <div className="description">descriptionn</div>
           </div>
         </div>

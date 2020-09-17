@@ -1,17 +1,7 @@
 import React from "react";
 import McModal from "./McModal";
 
-interface imageProps {
-  srcSet: {
-    [size: string]: string;
-  };
-  original: string;
-  resolution: string;
-  panorama?: boolean;
-  portrait?: boolean;
-  description: string;
-  updateTime?: number;
-}
+import { Image as imageProps } from "../info/types";
 
 interface imageState {
   children: React.ReactFragment;
@@ -121,12 +111,7 @@ export default class Image extends React.Component<imageProps, imageState> {
       >
         {this.state.children}
         {this.state.showModal && (
-          <McModal
-            src={this.props.original}
-            resoution={this.props.resolution}
-            description={this.props.description}
-            closeModal={this.closeModal}
-          />
+          <McModal {...this.props} closeModal={this.closeModal} />
         )}
       </div>
     );

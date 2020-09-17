@@ -1,30 +1,5 @@
-import { AnyAction } from "redux";
 import { ThunkDispatch, ThunkAction } from "redux-thunk";
-import { McState } from "../reducers";
-
-export interface Image {
-  original: string;
-  updateTime: number;
-  srcSet: {
-    [key: string]: string;
-  };
-  description: string;
-  biotc: boolean;
-  panorama: boolean;
-  portrait: boolean;
-  resolution: string;
-}
-
-export interface McMoments {
-  biotc: Image;
-  moments: Array<Image>;
-}
-
-export interface McAction extends AnyAction {
-  category?: string;
-  categoryTag?: string;
-  images?: McMoments;
-}
+import { Image, McMoments, McAction, McState } from "../../info/types";
 
 export const SET_CATEGORY = "SET_CATEGORY";
 export const SET_IMAGES = "SET_IMAGES";
@@ -60,7 +35,7 @@ export function setCategory(
 }
 
 export function getImages(
-  category: string,
+  categoryTag: string,
   actionType: string
 ): ThunkAction<Promise<void>, McState, {}, McAction> {
   return async (
@@ -71,15 +46,15 @@ export function getImages(
     });
     try {
       const response = await fetch(
-        `https://api.momentcapturer.com/getData?category=${category.toLowerCase()}`,
+        `https://api.momentcapturer.com/getData?category=${categoryTag.toLowerCase()}`,
         {
           headers: {
             accept: "application/json",
           },
         }
       );
-      const data = await response.json(),
-        images: McMoments = JSON.parse(JSON.stringify(initMoments));
+      const data = await response.json();
+      const images: McMoments = JSON.parse(JSON.stringify(initMoments));
       (data.images as Image[]).forEach((image: Image) => {
         if (image.biotc) {
           images.biotc = image;

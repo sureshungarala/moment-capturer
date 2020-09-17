@@ -1,6 +1,4 @@
 import {
-  McAction,
-  McMoments,
   initMoments,
   SET_CATEGORY,
   SET_IMAGES,
@@ -8,15 +6,8 @@ import {
   FETCHING_IMAGES,
   FETCH_FAILED,
 } from "../actions";
+import { McAction, McState } from "../../info/types";
 import categories from "../../info/categories.json";
-
-export interface McState {
-  readonly category?: string;
-  readonly categoryTag?: string;
-  readonly images?: McMoments;
-  readonly fetchingImages?: boolean;
-  readonly fetchingFailed?: boolean;
-}
 
 export const initState: McState = {
   category: categories[0].tag.length

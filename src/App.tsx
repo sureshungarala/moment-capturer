@@ -16,7 +16,6 @@ function App() {
         <div className="mcBody">
           <Switch>
             <Route path="/upload" component={Upload} exact></Route>
-            {/* <Route path="/upload" component={UploadForm} exact></Route> */}
             <Route path="/:categoryTag" component={Home}></Route>
           </Switch>
         </div>
