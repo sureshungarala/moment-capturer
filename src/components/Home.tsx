@@ -32,7 +32,7 @@ const Home: React.FunctionComponent<homeProps> = (props: homeProps) => {
           {biotc.original.length > 0 && <ImageComponent {...biotc} />}
           <div className="images-container">
             {images.map((image: Image) => {
-              return <ImageComponent {...image} />;
+              return <ImageComponent {...image} key={image.updateTime} />;
             })}
           </div>
         </React.Fragment>

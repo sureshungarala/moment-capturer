@@ -1,5 +1,6 @@
 import React from "react";
 
+import { getModalDimensions } from "../utils/helpers";
 import { Image } from "../info/types";
 
 interface McModalProps extends Image {
@@ -14,24 +15,19 @@ export default class McModal extends React.Component<
 > {
   render() {
     const resolution = this.props.resolution.split(":").map(Number);
+    const { width, height } = getModalDimensions(this.props);
     return (
       <div className="mcModal">
         <div
           className="mcModalContent"
           style={{
-            width:
-              window.innerWidth > resolution[0]
-                ? resolution[0] + "px"
-                : window.innerWidth - 20 + "px",
-            height:
-              window.innerHeight > resolution[1]
-                ? resolution[1] + "px"
-                : window.innerHeight - 20 + "px",
+            width: width + "px",
+            height: height + "px",
           }}
         >
           <div className="mcModalBody">
             <img src={this.props.original} alt={this.props.description} />
-            <div className="description">descriptionn</div>
+            <div className="description">{this.props.description}</div>
           </div>
         </div>
         <div

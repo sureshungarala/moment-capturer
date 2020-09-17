@@ -31,3 +31,8 @@ export interface McState {
   readonly fetchingImages?: boolean;
   readonly fetchingFailed?: boolean;
 }
+
+export interface ModalDimensions {
+  width: number;
+  height: number;
+}
