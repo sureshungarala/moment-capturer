@@ -48,16 +48,13 @@ export default class extends React.Component<uploadProps, uploadState> {
     };
     this.fileRef = React.createRef();
     this.descriptionRef = React.createRef();
-    this.openFileDialog = this.openFileDialog.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  openFileDialog() {
+  openFileDialog = () => {
     this.fileRef.current && this.fileRef.current.click();
-  }
+  };
 
-  handleChange(event: React.ChangeEvent<HTMLInputElement>) {
+  handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
     if (files && files.length) {
       if (files[0].size <= this.maxFileSizeInKB * 1024) {
@@ -85,13 +82,13 @@ export default class extends React.Component<uploadProps, uploadState> {
         fileStatusMsg: "No file selected",
       });
     }
-  }
+  };
 
   /**
    * Checks user authorization and uploads
    * @param event
    */
-  handleSubmit(event: React.FormEvent) {
+  handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     if (
       this.state.files &&
@@ -161,7 +158,7 @@ export default class extends React.Component<uploadProps, uploadState> {
       });
       reader.readAsDataURL(file);
     }
-  }
+  };
 
   textArea = () => (
     <textarea
@@ -226,11 +223,14 @@ export default class extends React.Component<uploadProps, uploadState> {
           type="checkbox"
           id="portraitCb"
           checked={this.state.isPortrait}
-          onChange={(event) =>
-            this.setState({
-              isPortrait: event.target.checked,
-            })
-          }
+          onChange={(event) => {
+            const isChecked = event.target.checked;
+            this.setState((state: uploadState) => ({
+              // should negate each other
+              isPortrait: isChecked,
+              isPanorama: isChecked ? false : state.isPanorama,
+            }));
+          }}
         />
         <div className="mcCheckboxHidden"></div>
         <span className="mcCheckboxLabel" title="Portrait">
@@ -242,11 +242,13 @@ export default class extends React.Component<uploadProps, uploadState> {
           type="checkbox"
           id="panaromaCb"
           checked={this.state.isPanorama}
-          onChange={(event) =>
-            this.setState({
-              isPanorama: event.target.checked,
-            })
-          }
+          onChange={(event) => {
+            const isChecked = event.target.checked;
+            this.setState((state: uploadState) => ({
+              isPanorama: isChecked,
+              isPortrait: isChecked ? false : state.isPortrait,
+            }));
+          }}
         />
         <div className="mcCheckboxHidden"></div>
         <span className="mcCheckboxLabel" title="Panorama">
