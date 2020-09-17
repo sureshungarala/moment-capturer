@@ -25,11 +25,11 @@ interface uploadState {
 export default class extends React.Component<uploadProps, uploadState> {
   fileRef: React.RefObject<HTMLInputElement>;
   descriptionRef: React.RefObject<HTMLTextAreaElement>;
-  maxFileSizeInKB: number;
+  maxFileSizeInMB: number;
 
   constructor(props: uploadProps) {
     super(props);
-    this.maxFileSizeInKB = 5 * 1024;
+    this.maxFileSizeInMB = 4.3;
     this.state = {
       files: null,
       fileStatusSuccess: true,
@@ -57,7 +57,7 @@ export default class extends React.Component<uploadProps, uploadState> {
   handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
     if (files && files.length) {
-      if (files[0].size <= this.maxFileSizeInKB * 1024) {
+      if (files[0].size <= this.maxFileSizeInMB * 1024 * 1024) {
         this.setState(
           {
             files,
@@ -72,7 +72,7 @@ export default class extends React.Component<uploadProps, uploadState> {
         this.setState({
           files: files,
           fileStatusSuccess: false,
-          fileStatusMsg: `Max file size: ${this.maxFileSizeInKB}KB`,
+          fileStatusMsg: `Max file size: ${this.maxFileSizeInMB}MB`,
         });
       }
     } else {
