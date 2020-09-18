@@ -2,6 +2,7 @@ import React from "react";
 import { Auth } from "@aws-amplify/auth";
 import { CognitoUserSession } from "amazon-cognito-identity-js";
 
+import { MAX_IMAGE_SIZE_IN_MB } from "../utils/helpers";
 import categoryArray from "../info/categories.json";
 import Categories from "./Categories";
 
@@ -25,11 +26,9 @@ interface uploadState {
 export default class extends React.Component<uploadProps, uploadState> {
   fileRef: React.RefObject<HTMLInputElement>;
   descriptionRef: React.RefObject<HTMLTextAreaElement>;
-  maxFileSizeInMB: number;
 
   constructor(props: uploadProps) {
     super(props);
-    this.maxFileSizeInMB = 4.3;
     this.state = {
       files: null,
       fileStatusSuccess: true,
@@ -57,7 +56,7 @@ export default class extends React.Component<uploadProps, uploadState> {
   handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
     if (files && files.length) {
-      if (files[0].size <= this.maxFileSizeInMB * 1024 * 1024) {
+      if (files[0].size <= MAX_IMAGE_SIZE_IN_MB * 1024 * 1024) {
         this.setState(
           {
             files,
@@ -72,7 +71,7 @@ export default class extends React.Component<uploadProps, uploadState> {
         this.setState({
           files: files,
           fileStatusSuccess: false,
-          fileStatusMsg: `Max file size: ${this.maxFileSizeInMB}MB`,
+          fileStatusMsg: `Max file size: ${MAX_IMAGE_SIZE_IN_MB}MB`,
         });
       }
     } else {

@@ -104,7 +104,7 @@ export default class Image extends React.Component<imageProps, imageState> {
             ? "panorama"
             : this.props.portrait
             ? "portrait"
-            : ""
+            : "landscape"
         }`}
         ref={this.containerRef}
         onClick={this.openModal}

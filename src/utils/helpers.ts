@@ -1,5 +1,14 @@
 import { Image, ModalDimensions } from "../info/types";
 
+/**
+ * represents max size of the upload image
+ */
+export const MAX_IMAGE_SIZE_IN_MB = 4.3;
+
+/**
+ * determines dimensions of the modal w.r.to clicked image and device
+ * @param image
+ */
 export function getModalDimensions(image: Image): ModalDimensions {
   const deviceWidth = window.innerWidth - 20;
   const deviceHeight = window.innerHeight - 20;
