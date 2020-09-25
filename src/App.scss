@@ -354,17 +354,9 @@
       }
 
       .close {
+        @include imageActionBtn;
         position: absolute;
         background-image: url("assets/close.svg");
-        width: 30px;
-        height: 30px;
-        top: 15px;
-        right: 15px;
-        background-repeat: no-repeat;
-        background-position: center;
-        border: 2px solid $secondaryColor;
-        border-radius: 50px;
-        cursor: pointer;
         &:hover {
           transform: rotate(360deg);
           transition-duration: 500ms;

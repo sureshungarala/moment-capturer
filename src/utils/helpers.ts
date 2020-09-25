@@ -1,4 +1,5 @@
-import { Image, ModalDimensions } from "../info/types";
+import { Image, ModalDimensions, Category } from "../info/types";
+import categories from "../info/categories.json";
 
 /**
  * represents max size of the upload image
@@ -37,5 +38,22 @@ export function getModalDimensions(image: Image): ModalDimensions {
   return {
     width,
     height,
+  };
+}
+
+/**
+ * returns first category from categories
+ */
+export function getFirstCategory(): Category {
+  const categoryName = categories[0].tag.length
+    ? categories[0].name
+    : categories[0].submenu[0].name;
+  const categoryTag = categories[0].tag.length
+    ? categories[0].tag
+    : categories[0].submenu[0].tag;
+
+  return {
+    name: categoryName,
+    tag: categoryTag,
   };
 }

@@ -1,4 +1,5 @@
 import React, { MouseEvent, KeyboardEvent, useState, useEffect } from "react";
+import { getFirstCategory } from "../utils/helpers";
 import categories from "../info/categories.json";
 
 interface category {
@@ -39,7 +40,7 @@ const CategoriesDropDown: React.FunctionComponent<dropDownProps> = (
 };
 
 interface categoriesState {
-  category: string;
+  categoryName: string;
   categoryTag: string;
   closeDropdown: boolean;
 }
@@ -52,27 +53,24 @@ interface categoriesProps {
 const Categories: React.FunctionComponent<categoriesProps> = (
   props: categoriesProps
 ) => {
-  let category = categories[0].tag.length
-      ? categories[0].name
-      : categories[0].submenu[0].name,
-    categoryTag = categories[0].tag.length
-      ? categories[0].tag
-      : categories[0].submenu[0].tag;
+  const firstCategory = getFirstCategory();
+  let categoryName = firstCategory.name;
+  let categoryTag = firstCategory.tag;
 
   const [state, setState] = useState<categoriesState>({
     //no conditional statements before useState or useEffect
-    category,
+    categoryName,
     categoryTag,
     closeDropdown: false,
   });
 
   useEffect(() => {
     setState({
-      category,
+      categoryName,
       categoryTag,
       closeDropdown: false,
     });
-    props.onSelectCategory(category, categoryTag);
+    props.onSelectCategory(categoryName, categoryTag);
   }, []); //componentDidMount
 
   useEffect(() => {
@@ -82,7 +80,7 @@ const Categories: React.FunctionComponent<categoriesProps> = (
         closeDropdown: !state.closeDropdown,
       });
       props.onSelectCategory &&
-        props.onSelectCategory(state.category, state.categoryTag);
+        props.onSelectCategory(state.categoryName, state.categoryTag);
     }
   }, [state.closeDropdown]); //componentDidUpdate
 
@@ -94,7 +92,7 @@ const Categories: React.FunctionComponent<categoriesProps> = (
     parentLoop: for (let ctgry of categories) {
       if (ctgry.tag.length) {
         if (ctgry.tag.toLowerCase() === props.routeCategoryTag.toLowerCase()) {
-          category = ctgry.name;
+          categoryName = ctgry.name;
           categoryTag = ctgry.tag;
           break;
         }
@@ -104,7 +102,7 @@ const Categories: React.FunctionComponent<categoriesProps> = (
             subCategory.tag.toLowerCase() ===
             props.routeCategoryTag.toLowerCase()
           ) {
-            category = subCategory.name;
+            categoryName = subCategory.name;
             categoryTag = subCategory.tag;
             break parentLoop;
           }
@@ -122,9 +120,9 @@ const Categories: React.FunctionComponent<categoriesProps> = (
       );
     selectedCategory &&
       selectedCategory.length &&
-      selectedCategory !== state.category &&
+      selectedCategory !== state.categoryName &&
       setState({
-        category: "" + selectedCategory,
+        categoryName: "" + selectedCategory,
         categoryTag: "" + seletedCategoryTag,
         closeDropdown: true,
       });
@@ -134,7 +132,7 @@ const Categories: React.FunctionComponent<categoriesProps> = (
     <div className="categories">
       <span className="title">Category: </span>
       <div className="categories-dd">
-        <div className="selectedCategory">{state.category}</div>
+        <div className="selectedCategory">{state.categoryName}</div>
         {!state.closeDropdown && (
           <CategoriesDropDown
             onClickHandler={(event) => changeCategory(event)}

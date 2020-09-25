@@ -4,8 +4,6 @@ import Header from "./components/Header";
 import Home from "./components/Home";
 import Footer from "./components/Footer";
 import Upload from "./components/Upload";
-import SignInForm from "./components/SignInForm";
-import UploadForm from "./components/UploadForm";
 import "./App.scss";
 
 function App() {

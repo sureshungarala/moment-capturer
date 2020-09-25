@@ -14,7 +14,6 @@ export default class McModal extends React.Component<
   McModalState
 > {
   render() {
-    const resolution = this.props.resolution.split(":").map(Number);
     const { width, height } = getModalDimensions(this.props);
     return (
       <div className="mcModal">
