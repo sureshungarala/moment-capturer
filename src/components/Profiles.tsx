@@ -1,22 +1,11 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 
 const Profiles: React.FunctionComponent = () => {
   return (
-    <div className="profiles-handheld">
+    <div className="profiles">
       <div className="profilePic"></div>
       <ul>
-        <li>
-          <a target="_blank" rel="noopener noreferrer" href="">
-            <span></span>
-            <span>Nat Geo</span>
-          </a>
-        </li>
-        <li>
-          <a target="_blank" rel="noopener noreferrer" href="">
-            <span></span>
-            <span>Canon</span>
-          </a>
-        </li>
         <li>
           <a target="_blank" rel="noopener noreferrer" href="">
             <span></span>
@@ -28,6 +17,9 @@ const Profiles: React.FunctionComponent = () => {
             <span></span>
             <span>Facebook</span>
           </a>
+        </li>
+        <li>
+          <NavLink to="/upload">Add Captures</NavLink>
         </li>
       </ul>
     </div>

@@ -19,6 +19,7 @@ export const initState: McState = {
   images: initMoments,
   fetchingImages: false,
   fetchingFailed: false,
+  signedIn: false,
 };
 
 export function reducer(state: McState = initState, action: McAction): McState {

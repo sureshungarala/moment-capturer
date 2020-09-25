@@ -1,22 +1,17 @@
 import React from "react";
 import { connect } from "react-redux";
-import { ThunkDispatch } from "redux-thunk";
 
 import ImageComponent from "./Image";
 
-import { initMoments, getImages } from "../redux/actions";
-import { Image, McMoments, McAction, McState } from "../info/types";
+import { initMoments } from "../redux/actions";
+import { Image, McMoments, McState } from "../info/types";
 
 interface MapStateToProps {
   images: McMoments;
   fetchingImages: boolean;
 }
 
-interface MapDispatchToProps {
-  getImages: (categoryTag: string, actionType: string) => Promise<void>;
-}
-
-interface homeProps extends MapStateToProps, MapDispatchToProps {}
+interface homeProps extends MapStateToProps {}
 
 const Home: React.FunctionComponent<homeProps> = (props: homeProps) => {
   const { biotc, moments: images } = props.images;
@@ -48,17 +43,4 @@ const mapStateToProps = (state: McState): MapStateToProps => {
   };
 };
 
-const mapDispatchToProps = (
-  dispatch: ThunkDispatch<McState, {}, McAction>
-): MapDispatchToProps => {
-  return {
-    getImages: async (categoryTag: string, actionType: string) => {
-      await dispatch(getImages(categoryTag, actionType));
-    },
-  };
-};
-
-export default connect<MapStateToProps, MapDispatchToProps>(
-  mapStateToProps,
-  mapDispatchToProps
-)(Home);
+export default connect<MapStateToProps>(mapStateToProps)(Home);

@@ -30,6 +30,7 @@ export interface McState {
   readonly images?: McMoments;
   readonly fetchingImages?: boolean;
   readonly fetchingFailed?: boolean;
+  readonly signedIn?: boolean;
 }
 
 export interface ModalDimensions {

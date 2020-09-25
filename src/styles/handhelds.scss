@@ -7,6 +7,7 @@
 
       .logoSection {
         flex-basis: 55%;
+        margin-left: 1vmax;
         @include flexXalignCentered;
 
         .logo {
@@ -48,61 +49,20 @@
             .selectedCategory:hover + ul,
             ul:hover {
               left: auto;
-              width: 110px;
+              width: $ulHandheldWidthOnHover;
             }
 
             ul li:hover ul,
             ul li:focus-within ul,
             ul li ul:hover {
               left: -95%;
-              width: 110px;
+              width: $ulHandheldWidthOnHover;
             }
           }
         }
 
-        .profiles {
-          display: none;
-        }
-
-        .profiles-handheld {
-          position: relative;
-          display: flex !important;
-          justify-content: flex-end;
-          margin-left: 5px;
-
-          .profilePic {
-            border: 1px solid grey;
-            border-radius: 50px;
-            min-width: 1.5em;
-            min-height: 1.5em;
-          }
-
-          ul {
-            @include initDropdownState;
-
-            li {
-              position: relative;
-              font-size: calc(10px + 1.5vmin);
-              padding: 5px 0px 5px 10px;
-
-              a {
-                display: block;
-                color: black;
-                text-decoration: none;
-              }
-
-              &:active,
-              &:focus {
-                background-color: #ddd;
-              }
-            }
-          }
-
-          .profilePic:hover + ul,
-          ul:hover {
-            @include showDropdown;
-            z-index: 1;
-          }
+        .profiles ul {
+          width: $ulHandheldWidthOnHover !important;
         }
       }
     }

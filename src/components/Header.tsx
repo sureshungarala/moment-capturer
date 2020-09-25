@@ -8,7 +8,7 @@ import { setCategory, getImages, SET_IMAGES } from "../redux/actions";
 import Categories from "./Categories";
 import { McAction, McState } from "../info/types";
 
-import ProfilesHandheld from "./Profiles";
+import Profiles from "./Profiles";
 
 interface MapDispatchToProps {
   setCategory: (category: string, categoryTag: string) => void;
@@ -63,15 +63,7 @@ class Header extends React.Component<headerProps> {
             onSelectCategory={this.updateCategory}
             routeCategoryTag={routeCategoryTag}
           />
-          <div className="profiles">
-            <div className="instagram">In</div>
-            <div className="facebook">Fb</div>
-            <div className="someOther">So</div>
-            <div className="profilePic" onClick={() => {}}>
-              <NavLink to="/upload">Upload</NavLink>
-            </div>
-          </div>
-          <ProfilesHandheld />
+          <Profiles />
         </div>
       </header>
     );
