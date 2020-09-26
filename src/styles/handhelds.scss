@@ -71,30 +71,31 @@
       height: calc(100vh - 8vmax);
       padding-top: 8vmax; //w.r.to header height
 
-      .upload-form {
-        .categories {
-          .categories-dd {
-            justify-content: flex-end;
+      .upload-form,
+      .imageActionFormContainer .editForm {
+        .categories .categories-dd {
+          justify-content: flex-end;
 
-            .selectedCategory:hover + ul,
-            ul:hover {
-              left: auto;
-              width: 110px;
-            }
+          .selectedCategory:hover + ul,
+          ul:hover {
+            left: auto;
+            width: 110px;
+          }
 
-            ul li:hover ul,
-            ul li:focus-within ul,
-            ul li ul:hover {
-              left: -95%;
-              width: 110px;
-            }
+          ul li:hover ul,
+          ul li:focus-within ul,
+          ul li ul:hover {
+            left: -95%;
+            width: 110px;
           }
         }
       }
 
       .category-home {
         .imageContainer {
-          pointer-events: none !important;
+          picture {
+            pointer-events: none !important;
+          }
         }
 
         .images-container {

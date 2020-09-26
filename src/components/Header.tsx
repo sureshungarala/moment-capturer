@@ -1,9 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
 import { ThunkDispatch } from "redux-thunk";
-import { withRouter, RouteComponentProps, NavLink } from "react-router-dom";
+import { withRouter, RouteComponentProps } from "react-router-dom";
 
-import { setCategory, getImages, SET_IMAGES } from "../redux/actions";
+import { setCategory, getImages, checkIfUserSignedIn } from "../redux/actions";
 
 import Categories from "./Categories";
 import { McAction, McState } from "../info/types";
@@ -12,7 +12,7 @@ import Profiles from "./Profiles";
 
 interface MapDispatchToProps {
   setCategory: (category: string, categoryTag: string) => void;
-  getImages: (categoryTag: string, actionType: string) => Promise<void>;
+  getImages: (categoryTag: string) => Promise<void>;
 }
 
 interface HeaderRouterProps {
@@ -41,13 +41,13 @@ class Header extends React.Component<headerProps> {
     if ("/upload" !== this.props.location.pathname.trim()) {
       // dont'fetch images from /upload screen
       this.props.history.push("/" + categoryTag);
-      this.props.getImages(categoryTag, SET_IMAGES);
+      this.props.getImages(categoryTag);
     }
   }
 
   redirectToHome() {
     this.props.history.push("/" + this.categoryTag);
-    this.props.getImages(this.categoryTag, SET_IMAGES);
+    this.props.getImages(this.categoryTag);
   }
 
   render() {
@@ -79,8 +79,8 @@ const mapDispatchToProps = (
   dispatch: ThunkDispatch<McState, {}, McAction>
 ): MapDispatchToProps => {
   return {
-    getImages: async (categoryTag: string, actionType: string) => {
-      await dispatch(getImages(categoryTag, actionType));
+    getImages: async (categoryTag: string) => {
+      await dispatch(getImages(categoryTag));
     },
     setCategory: (category: string, categoryTag: string) => {
       dispatch(setCategory(category, categoryTag));

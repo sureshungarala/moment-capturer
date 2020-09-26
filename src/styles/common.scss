@@ -8,8 +8,10 @@ $secondaryColorHovered: rgba(0, 0, 0, 0.75);
 $secondaryColorDisabled: rgba(0, 0, 0, 0.5);
 $alternateDarkOrange: rgba(230, 128, 3, 1);
 $alternateDarkOrangeHovered: rgba(230, 128, 3, 0.75);
+$alertColor: #c91818;
 $mcCheckboxSize: 18px;
 $ulHandheldWidthOnHover: 110px;
+$formBoxShadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
 $transition: all 0.5s ease-in-out;
 
 input[type="button"],
@@ -21,8 +23,10 @@ a {
   appearance: none;
   padding: 0;
   margin: 0;
+  outline: 0;
   text-decoration: none;
   color: $secondaryColorInverted;
+  font-family: "Caveat", cursive;
 }
 
 button,

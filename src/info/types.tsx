@@ -22,6 +22,7 @@ export interface McAction extends AnyAction {
   category?: string;
   categoryTag?: string;
   images?: McMoments;
+  userSignedIn?: boolean;
 }
 
 export interface McState {
@@ -30,10 +31,15 @@ export interface McState {
   readonly images?: McMoments;
   readonly fetchingImages?: boolean;
   readonly fetchingFailed?: boolean;
-  readonly signedIn?: boolean;
+  readonly userSignedIn?: boolean;
 }
 
 export interface ModalDimensions {
   width: number;
   height: number;
+}
+
+export interface Category {
+  name: string;
+  tag: string;
 }

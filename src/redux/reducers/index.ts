@@ -5,21 +5,20 @@ import {
   ADD_IMAGES,
   FETCHING_IMAGES,
   FETCH_FAILED,
+  SET_IF_USER_SIGNED_IN,
 } from "../actions";
 import { McAction, McState } from "../../info/types";
-import categories from "../../info/categories.json";
+import { getFirstCategory } from "../../utils/helpers";
+
+const firstCategory = getFirstCategory();
 
 export const initState: McState = {
-  category: categories[0].tag.length
-    ? categories[0].name
-    : categories[0].submenu[0].name,
-  categoryTag: categories[0].tag.length
-    ? categories[0].tag
-    : categories[0].submenu[0].tag,
+  category: firstCategory.name,
+  categoryTag: firstCategory.tag,
   images: initMoments,
   fetchingImages: false,
   fetchingFailed: false,
-  signedIn: false,
+  userSignedIn: false,
 };
 
 export function reducer(state: McState = initState, action: McAction): McState {
@@ -62,6 +61,11 @@ export function reducer(state: McState = initState, action: McAction): McState {
         ...state,
         fetchingImages: false,
         fetchingFailed: true,
+      };
+    case SET_IF_USER_SIGNED_IN:
+      return {
+        ...state,
+        userSignedIn: action.userSignedIn,
       };
     default:
       return state;

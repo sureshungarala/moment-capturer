@@ -2,8 +2,7 @@ import React from "react";
 import { Auth } from "@aws-amplify/auth";
 import { CognitoUserSession } from "amazon-cognito-identity-js";
 
-import { MAX_IMAGE_SIZE_IN_MB } from "../utils/helpers";
-import categoryArray from "../info/categories.json";
+import { MAX_IMAGE_SIZE_IN_MB, getFirstCategory } from "../utils/helpers";
 import Categories from "./Categories";
 
 interface uploadProps {}
@@ -34,9 +33,7 @@ export default class extends React.Component<uploadProps, uploadState> {
       fileStatusSuccess: true,
       fileStatusMsg: "No file selected",
       description: "",
-      categorySelected: categoryArray[0].tag.length
-        ? categoryArray[0].tag
-        : categoryArray[0].submenu[0].tag,
+      categorySelected: getFirstCategory().tag,
       isBiotc: false,
       isPanorama: false,
       isPortrait: false,
@@ -163,6 +160,7 @@ export default class extends React.Component<uploadProps, uploadState> {
     <textarea
       placeholder="Give some description"
       ref={this.descriptionRef}
+      value={this.state.description}
       onBlur={(event) => {
         this.setState(
           {
@@ -179,7 +177,6 @@ export default class extends React.Component<uploadProps, uploadState> {
           }
         );
       }}
-      value={this.state.description}
       onChange={(event) => {
         this.setState(
           {

@@ -112,7 +112,7 @@
           padding: 0px 15px;
           font-weight: 600;
           border-top: 5px solid $secondaryColor;
-          box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+          box-shadow: $formBoxShadow;
 
           .requestStatus,
           .loginStatus {
@@ -152,7 +152,6 @@
             font-size: 1.5em;
             border-radius: 4px;
             outline: none;
-            font-family: "Caveat", cursive;
           }
 
           textarea {
@@ -187,7 +186,6 @@
 
           input[type="submit"] {
             font-weight: 600;
-            font-family: "Caveat", cursive;
           }
 
           input[type="file"] {
@@ -274,6 +272,15 @@
         }
       }
 
+      .imageContainer {
+        position: relative;
+        &:hover {
+          .editImage .actions {
+            display: block;
+          }
+        }
+      }
+
       & > .imageContainer {
         width: 100%;
 
@@ -285,6 +292,10 @@
             width: 100%;
           }
         }
+
+        .imageActionFormContainer {
+          border-radius: 0px;
+        }
       }
 
       .images-container {
@@ -295,6 +306,13 @@
           &:not(.panorama):not(.portrait) {
             flex-basis: 46vw; //keeping aspect ratio => 3:2
             height: calc(46vw * 0.666); //change them both simultaneously
+          }
+
+          .imageActionFormContainer {
+            .deleteConfirmation,
+            .editForm {
+              min-width: 50%;
+            }
           }
 
           margin: 1%;
@@ -310,6 +328,106 @@
               display: block;
               width: 100%;
               border-radius: 5px;
+            }
+          }
+        }
+      }
+    }
+
+    .editImage {
+      .actions {
+        display: none;
+        & > * {
+          @include imageActionBtn;
+          position: absolute;
+          padding: 3px;
+          border: none;
+          &:hover {
+            transform: scale3d(1.1, 1.1, 1.1);
+          }
+        }
+        .edit {
+          right: 65px;
+          background-image: url("assets/edit.svg");
+        }
+        .delete {
+          background-image: url("assets/delete.svg");
+        }
+      }
+
+      .imageActionFormContainer {
+        @include flexXcentered;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border-radius: 5px;
+        background-color: $secondaryColorInverted;
+        cursor: auto;
+
+        .deleteConfirmation,
+        .editForm {
+          background-color: $secondaryColor;
+          box-shadow: $formBoxShadow;
+          border-radius: 5px;
+          padding: 2vmin;
+
+          .confirmationTxt {
+            font-size: 1.5em;
+            font-weight: 600;
+          }
+
+          textarea {
+            resize: none;
+            border: 1px solid $secondaryColor;
+            border-radius: 3px;
+            margin-top: 1vmin;
+            outline: 0;
+            width: calc(100% - 4px);
+            font-size: 1.1em;
+            font-family: "Caveat", cursive;
+          }
+
+          .categories .categories-dd,
+          .categories .categories-dd .selectedCategory {
+            font-size: 1em;
+          }
+
+          .deleteActions,
+          .editActions {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 2vmin;
+            & > * {
+              padding: 0 2vmin;
+              border-radius: 2px;
+              border: 1px solid $secondaryColorInverted;
+              font-size: 1em;
+              font-weight: 600;
+            }
+            .yesDelete,
+            .yesEdit {
+              margin-left: 2vmin;
+              background-color: $alertColor;
+              &:hover {
+                border-color: $alternateDarkOrange;
+              }
+              &:disabled {
+                background-color: lightgray;
+                cursor: not-allowed;
+              }
+            }
+
+            .yesEdit {
+              background-color: $alternateDarkOrange;
+              &:not([disabled]):hover {
+                border-color: $alternateDarkOrangeHovered;
+              }
+            }
+
+            .cancel:hover {
+              border-color: $primaryColor;
             }
           }
         }

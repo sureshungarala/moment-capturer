@@ -1,11 +1,18 @@
 import React from "react";
+
+import EditImage from "./EditImage";
 import McModal from "./McModal";
 
-import { Image as imageProps } from "../info/types";
+import { Image as imageType } from "../info/types";
 
 interface imageState {
   children: React.ReactFragment;
   showModal: boolean;
+}
+
+interface imageProps extends imageType {
+  userSignedIn: boolean;
+  categoryTag: string;
 }
 
 export default class Image extends React.Component<imageProps, imageState> {
@@ -68,7 +75,7 @@ export default class Image extends React.Component<imageProps, imageState> {
           this.setState(
             {
               children: (
-                <picture>
+                <picture onClick={this.openModal}>
                   {sources}
                   <img
                     alt={this.props.description}
@@ -107,12 +114,12 @@ export default class Image extends React.Component<imageProps, imageState> {
             : "landscape"
         }`}
         ref={this.containerRef}
-        onClick={this.openModal}
       >
         {this.state.children}
         {this.state.showModal && (
           <McModal {...this.props} closeModal={this.closeModal} />
         )}
+        <EditImage {...this.props} />
       </div>
     );
   }

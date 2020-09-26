@@ -1,4 +1,8 @@
 import { ThunkDispatch, ThunkAction } from "redux-thunk";
+import { Auth } from "@aws-amplify/auth";
+
+import { fetchImages } from "../../utils/apis";
+import { getFirstCategory } from "../../utils/helpers";
 import { Image, McMoments, McAction, McState } from "../../info/types";
 
 export const SET_CATEGORY = "SET_CATEGORY";
@@ -6,6 +10,7 @@ export const SET_IMAGES = "SET_IMAGES";
 export const ADD_IMAGES = "ADD_IMAGES";
 export const FETCHING_IMAGES = "FETCHING_IMAGES";
 export const FETCH_FAILED = "FETCH_FAILED";
+export const SET_IF_USER_SIGNED_IN = "SET_IF_USER_SIGNED_IN";
 
 export const initMoments: McMoments = {
   biotc: {
@@ -35,8 +40,7 @@ export function setCategory(
 }
 
 export function getImages(
-  categoryTag: string,
-  actionType: string
+  categoryTag: string
 ): ThunkAction<Promise<void>, McState, {}, McAction> {
   return async (
     dispatch: ThunkDispatch<McState, {}, McAction>
@@ -45,15 +49,7 @@ export function getImages(
       type: FETCHING_IMAGES,
     });
     try {
-      const response = await fetch(
-        `https://api.momentcapturer.com/getData?category=${categoryTag.toLowerCase()}`,
-        {
-          headers: {
-            accept: "application/json",
-          },
-        }
-      );
-      const data = await response.json();
+      const data = await fetchImages(categoryTag);
       const images: McMoments = JSON.parse(JSON.stringify(initMoments));
       (data.images as Image[]).forEach((image: Image) => {
         if (image.biotc) {
@@ -63,7 +59,7 @@ export function getImages(
         }
       });
       dispatch({
-        type: actionType,
+        type: SET_IMAGES,
         images,
       });
     } catch (err) {
@@ -74,16 +70,26 @@ export function getImages(
   };
 }
 
-export function setImages(category: string, images: McMoments): McAction {
-  return {
-    type: SET_IMAGES,
-    images,
-  };
-}
-
-export function addImages(images: McMoments): McAction {
-  return {
-    type: ADD_IMAGES,
-    images,
+export function checkIfUserSignedIn(): ThunkAction<
+  Promise<void>,
+  McState,
+  {},
+  McAction
+> {
+  return async (
+    dispatch: ThunkDispatch<McState, {}, McAction>
+  ): Promise<void> => {
+    try {
+      await Auth.currentAuthenticatedUser();
+      dispatch({
+        type: SET_IF_USER_SIGNED_IN,
+        userSignedIn: true,
+      });
+    } catch (error) {
+      dispatch({
+        type: SET_IF_USER_SIGNED_IN,
+        userSignedIn: false,
+      });
+    }
   };
 }
