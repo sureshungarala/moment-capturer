@@ -7,13 +7,21 @@ const Profiles: React.FunctionComponent = () => {
       <div className="profileMenu"></div>
       <ul>
         <li>
-          <a target="_blank" rel="noopener noreferrer" href="">
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href="https://www.facebook.com/momentcapturer77"
+          >
             <span></span>
             <span>Instagram</span>
           </a>
         </li>
         <li>
-          <a target="_blank" rel="noopener noreferrer" href="">
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href="https://www.instagram.com/i_am_the_moment_capturer/"
+          >
             <span></span>
             <span>Facebook</span>
           </a>
