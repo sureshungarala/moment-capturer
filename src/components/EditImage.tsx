@@ -1,4 +1,4 @@
-import React, { useState, useEffect, memo } from "react";
+import React, { useState, memo } from "react";
 import { Auth } from "@aws-amplify/auth";
 import { CognitoUserSession } from "amazon-cognito-identity-js";
 
@@ -132,8 +132,8 @@ const EditImage: React.FunctionComponent<editImageProps> = (
     try {
       const session: CognitoUserSession = await Auth.currentSession();
       const body = {
-        currentCategory: props.categoryTag.toLowerCase(),
-        newCategory: editState.categoryTag.toLowerCase(),
+        currentCategory: props.categoryTag,
+        newCategory: editState.categoryTag,
         description: editState.description,
         updateTime: props.updateTime,
       };
@@ -161,7 +161,7 @@ const EditImage: React.FunctionComponent<editImageProps> = (
     try {
       const session: CognitoUserSession = await Auth.currentSession();
       const body = {
-        category: props.categoryTag.toLowerCase(),
+        category: props.categoryTag,
         updateTime: props.updateTime,
       };
       deleteImage(

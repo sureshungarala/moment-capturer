@@ -108,7 +108,7 @@ export default class extends React.Component<uploadProps, uploadState> {
             image: reader.result,
             imageName: imageName,
             resolution: image.width + ":" + image.height,
-            category: this.state.categorySelected.toLowerCase(),
+            category: this.state.categorySelected,
             biotc: this.state.isBiotc,
             panorama: this.state.isPanorama,
             portrait: this.state.isPortrait,
@@ -130,14 +130,14 @@ export default class extends React.Component<uploadProps, uploadState> {
                   this.setState({
                     requestProcessing: false,
                     requestStatusSuccess: true,
-                    requestStatusMsg: `${imageName} processed successfully.`,
+                    requestStatusMsg: `${imageName} uploaded successfully.`,
                   });
                 },
                 (error) => {
                   this.setState({
                     requestProcessing: false,
                     requestStatusSuccess: false,
-                    requestStatusMsg: `Failed to process ${imageName}. Try again!`,
+                    requestStatusMsg: `Failed to upload ${imageName}. Try again!`,
                   });
                   console.error("CSR failed with error: ", error);
                 }

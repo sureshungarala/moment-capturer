@@ -114,6 +114,8 @@
 
           .requestStatus,
           .loginStatus {
+            display: flex;
+            justify-content: flex-start;
             font-size: 1.25em;
             & > div {
               display: flex;
@@ -160,6 +162,7 @@
 
             .selectedCategory {
               box-shadow: none;
+              font-size: calc(10px + 1vmin);
             }
           }
 

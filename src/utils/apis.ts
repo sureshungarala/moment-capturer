@@ -1,6 +1,6 @@
 export const fetchImages = async (categoryTag: string) => {
   const response = await fetch(
-    `https://api.momentcapturer.com/getData?category=${categoryTag.toLowerCase()}`,
+    `https://api.momentcapturer.com/getData?category=${categoryTag}`,
     {
       headers: {
         accept: "application/json",
