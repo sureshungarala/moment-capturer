@@ -1,10 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, memo } from "react";
+import { Auth } from "@aws-amplify/auth";
+import { CognitoUserSession } from "amazon-cognito-identity-js";
+
 import Categories from "./Categories";
 import { Image } from "../info/types";
 
+import { editImage, deleteImage } from "../utils/apis";
+
 interface editImageProps extends Image {
   categoryTag: string;
+  userSignedIn: boolean;
+  enlargeImage: () => void;
 }
+
 const EditImage: React.FunctionComponent<editImageProps> = (
   props: editImageProps
 ) => {
@@ -15,37 +23,275 @@ const EditImage: React.FunctionComponent<editImageProps> = (
     deleteImage: false,
     deletingImage: false,
     deletingImageFailed: false,
+    requestStarted: false,
+    requestStatusMsg: "",
   };
 
   const initValueState = {
     categoryTag: props.categoryTag,
     description: props.description,
   };
-  const [state, setState] = useState(initState);
+
+  const [componentState, setComponentState] = useState(initState);
   const [editState, setEditState] = useState(initValueState);
 
   /* --------------------- state updates start ------------------------- */
   const onEditBtnClick = () => {
-    setState({
-      ...state,
+    setComponentState({
+      ...componentState,
       editImage: true,
     });
   };
 
   const onDeleteBtnClick = () => {
-    setState({
-      ...state,
+    setComponentState({
+      ...componentState,
       deleteImage: true,
     });
   };
 
   const cancelAction = () => {
-    setState(initState);
+    setComponentState(initState);
   };
+
+  const startEditAction = () => {
+    setComponentState({
+      ...componentState,
+      requestStarted: true,
+      editingImage: true,
+      editingImageFailed: false,
+    });
+  };
+
+  const editActionSucceded = () => {
+    setComponentState({
+      ...componentState,
+      editingImage: false,
+      editingImageFailed: false,
+      requestStarted: true,
+      requestStatusMsg: "Capture Updated.",
+    });
+  };
+
+  const editActionFailed = () => {
+    setComponentState({
+      ...componentState,
+      editingImage: false,
+      editingImageFailed: true,
+      requestStarted: true,
+      requestStatusMsg: "Failed to update.",
+    });
+  };
+
+  const startDeleteAction = () => {
+    setComponentState({
+      ...componentState,
+      requestStarted: true,
+      deletingImage: true,
+      deletingImageFailed: false,
+    });
+  };
+
+  const deleteActionSucceded = () => {
+    setComponentState({
+      ...componentState,
+      deletingImage: false,
+      deletingImageFailed: false,
+      requestStarted: true,
+      requestStatusMsg: "Capture deleted.",
+    });
+  };
+
+  const deleteActionFailed = () => {
+    setComponentState({
+      ...componentState,
+      deletingImage: false,
+      deletingImageFailed: true,
+      requestStarted: true,
+      requestStatusMsg: "Failed to delete.",
+    });
+  };
+
+  const authFailed = () => {
+    setComponentState({
+      ...componentState,
+      editingImage: false,
+      editingImageFailed: true,
+      deletingImage: false,
+      deletingImageFailed: true,
+      requestStarted: true,
+      requestStatusMsg: "Log in and try again.",
+    });
+  };
+
   /* --------------------- state updates end ------------------------- */
+
+  const updateImageMetadata = async (event: React.FormEvent) => {
+    event.preventDefault();
+    startEditAction();
+    try {
+      const session: CognitoUserSession = await Auth.currentSession();
+      const body = {
+        currentCategory: props.categoryTag.toLowerCase(),
+        newCategory: editState.categoryTag.toLowerCase(),
+        description: editState.description,
+        updateTime: props.updateTime,
+      };
+      editImage(session.getIdToken().getJwtToken(), JSON.stringify(body)).then(
+        (response: Response) => {
+          if (response.ok) {
+            editActionSucceded();
+          } else {
+            editActionFailed();
+          }
+        },
+        () => {
+          editActionFailed();
+        }
+      );
+    } catch (error) {
+      console.error("Authorization failed: ", error);
+      authFailed();
+    }
+  };
+
+  const deleteCapture = async (event: React.FormEvent) => {
+    event.preventDefault();
+    startDeleteAction();
+    try {
+      const session: CognitoUserSession = await Auth.currentSession();
+      const body = {
+        category: props.categoryTag.toLowerCase(),
+        updateTime: props.updateTime,
+      };
+      deleteImage(
+        session.getIdToken().getJwtToken(),
+        JSON.stringify(body)
+      ).then(
+        (response: Response) => {
+          if (response.ok) {
+            deleteActionSucceded();
+          } else {
+            deleteActionFailed();
+          }
+        },
+        () => {
+          deleteActionFailed();
+        }
+      );
+    } catch (error) {
+      console.error("Authorization failed: ", error);
+      authFailed();
+    }
+  };
+
+  /* --------------------- modular renders start ------------------------- */
+
+  const renderActionStatus = () => {
+    let actionTemplate = <div></div>;
+    if (componentState.requestStarted) {
+      if (componentState.editingImage || componentState.deletingImage) {
+        actionTemplate = (
+          <>
+            <span className="processing"></span>
+            &nbsp;&nbsp;
+            <span>
+              {componentState.editingImage ? "updating" : "deleting"}...
+            </span>
+          </>
+        );
+      } else {
+        actionTemplate = (
+          <div
+            className={
+              componentState.editingImageFailed ||
+              componentState.deletingImageFailed
+                ? "error"
+                : "success"
+            }
+          >
+            {componentState.requestStatusMsg}
+          </div>
+        );
+      }
+      return <div className="requestStatus">{actionTemplate}</div>;
+    }
+    return actionTemplate;
+  };
+
+  const renderEditActionsButons = () => {
+    let actionButtons = <></>;
+    if (
+      componentState.requestStarted &&
+      !componentState.editingImage &&
+      !componentState.editingImageFailed
+    ) {
+      actionButtons = (
+        <input
+          type="button"
+          onClick={cancelAction}
+          value="Close"
+          className="cancel"
+        />
+      );
+    } else {
+      actionButtons = (
+        <>
+          <input
+            type="button"
+            onClick={cancelAction}
+            value="Cancel"
+            className="cancel"
+          />
+          <input
+            type="submit"
+            value="Update"
+            className="yesEdit"
+            disabled={
+              editState.categoryTag === props.categoryTag &&
+              editState.description === props.description
+            }
+          />
+        </>
+      );
+    }
+    return <div className="editActions">{actionButtons}</div>;
+  };
+
+  const renderDeleteActionsButons = () => {
+    let actionButtons = <></>;
+    if (
+      componentState.requestStarted &&
+      !componentState.deletingImage &&
+      !componentState.deletingImageFailed
+    ) {
+      actionButtons = (
+        <input
+          type="button"
+          onClick={cancelAction}
+          value="Close"
+          className="cancel"
+        />
+      );
+    } else {
+      actionButtons = (
+        <>
+          <input
+            type="button"
+            onClick={cancelAction}
+            value="Cancel"
+            className="cancel"
+          />
+          <input type="submit" value="Yes" className="yesDelete" />
+        </>
+      );
+    }
+    return <div className="deleteActions">{actionButtons}</div>;
+  };
+
   const renderEditForm = () => (
     <section className="imageActionFormContainer">
-      <form className="editForm" onSubmit={cancelAction}>
+      <form className="editForm" onSubmit={updateImageMetadata}>
         <Categories
           onSelectCategory={(category, categoryTag) => {
             setEditState({
@@ -62,22 +308,9 @@ const EditImage: React.FunctionComponent<editImageProps> = (
             setEditState({ ...editState, description: event.target.value })
           }
         />
-        <div className="editActions">
-          <input
-            type="button"
-            onClick={cancelAction}
-            value="Cancel"
-            className="cancel"
-          />
-          <input
-            type="submit"
-            value="Update"
-            className="yesEdit"
-            disabled={
-              editState.categoryTag === props.categoryTag &&
-              editState.description === props.description
-            }
-          />
+        <div className="actionAndStatus">
+          {renderActionStatus()}
+          {renderEditActionsButons()}
         </div>
       </form>
     </section>
@@ -85,47 +318,59 @@ const EditImage: React.FunctionComponent<editImageProps> = (
 
   const renderDeleteConfirmation = () => (
     <section className="imageActionFormContainer">
-      <form className="deleteConfirmation" onSubmit={cancelAction}>
+      <form className="deleteConfirmation" onSubmit={deleteCapture}>
         <div className="confirmationTxt">Are you sure, you want to delete?</div>
-        <div className="deleteActions">
-          <input
-            type="button"
-            onClick={cancelAction}
-            value="Cancel"
-            className="cancel"
-          />
-          <input type="submit" value="Yes" className="yesDelete" />
+        <div className="actionAndStatus">
+          {renderActionStatus()}
+          {renderDeleteActionsButons()}
         </div>
       </form>
     </section>
   );
+  /* --------------------- modular renders end ------------------------- */
 
   return (
     <div
       className={`editImage ${
-        state.editImage || state.deleteImage ? "actionFormContainer" : ""
+        componentState.editImage || componentState.deleteImage
+          ? "actionFormContainer"
+          : ""
       }`}
     >
       <div className="actions">
+        {props.userSignedIn && (
+          <>
+            <div
+              className="delete"
+              title="Delete"
+              onClick={() => {
+                onDeleteBtnClick();
+              }}
+            ></div>
+            <div
+              className="edit"
+              title="Edit"
+              onClick={() => {
+                onEditBtnClick();
+              }}
+            ></div>
+          </>
+        )}
         <div
-          className="edit"
-          onClick={(event) => {
-            event.stopPropagation();
-            onEditBtnClick();
-          }}
-        ></div>
-        <div
-          className="delete"
-          onClick={(event) => {
-            event.stopPropagation();
-            onDeleteBtnClick();
+          className="enlarge"
+          title="Click to view full resolution image"
+          onClick={() => {
+            props.enlargeImage();
           }}
         ></div>
       </div>
-      {state.editImage && renderEditForm()}
-      {state.deleteImage && renderDeleteConfirmation()}
+      {componentState.editImage && renderEditForm()}
+      {componentState.deleteImage && renderDeleteConfirmation()}
     </div>
   );
 };
 
-export default EditImage;
+export default memo(EditImage, (prevProps, nextProps) => {
+  if (JSON.stringify(prevProps) === JSON.stringify(nextProps)) return true;
+  return false;
+});
