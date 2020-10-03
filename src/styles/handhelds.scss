@@ -13,17 +13,16 @@
         .logo {
           width: 6vmax;
           height: 6vmax;
+          margin: 0 1vmin;
         }
 
         .branding-title {
-          font-size: calc(10px + 3vmin);
+          font-size: calc(10px + 2vmin);
           margin-left: 1vmin;
         }
       }
 
       .actionSection {
-        flex-basis: 45%;
-        @include flexXalignCentered;
         justify-content: space-evenly;
         font-size: calc(10px + 2.5vmin);
 
@@ -44,6 +43,7 @@
 
             .selectedCategory {
               font-size: calc(10px + 1.5vmin);
+              font-weight: 500;
             }
 
             .selectedCategory:hover + ul,
@@ -92,6 +92,12 @@
       }
 
       .category-home {
+        .fetchingCurrentUserDetails,
+        .fetchingImages .spinner {
+          width: 40px !important;
+          height: 40px !important;
+        }
+
         .imageContainer {
           picture {
             pointer-events: none !important;

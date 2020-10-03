@@ -18,14 +18,12 @@ $desktop_header_height: 4vmax;
         }
 
         .branding-title {
-          font-size: calc(10px + 4vmin);
+          font-size: calc(10px + 3vmin);
           margin-left: 5vmin;
         }
       }
 
       .actionSection {
-        @include flexXalignCentered;
-        flex-basis: 40%;
         font-size: calc(10px + 2.5vmin);
 
         & > * {
@@ -34,13 +32,7 @@ $desktop_header_height: 4vmax;
         }
 
         .categories {
-          flex-basis: 40%;
           font-size: calc(10px + 2vmin);
-        }
-
-        .profiles {
-          flex-basis: 60%;
-          justify-content: space-around;
         }
       }
     }

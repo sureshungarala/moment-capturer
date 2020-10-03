@@ -5,12 +5,6 @@
 @import "./styles/laptops.scss";
 @import "./styles/desktops.scss";
 
-@mixin spinner {
-  background-image: url("assets/loading.svg");
-  display: inline-block;
-  animation: rotation 1.75s infinite linear;
-}
-
 .MC-App {
   font-family: "Caveat", cursive;
   font-weight: 400;
@@ -37,21 +31,23 @@
     }
 
     .actionSection {
+      @include flexXalignCentered;
+      justify-content: space-around;
+      flex-basis: 40%;
+
       .profiles {
         position: relative;
         display: flex !important;
-        justify-content: flex-end;
-        margin-right: 5px;
+        margin: 0px 5px;
 
-        .profilePic {
-          border: 1px solid grey;
-          border-radius: 50px;
-          min-width: 1.5em;
-          min-height: 1.5em;
+        .profileMenu {
+          width: 3vmin;
+          height: 3vmin;
         }
 
         ul {
           @include initDropdownState;
+          right: 0;
 
           li {
             position: relative;
@@ -70,7 +66,7 @@
           }
         }
 
-        .profilePic:hover + ul,
+        &:hover > ul,
         ul:hover {
           @include showDropdown;
           background-color: $secondaryColor;
@@ -102,6 +98,7 @@
         @include flexXcentered;
         form {
           @include flexXjustifyCentered;
+          position: absolute;
           flex-direction: column;
           justify-content: space-evenly;
           color: $secondaryColor;
@@ -110,7 +107,8 @@
           color: $secondaryColor;
           border-radius: 5px;
           padding: 0px 15px;
-          font-weight: 600;
+          top: 40%;
+          transform: translateY(-50%);
           border-top: 5px solid $secondaryColor;
           box-shadow: $formBoxShadow;
 
@@ -126,14 +124,6 @@
                 width: 16px;
                 height: 16px;
               }
-            }
-
-            .success {
-              color: $primaryColor;
-            }
-
-            .error {
-              color: red;
             }
           }
         }
@@ -178,6 +168,7 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: space-evenly;
+            font-weight: 600;
 
             & > * {
               margin: 0px 1vmin;
@@ -198,6 +189,7 @@
 
       .signin-form {
         form {
+          font-weight: 600;
           & > label {
             color: $alternateDarkOrange;
             font-size: 1.75em;
@@ -244,10 +236,9 @@
       .fetchingCurrentUserDetails {
         @include spinner;
         position: absolute;
-        width: 8vmin;
-        height: 8vmin;
+        width: 80px;
+        height: 80px;
         top: 40%;
-        left: 50%;
       }
     }
 
@@ -256,6 +247,7 @@
       width: 100vw;
 
       .fetchingImages {
+        @include flexXjustifyCentered;
         position: absolute;
         top: 0;
         left: 0;
@@ -265,10 +257,9 @@
         .spinner {
           @include spinner;
           position: absolute;
-          width: 8vmin;
-          height: 8vmin;
+          width: 80px;
+          height: 80px;
           top: 40%;
-          left: 50%;
         }
       }
 
@@ -295,6 +286,9 @@
 
         .imageActionFormContainer {
           border-radius: 0px;
+          .editForm {
+            min-width: 30%;
+          }
         }
       }
 
@@ -309,9 +303,14 @@
           }
 
           .imageActionFormContainer {
-            .deleteConfirmation,
             .editForm {
               min-width: 50%;
+            }
+          }
+
+          &.panorama {
+            .editForm {
+              min-width: 30%;
             }
           }
 
@@ -339,19 +338,27 @@
         display: none;
         & > * {
           @include imageActionBtn;
+          width: 3vmax;
+          height: 3vmax;
           position: absolute;
           padding: 3px;
           border: none;
+          border-radius: 3px;
           &:hover {
             transform: scale3d(1.1, 1.1, 1.1);
           }
         }
+
+        .enlarge {
+          width: 4vmax;
+        }
+
         .edit {
           right: 65px;
-          background-image: url("assets/edit.svg");
         }
+
         .delete {
-          background-image: url("assets/delete.svg");
+          right: 105px;
         }
       }
 
@@ -368,10 +375,12 @@
 
         .deleteConfirmation,
         .editForm {
+          position: absolute;
           background-color: $secondaryColor;
           box-shadow: $formBoxShadow;
           border-radius: 5px;
-          padding: 2vmin;
+          padding: 1vmax;
+          top: 30%;
 
           .confirmationTxt {
             font-size: 1.5em;
@@ -386,48 +395,68 @@
             outline: 0;
             width: calc(100% - 4px);
             font-size: 1.1em;
-            font-family: "Caveat", cursive;
           }
 
           .categories .categories-dd,
           .categories .categories-dd .selectedCategory {
             font-size: 1em;
           }
-
-          .deleteActions,
-          .editActions {
+          .actionAndStatus {
             display: flex;
-            justify-content: flex-end;
+            justify-content: space-between;
+            align-items: baseline;
             margin-top: 2vmin;
-            & > * {
-              padding: 0 2vmin;
-              border-radius: 2px;
-              border: 1px solid $secondaryColorInverted;
-              font-size: 1em;
-              font-weight: 600;
-            }
-            .yesDelete,
-            .yesEdit {
-              margin-left: 2vmin;
-              background-color: $alertColor;
-              &:hover {
-                border-color: $alternateDarkOrange;
+            min-height: 2vmin;
+            line-height: 2vmin;
+
+            .deleteActions,
+            .editActions {
+              display: flex;
+              justify-content: flex-end;
+              & > * {
+                padding: 0 2vmin;
+                border-radius: 2px;
+                border: 1px solid $secondaryColorInverted;
+                font-size: 1em;
+                font-weight: 600;
               }
-              &:disabled {
-                background-color: lightgray;
-                cursor: not-allowed;
+              .yesDelete,
+              .yesEdit {
+                margin-left: 2vmin;
+                background-color: $alertColor;
+                &:hover {
+                  border-color: $alternateDarkOrange;
+                }
+                &:disabled {
+                  background-color: lightgray;
+                  cursor: not-allowed;
+                }
+              }
+
+              .yesEdit {
+                background-color: $alternateDarkOrange;
+                &:not([disabled]):hover {
+                  border-color: $alternateDarkOrangeHovered;
+                }
+              }
+
+              .cancel:hover {
+                border-color: $primaryColor;
               }
             }
 
-            .yesEdit {
-              background-color: $alternateDarkOrange;
-              &:not([disabled]):hover {
-                border-color: $alternateDarkOrangeHovered;
-              }
-            }
+            .requestStatus {
+              display: flex;
+              align-items: baseline;
 
-            .cancel:hover {
-              border-color: $primaryColor;
+              & > * {
+                font-size: 1.25em;
+              }
+              .processing {
+                @include spinner;
+                width: 16px;
+                height: 16px;
+              }
             }
           }
         }

@@ -58,6 +58,7 @@ export default class Image extends React.Component<imageProps, imageState> {
       (entries: Array<IntersectionObserverEntry>) => {
         const entry = entries[0],
           { isIntersecting } = entry;
+        const title = this.props.description;
         console.info("isIntersecting ", isIntersecting);
         if (isIntersecting) {
           let sources = [];
@@ -66,7 +67,7 @@ export default class Image extends React.Component<imageProps, imageState> {
               <source
                 media={`(max-width: ${key})`}
                 srcSet={this.props.srcSet[key]}
-                title={this.props.description}
+                title={title}
                 type="image/jpeg"
                 key={key}
               />
@@ -75,12 +76,12 @@ export default class Image extends React.Component<imageProps, imageState> {
           this.setState(
             {
               children: (
-                <picture onClick={this.openModal}>
+                <picture>
                   {sources}
                   <img
                     alt={this.props.description}
                     src={this.props.original}
-                    title={this.props.description}
+                    title={title}
                   />
                 </picture>
               ),
@@ -119,7 +120,7 @@ export default class Image extends React.Component<imageProps, imageState> {
         {this.state.showModal && (
           <McModal {...this.props} closeModal={this.closeModal} />
         )}
-        <EditImage {...this.props} />
+        <EditImage {...this.props} enlargeImage={this.openModal} />
       </div>
     );
   }

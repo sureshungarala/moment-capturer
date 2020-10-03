@@ -116,14 +116,13 @@ export default class extends React.Component<uploadProps, uploadState> {
           });
           Auth.currentSession().then(
             (session: CognitoUserSession) => {
-              const idToken = session.getIdToken().getJwtToken();
               fetch("https://api.momentcapturer.com/csr", {
                 method: "POST",
                 mode: "cors",
                 headers: {
                   "content-type": "application/json",
                   accept: "application/json",
-                  Authorization: idToken,
+                  Authorization: session.getIdToken().getJwtToken(),
                 },
                 body,
               }).then(

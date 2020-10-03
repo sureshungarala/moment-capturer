@@ -2,7 +2,6 @@ import { ThunkDispatch, ThunkAction } from "redux-thunk";
 import { Auth } from "@aws-amplify/auth";
 
 import { fetchImages } from "../../utils/apis";
-import { getFirstCategory } from "../../utils/helpers";
 import { Image, McMoments, McAction, McState } from "../../info/types";
 
 export const SET_CATEGORY = "SET_CATEGORY";

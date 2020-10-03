@@ -13,6 +13,7 @@ import Profiles from "./Profiles";
 interface MapDispatchToProps {
   setCategory: (category: string, categoryTag: string) => void;
   getImages: (categoryTag: string) => Promise<void>;
+  checkIfUserSignedIn: () => Promise<void>;
 }
 
 interface HeaderRouterProps {
@@ -29,26 +30,30 @@ class Header extends React.Component<headerProps> {
   constructor(props: headerProps) {
     super(props);
     this.categoryTag = "";
-    this.updateCategory = this.updateCategory.bind(this);
-    this.redirectToHome = this.redirectToHome.bind(this);
   }
 
   // updating the url in browser's url bar if url is changed manually or page is refreshed
   // `this.props.location` gives browser url
-  updateCategory(category: string, categoryTag: string) {
+  updateCategory = (category: string, categoryTag: string) => {
     this.categoryTag = categoryTag;
     this.props.setCategory(category, categoryTag);
     if ("/upload" !== this.props.location.pathname.trim()) {
       // dont'fetch images from /upload screen
       this.props.history.push("/" + categoryTag);
-      this.props.getImages(categoryTag);
+      Promise.all([
+        this.props.getImages(categoryTag),
+        this.props.checkIfUserSignedIn(),
+      ]);
     }
-  }
+  };
 
-  redirectToHome() {
+  redirectToHome = () => {
     this.props.history.push("/" + this.categoryTag);
-    this.props.getImages(this.categoryTag);
-  }
+    Promise.all([
+      this.props.getImages(this.categoryTag),
+      this.props.checkIfUserSignedIn(),
+    ]);
+  };
 
   render() {
     const routeCategoryTag = this.props.location.pathname.split("/")[1].trim();
@@ -81,6 +86,9 @@ const mapDispatchToProps = (
   return {
     getImages: async (categoryTag: string) => {
       await dispatch(getImages(categoryTag));
+    },
+    checkIfUserSignedIn: async () => {
+      await dispatch(checkIfUserSignedIn());
     },
     setCategory: (category: string, categoryTag: string) => {
       dispatch(setCategory(category, categoryTag));

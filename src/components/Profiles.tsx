@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 const Profiles: React.FunctionComponent = () => {
   return (
     <div className="profiles">
-      <div className="profilePic"></div>
+      <div className="profileMenu"></div>
       <ul>
         <li>
           <a target="_blank" rel="noopener noreferrer" href="">
