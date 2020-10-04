@@ -14,6 +14,8 @@ const Footer: React.FunctionComponent = () => {
           <a
             href="https://www.linkedin.com/in/suresh-ungarala/"
             title="LinkedIn"
+            rel="noopener noreferrer"
+            target="_blank"
           >
             <span className="linkedin"></span>
           </a>

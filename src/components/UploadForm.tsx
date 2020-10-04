@@ -255,65 +255,67 @@ export default class extends React.Component<uploadProps, uploadState> {
 
   render() {
     return (
-      <section className="upload-form">
-        <form onSubmit={this.handleSubmit}>
-          <input
-            type="button"
-            value="Choose file to Upload"
-            onClick={this.openFileDialog}
-          />
-          <span
-            style={{ color: this.state.fileStatusSuccess ? "black" : "red" }}
-          >
-            {this.state.fileStatusMsg}
-          </span>
-          <input
-            type="file"
-            accept="image/*"
-            ref={this.fileRef}
-            onChange={this.handleChange}
-            style={{ visibility: "hidden" }}
-          />
-          {this.textArea()}
-          <Categories
-            onSelectCategory={(category, categoryTag) => {
-              this.setState({
-                categorySelected: categoryTag,
-              });
-            }}
-          />
-          {this.checkBoxToggles()}
-          <input
-            type="submit"
-            value="Upload"
-            className={
-              this.state.files?.length && this.state.description.length
-                ? ""
-                : "disabled"
-            }
-          />
-          {this.state.requestStarted && (
-            <div className="requestStatus">
-              {this.state.requestProcessing && (
-                <div>
-                  <span className="processing"></span>
-                  &nbsp;&nbsp;
-                  <span> Processing...</span>
-                </div>
-              )}
-              {!this.state.requestProcessing && (
-                <div
-                  className={`${
-                    this.state.requestStatusSuccess ? "success" : "error"
-                  }`}
-                >
-                  {this.state.requestStatusMsg}
-                </div>
-              )}
-            </div>
-          )}
-        </form>
-      </section>
+      <div className="uploadOrSignInContainer">
+        <section className="upload-form">
+          <form onSubmit={this.handleSubmit}>
+            <input
+              type="button"
+              value="Choose file to Upload"
+              onClick={this.openFileDialog}
+            />
+            <span
+              style={{ color: this.state.fileStatusSuccess ? "black" : "red" }}
+            >
+              {this.state.fileStatusMsg}
+            </span>
+            <input
+              type="file"
+              accept="image/*"
+              ref={this.fileRef}
+              onChange={this.handleChange}
+              style={{ visibility: "hidden" }}
+            />
+            {this.textArea()}
+            <Categories
+              onSelectCategory={(category, categoryTag) => {
+                this.setState({
+                  categorySelected: categoryTag,
+                });
+              }}
+            />
+            {this.checkBoxToggles()}
+            <input
+              type="submit"
+              value="Upload"
+              className={
+                this.state.files?.length && this.state.description.length
+                  ? ""
+                  : "disabled"
+              }
+            />
+            {this.state.requestStarted && (
+              <div className="requestStatus">
+                {this.state.requestProcessing && (
+                  <div>
+                    <span className="processing"></span>
+                    &nbsp;&nbsp;
+                    <span> Processing...</span>
+                  </div>
+                )}
+                {!this.state.requestProcessing && (
+                  <div
+                    className={`${
+                      this.state.requestStatusSuccess ? "success" : "error"
+                    }`}
+                  >
+                    {this.state.requestStatusMsg}
+                  </div>
+                )}
+              </div>
+            )}
+          </form>
+        </section>
+      </div>
     );
   }
 }

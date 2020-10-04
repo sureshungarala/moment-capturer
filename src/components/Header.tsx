@@ -37,14 +37,14 @@ class Header extends React.Component<headerProps> {
   updateCategory = (category: string, categoryTag: string) => {
     this.categoryTag = categoryTag;
     this.props.setCategory(category, categoryTag);
-    if ("/upload" !== this.props.location.pathname.trim()) {
-      // dont'fetch images from /upload screen
-      this.props.history.push("/" + categoryTag);
-      Promise.all([
-        this.props.getImages(categoryTag),
-        this.props.checkIfUserSignedIn(),
-      ]);
-    }
+    // if ("/upload" !== this.props.location.pathname.trim()) {
+    // dont'fetch images from /upload screen
+    this.props.history.push("/" + categoryTag);
+    Promise.all([
+      this.props.getImages(categoryTag),
+      this.props.checkIfUserSignedIn(),
+    ]);
+    // }
   };
 
   redirectToHome = () => {
@@ -75,9 +75,7 @@ class Header extends React.Component<headerProps> {
   }
 }
 
-const mapStateToProps = (state: McState): {} => {
-  return {};
-};
+const mapStateToProps = (state: McState) => ({});
 
 //If mapDispatchToProps is object, dispatchProps will be merged to component's props.
 const mapDispatchToProps = (

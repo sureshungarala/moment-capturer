@@ -92,3 +92,28 @@ export function checkIfUserSignedIn(): ThunkAction<
     }
   };
 }
+
+export function signOutUser(): ThunkAction<
+  Promise<void>,
+  McState,
+  {},
+  McAction
+> {
+  return async (
+    dispatch: ThunkDispatch<McState, {}, McAction>,
+    getState: () => McState
+  ): Promise<void> => {
+    try {
+      await Auth.signOut();
+      dispatch({
+        type: SET_IF_USER_SIGNED_IN,
+        userSignedIn: false,
+      });
+    } catch (error) {
+      dispatch({
+        type: SET_IF_USER_SIGNED_IN,
+        userSignedIn: getState().userSignedIn,
+      });
+    }
+  };
+}

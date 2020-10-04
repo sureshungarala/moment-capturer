@@ -5,6 +5,7 @@ import Home from "./components/Home";
 import Footer from "./components/Footer";
 import Upload from "./components/Upload";
 import "./App.scss";
+import SignInForm from "./components/SignInForm";
 
 function App() {
   return (
@@ -14,6 +15,11 @@ function App() {
         <div className="mcBody">
           <Switch>
             <Route path="/upload" component={Upload} exact></Route>
+            <Route
+              path="/signin"
+              component={() => <SignInForm redirectToCategory />}
+              exact
+            ></Route>
             <Route path="/:categoryTag" component={Home}></Route>
           </Switch>
         </div>

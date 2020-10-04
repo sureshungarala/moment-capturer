@@ -1,5 +1,25 @@
 import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
+import { Dispatch } from "redux";
+import { withRouter, RouteComponentProps } from "react-router-dom";
 import { Auth } from "@aws-amplify/auth";
+
+import { McState } from "../info/types";
+
+import { SET_IF_USER_SIGNED_IN } from "../redux/actions";
+import { getFirstCategory } from "../utils/helpers";
+
+interface MapStateToProps {
+  categoryTag: string;
+}
+
+interface MapDispatchToProps {
+  userSignedIn: () => void;
+}
+
+interface signInFormRouterProps {
+  //contains history object and ...
+}
 
 interface signInFormState {
   processing: boolean;
@@ -12,8 +32,11 @@ interface credentialsState {
   password: string;
 }
 
-interface signInFormProps {
-  onUserFound: () => void;
+interface signInFormProps
+  extends MapStateToProps,
+    MapDispatchToProps,
+    RouteComponentProps<signInFormRouterProps> {
+  redirectToCategory?: boolean;
 }
 
 interface processingState {
@@ -54,7 +77,7 @@ const SignInForm: React.FunctionComponent<signInFormProps> = (
     succeeded: "Logged In",
     failed: "Failed to login.",
   });
-  // --------------------------- state -----------------------------
+  // --------------------------- end state -----------------------------
 
   useEffect(() => {
     setProcessingState({
@@ -84,7 +107,15 @@ const SignInForm: React.FunctionComponent<signInFormProps> = (
         if (data.challengeName === "NEW_PASSWORD_REQUIRED") {
           shouldChangePwd(true);
         } else {
-          props.onUserFound();
+          setFormState({
+            processing: false,
+            succeeded: true,
+            failed: false,
+          });
+          if (props.redirectToCategory) {
+            props.history.push(`/${props.categoryTag}`);
+          }
+          props.userSignedIn();
         }
       },
       (error) => {
@@ -112,7 +143,10 @@ const SignInForm: React.FunctionComponent<signInFormProps> = (
           failed: false,
           succeeded: true,
         });
-        props.onUserFound();
+        if (props.redirectToCategory) {
+          props.history.push(`/${props.categoryTag}`);
+        }
+        props.userSignedIn();
       },
       (error) => {
         console.error("Failed to update password with error: ", error);
@@ -180,7 +214,7 @@ const SignInForm: React.FunctionComponent<signInFormProps> = (
         signIn();
       }}
     >
-      <label>Sign in to upload images</label>
+      <label>Sign in to upload or edit images</label>
       <div className="username">
         <label htmlFor="username">Username</label>
         <input
@@ -218,10 +252,32 @@ const SignInForm: React.FunctionComponent<signInFormProps> = (
   );
 
   return (
-    <section className="signin-form">
-      {changingPwd ? changePwd() : logIn()}
-    </section>
+    <div className="uploadOrSignInContainer">
+      <section className="signin-form">
+        {changingPwd ? changePwd() : logIn()}
+      </section>
+    </div>
   );
 };
 
-export default SignInForm;
+const mapStateToProps = (state: McState) => ({
+  categoryTag: state.categoryTag || getFirstCategory().tag,
+});
+
+const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToProps => {
+  return {
+    userSignedIn: () => {
+      dispatch({
+        type: SET_IF_USER_SIGNED_IN,
+        userSignedIn: true,
+      });
+    },
+  };
+};
+
+export default withRouter(
+  connect<MapStateToProps, MapDispatchToProps>(
+    mapStateToProps,
+    mapDispatchToProps
+  )(SignInForm)
+);

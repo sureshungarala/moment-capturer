@@ -1,59 +1,29 @@
-import React, { useEffect, useState } from "react";
-import { Auth } from "@aws-amplify/auth";
+import React from "react";
+import { connect } from "react-redux";
 
 import SignInForm from "./SignInForm";
 import UploadForm from "./UploadForm";
+import { McState } from "../info/types";
 
-interface uploadState {
-  fetchingCurrentUserDetails: boolean;
-  userPresent: boolean;
+interface MapStateToProps {
+  userSignedIn: boolean;
 }
 
-const Upload: React.FunctionComponent = () => {
-  const [templateState, setTemplateState] = useState<uploadState>({
-    fetchingCurrentUserDetails: true,
-    userPresent: false,
-  });
+interface uploadProps extends MapStateToProps {}
 
-  useEffect(() => {
-    Auth.currentAuthenticatedUser().then(
-      () => {
-        allowUpload();
-      },
-      (error) => {
-        console.error(
-          "Failed to fetch current user details with error: ",
-          error
-        );
-        setTemplateState({
-          fetchingCurrentUserDetails: false,
-          userPresent: false,
-        });
-      }
-    );
-  }, []);
-
-  const allowUpload = () => {
-    setTemplateState({
-      fetchingCurrentUserDetails: false,
-      userPresent: true,
-    });
-  };
-
+const Upload: React.FunctionComponent<uploadProps> = (props: uploadProps) => {
   const renderTemplate = () => {
-    if (templateState.fetchingCurrentUserDetails) {
-      return (
-        <div className="fetchingCurrentUserDetails">
-          <div className="spinner"></div>
-        </div>
-      );
-    } else if (templateState.userPresent) {
+    if (props.userSignedIn) {
       return <UploadForm />;
     }
-    return <SignInForm onUserFound={allowUpload} />;
+    return <SignInForm />;
   };
 
-  return <div className="uploadOrSignInContainer">{renderTemplate()}</div>;
+  return renderTemplate();
 };
 
-export default Upload;
+const mapStateToProps = (state: McState) => ({
+  userSignedIn: state.userSignedIn || false,
+});
+
+export default connect<MapStateToProps>(mapStateToProps)(Upload);

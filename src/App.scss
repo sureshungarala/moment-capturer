@@ -64,6 +64,10 @@
               background-color: $primaryColor;
             }
           }
+
+          &.hide {
+            display: none !important;
+          }
         }
 
         &:hover > ul,
