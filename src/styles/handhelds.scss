@@ -25,6 +25,7 @@
       .actionSection {
         justify-content: space-evenly;
         font-size: calc(10px + 2.5vmin);
+        flex-basis: 45% !important;
 
         & > * {
           cursor: pointer;
@@ -61,8 +62,15 @@
           }
         }
 
-        .profiles ul {
-          width: $ulHandheldWidthOnHover !important;
+        .profiles {
+          .profileMenu {
+            width: 4vmin !important;
+            height: 4vmin !important;
+          }
+
+          ul {
+            width: $ulHandheldWidthOnHover !important;
+          }
         }
       }
     }

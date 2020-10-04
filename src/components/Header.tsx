@@ -37,14 +37,11 @@ class Header extends React.Component<headerProps> {
   updateCategory = (category: string, categoryTag: string) => {
     this.categoryTag = categoryTag;
     this.props.setCategory(category, categoryTag);
-    // if ("/upload" !== this.props.location.pathname.trim()) {
-    // dont'fetch images from /upload screen
     this.props.history.push("/" + categoryTag);
     Promise.all([
       this.props.getImages(categoryTag),
       this.props.checkIfUserSignedIn(),
     ]);
-    // }
   };
 
   redirectToHome = () => {
@@ -61,7 +58,7 @@ class Header extends React.Component<headerProps> {
       <header className="mcHeader">
         <div className="logoSection" onClick={this.redirectToHome}>
           <span className="logo"></span>
-          <span className="branding-title">Moment Capturer</span>
+          <h3 className="branding-title">Moment Capturer</h3>
         </div>
         <div className="actionSection">
           <Categories
