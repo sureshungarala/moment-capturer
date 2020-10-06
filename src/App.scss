@@ -300,13 +300,19 @@
       }
 
       .images-container {
-        @include flexXjustifyCentered;
+        display: flex;
+        justify-content: space-around;
         flex-wrap: wrap;
 
         & > * {
           &:not(.panorama):not(.portrait) {
-            flex-basis: 46vw; //keeping aspect ratio => 3:2
-            height: calc(46vw * 0.666); //change them both simultaneously
+            flex-basis: 48vw; //keeping aspect ratio => 3:2
+            height: calc(48vw * 0.666); //change them both simultaneously
+          }
+
+          &.portrait {
+            flex-basis: 31vw;
+            height: calc(31vw * 1.5);
           }
 
           .imageActionFormContainer {
@@ -321,11 +327,9 @@
             }
           }
 
-          margin: 1%;
-          border: 1px solid #40383838;
+          margin: 1vw;
           border-radius: 5px;
-          box-shadow: 2px 2px 10px #40383838;
-          cursor: pointer;
+          box-shadow: 10px 10px 10px #40383830;
 
           picture {
             width: 100%;
