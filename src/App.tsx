@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Header from "./components/Header";
-import Home from "./components/Home";
+import CategoryHome from "./components/CategoryHome";
 import Footer from "./components/Footer";
 import Upload from "./components/Upload";
 import "./App.scss";
@@ -20,7 +20,7 @@ function App() {
               component={() => <SignInForm redirectToCategory />}
               exact
             ></Route>
-            <Route path="/:categoryTag" component={Home}></Route>
+            <Route path="/:categoryTag" component={CategoryHome}></Route>
           </Switch>
         </div>
         <Footer />
