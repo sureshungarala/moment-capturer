@@ -19,15 +19,6 @@ interface MapDispatchToProps {
 interface profileProps extends MapStateToProps, MapDispatchToProps {}
 
 const Profiles: React.FunctionComponent<profileProps> = (props) => {
-  let [className, setClassName] = useState("");
-
-  const hideProfileSectionOnLiClick = () => {
-    setClassName("hide");
-    window.setTimeout(() => {
-      setClassName("");
-    }, 300);
-  };
-
   const signInOrSignOut = () => {
     if (props.userSignedIn) {
       return (
@@ -35,30 +26,24 @@ const Profiles: React.FunctionComponent<profileProps> = (props) => {
           to={`/${props.categoryTag}`}
           onClick={() => {
             props.signOutUser();
-            hideProfileSectionOnLiClick();
           }}
         >
           Sign out
         </NavLink>
       );
     }
-    return (
-      <NavLink to="/signin" onClick={hideProfileSectionOnLiClick}>
-        Sign in
-      </NavLink>
-    );
+    return <NavLink to="/signin">Sign in</NavLink>;
   };
 
   return (
     <div className="profiles">
       <div className="profileMenu"></div>
-      <ul className={className}>
+      <ul>
         <li>
           <a
             target="_blank"
             rel="noopener noreferrer"
-            href="https://www.facebook.com/momentcapturer77"
-            onClick={hideProfileSectionOnLiClick}
+            href="https://www.instagram.com/i_am_the_moment_capturer/"
           >
             <span></span>
             <span>Instagram</span>
@@ -68,17 +53,14 @@ const Profiles: React.FunctionComponent<profileProps> = (props) => {
           <a
             target="_blank"
             rel="noopener noreferrer"
-            href="https://www.instagram.com/i_am_the_moment_capturer/"
-            onClick={hideProfileSectionOnLiClick}
+            href="https://www.facebook.com/momentcapturer77"
           >
             <span></span>
             <span>Facebook</span>
           </a>
         </li>
         <li>
-          <NavLink to="/upload" onClick={hideProfileSectionOnLiClick}>
-            Add Captures
-          </NavLink>
+          <NavLink to="/upload">Add Captures</NavLink>
         </li>
         <li>{signInOrSignOut()}</li>
       </ul>
