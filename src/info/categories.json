@@ -1,21 +1,11 @@
 [
   {
-    "name": "Astro",
-    "tag": "astro",
-    "submenu": []
-  },
-  {
     "name": "Travel",
     "tag": "",
     "submenu": [
       {
-        "name": "Architecture and Interior",
-        "tag": "architectureAndInterior",
-        "submenu": []
-      },
-      {
-        "name": "Street",
-        "tag": "street",
+        "name": "Storytelling",
+        "tag": "storytelling",
         "submenu": []
       },
       {
@@ -29,13 +19,18 @@
         "submenu": []
       },
       {
-        "name": "Storytelling",
-        "tag": "storytelling",
+        "name": "Wildlife",
+        "tag": "wildlife",
         "submenu": []
       },
       {
-        "name": "Wildlife",
-        "tag": "wildlife",
+        "name": "Street",
+        "tag": "street",
+        "submenu": []
+      },
+      {
+        "name": "Architecture and Interior",
+        "tag": "architectureAndInterior",
         "submenu": []
       },
       {
@@ -44,6 +39,11 @@
         "submenu": []
       }
     ]
+  },
+  {
+    "name": "Astro",
+    "tag": "astro",
+    "submenu": []
   },
   {
     "name": "Product",
@@ -62,16 +62,6 @@
     ]
   },
   {
-    "name": "Fashion",
-    "tag": "fashion",
-    "submenu": []
-  },
-  {
-    "name": "Sports",
-    "tag": "sports",
-    "submenu": []
-  },
-  {
     "name": "Tilt–shift",
     "tag": "tiltShift",
     "submenu": []
@@ -79,6 +69,26 @@
   {
     "name": "Black and White",
     "tag": "blackAndWhite",
+    "submenu": []
+  },
+  {
+    "name": "Baby",
+    "tag": "baby",
+    "submenu": []
+  },
+  {
+    "name": "Events",
+    "tag": "events",
+    "submenu": []
+  },
+  {
+    "name": "Fashion",
+    "tag": "fashion",
+    "submenu": []
+  },
+  {
+    "name": "Sports",
+    "tag": "sports",
     "submenu": []
   }
 ]
