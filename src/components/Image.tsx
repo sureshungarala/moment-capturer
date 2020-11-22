@@ -8,6 +8,7 @@ import { Image as imageType } from "../info/types";
 interface imageState {
   children: React.ReactFragment;
   showModal: boolean;
+  imageLoaded: boolean;
 }
 
 interface imageProps extends imageType {
@@ -22,6 +23,7 @@ export default class Image extends React.Component<imageProps, imageState> {
     this.state = {
       children: <picture />,
       showModal: false,
+      imageLoaded: false,
     };
     this.containerRef = React.createRef();
   }
@@ -44,7 +46,7 @@ export default class Image extends React.Component<imageProps, imageState> {
   };
 
   escapeModal = (event: KeyboardEvent) => {
-    if (event.keyCode === 27) {
+    if (event.key === "Escape" || event.keyCode === 27) {
       this.state.showModal &&
         this.setState({
           showModal: false,
@@ -59,7 +61,7 @@ export default class Image extends React.Component<imageProps, imageState> {
         const entry = entries[0],
           { isIntersecting } = entry;
         const title = this.props.description;
-        console.info("isIntersecting ", isIntersecting);
+        // console.info("isIntersecting ", isIntersecting);
         if (isIntersecting) {
           let sources = [];
           for (let key in this.props.srcSet) {
@@ -82,6 +84,7 @@ export default class Image extends React.Component<imageProps, imageState> {
                     alt={this.props.description}
                     src={this.props.original}
                     title={title}
+                    onLoad={() => this.setState({ imageLoaded: true })}
                   />
                 </picture>
               ),
@@ -119,6 +122,9 @@ export default class Image extends React.Component<imageProps, imageState> {
         {this.state.children}
         {this.state.showModal && (
           <McModal {...this.props} closeModal={this.closeModal} />
+        )}
+        {this.state.imageLoaded && (
+          <div className="descriptionContainer">{this.props.description}</div>
         )}
         <EditImage {...this.props} enlargeImage={this.openModal} />
       </div>

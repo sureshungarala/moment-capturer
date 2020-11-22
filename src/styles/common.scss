@@ -1,3 +1,4 @@
+$fontFamily: "Caveat", "Monaco";
 $primaryColor: #5bba47;
 $primaryColorHovered: #54744d;
 $secondaryColor: rgba(0, 0, 0, 0.85);
@@ -26,7 +27,7 @@ a {
   outline: 0;
   text-decoration: none;
   color: $secondaryColorInverted;
-  font-family: "Caveat", cursive;
+  font-family: $fontFamily;
 }
 
 h3 {
@@ -34,7 +35,7 @@ h3 {
 }
 
 textarea {
-  font-family: "Caveat", cursive;
+  font-family: $fontFamily;
 }
 
 button,

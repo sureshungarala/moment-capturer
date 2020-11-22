@@ -6,7 +6,7 @@
 @import "./styles/desktops.scss";
 
 .MC-App {
-  font-family: "Caveat", cursive;
+  font-family: $fontFamily;
   font-weight: 400;
 
   .mcHeader {
@@ -75,7 +75,7 @@
       }
 
       .categories {
-        font-family: "Caveat", cursive;
+        font-family: $fontFamily;
         outline: none;
       }
     }
@@ -216,7 +216,7 @@
             border-radius: 2px;
             outline: none;
             font-size: 1.25em;
-            font-family: "Caveat", cursive;
+            font-family: $fontFamily;
             &:focus {
               border: 1px solid #5bba47;
             }
@@ -338,6 +338,16 @@
           }
         }
       }
+    }
+
+    .descriptionContainer {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      margin: 0.5em;
+      font-size: calc(10px + 2vmin);
+      color: $secondaryColorInverted;
+      mix-blend-mode: difference;
     }
 
     .editImage {
