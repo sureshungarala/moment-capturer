@@ -25,7 +25,7 @@ const Footer: React.FunctionComponent = () => {
             rel="noopener noreferrer"
             target="_blank"
           >
-            <div className="github"></div>
+            <span className="github"></span>
           </a>
         </div>
       </div>

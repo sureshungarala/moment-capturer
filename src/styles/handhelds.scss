@@ -124,6 +124,14 @@
 
     .mcFooter {
       height: 5vmin;
+      padding: 1vmin 0;
+      font-size: 3vmin;
+
+      .linkedin,
+      .github {
+        height: 3vmin !important;
+        width: 3vmin !important;
+      }
     }
   }
 }
