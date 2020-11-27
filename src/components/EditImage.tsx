@@ -370,7 +370,17 @@ const EditImage: React.FunctionComponent<editImageProps> = (
   );
 };
 
+// to avoid TypeError: Converting circular structure to JSON (liekly coz of srcSet)
+const circularReplacer = (key: string, value: any) => {
+  if (typeof value === "object") return undefined;
+  return value;
+};
+
 export default memo(EditImage, (prevProps, nextProps) => {
-  if (JSON.stringify(prevProps) === JSON.stringify(nextProps)) return true;
+  if (
+    JSON.stringify(prevProps, circularReplacer) ===
+    JSON.stringify(nextProps, circularReplacer)
+  )
+    return true;
   return false;
 });
