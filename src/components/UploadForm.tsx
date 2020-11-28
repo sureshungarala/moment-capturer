@@ -86,6 +86,13 @@ export default class extends React.Component<uploadProps, uploadState> {
    */
   handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
+    const uploadFailed = (imageName: string) => {
+      this.setState({
+        requestProcessing: false,
+        requestStatusSuccess: false,
+        requestStatusMsg: `Failed to upload ${imageName}. Try again!`,
+      });
+    };
     if (
       this.state.files &&
       this.state.files.length !== 0 &&
@@ -126,19 +133,19 @@ export default class extends React.Component<uploadProps, uploadState> {
                 },
                 body,
               }).then(
-                () => {
-                  this.setState({
-                    requestProcessing: false,
-                    requestStatusSuccess: true,
-                    requestStatusMsg: `${imageName} uploaded successfully.`,
-                  });
+                (response: Response) => {
+                  if (response.ok) {
+                    this.setState({
+                      requestProcessing: false,
+                      requestStatusSuccess: true,
+                      requestStatusMsg: `${imageName} uploaded successfully.`,
+                    });
+                  } else {
+                    uploadFailed(imageName);
+                  }
                 },
                 (error) => {
-                  this.setState({
-                    requestProcessing: false,
-                    requestStatusSuccess: false,
-                    requestStatusMsg: `Failed to upload ${imageName}. Try again!`,
-                  });
+                  uploadFailed(imageName);
                   console.error("CSR failed with error: ", error);
                 }
               );
