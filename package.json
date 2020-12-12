@@ -26,6 +26,7 @@
     "typescript": "^3.7.4"
   },
   "scripts": {
+    "react-test": "react-scripts start",
     "start": "cra-preact start",
     "build": "cra-preact build",
     "test": "cra-preact test",

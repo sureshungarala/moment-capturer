@@ -88,6 +88,23 @@
     overflow-y: auto;
     @include flexXjustifyCentered;
 
+    .loadingContainer {
+      @include flexXjustifyCentered;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+
+      .spinner {
+        @include spinner;
+        position: absolute;
+        width: 80px;
+        height: 80px;
+        top: 40%;
+      }
+    }
+
     .uploadOrSignInContainer {
       position: relative;
       width: 100vw;
@@ -248,23 +265,6 @@
     .category-home {
       position: relative;
       width: 100vw;
-
-      .fetchingImages {
-        @include flexXjustifyCentered;
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-
-        .spinner {
-          @include spinner;
-          position: absolute;
-          width: 80px;
-          height: 80px;
-          top: 40%;
-        }
-      }
 
       .imageContainer {
         position: relative;

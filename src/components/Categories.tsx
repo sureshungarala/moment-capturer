@@ -65,15 +65,6 @@ const Categories: React.FunctionComponent<categoriesProps> = (
   });
 
   useEffect(() => {
-    setState({
-      categoryName,
-      categoryTag,
-      closeDropdown: false,
-    });
-    props.onSelectCategory(categoryName, categoryTag);
-  }, []); //componentDidMount
-
-  useEffect(() => {
     if (state.closeDropdown) {
       setState({
         ...state,
@@ -82,7 +73,7 @@ const Categories: React.FunctionComponent<categoriesProps> = (
       props.onSelectCategory &&
         props.onSelectCategory(state.categoryName, state.categoryTag);
     }
-  }, [state.closeDropdown]); //componentDidUpdate
+  }, [state.closeDropdown]);
 
   // placing this after all `useState` & `useEffect` usage
   if (

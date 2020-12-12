@@ -45,15 +45,12 @@ class Header extends React.Component<headerProps> {
   };
 
   redirectToHome = () => {
-    this.props.history.push("/" + this.categoryTag);
-    Promise.all([
-      this.props.getImages(this.categoryTag),
-      this.props.checkIfUserSignedIn(),
-    ]);
+    this.props.history.push(`/`);
   };
 
   render() {
     const routeCategoryTag = this.props.location.pathname.split("/")[1].trim();
+
     return (
       <header className="mcHeader">
         <div className="logoSection" onClick={this.redirectToHome}>

@@ -1,32 +1,36 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Header from "./components/Header";
-import CategoryHome from "./components/CategoryHome";
+import Loader from "./components/Loader";
 import Footer from "./components/Footer";
-import Upload from "./components/Upload";
 import "./App.scss";
-import SignInForm from "./components/SignInForm";
 
-function App() {
-  return (
-    <Router>
-      <div className="MC-App">
-        <Header />
-        <div className="mcBody">
+const Home = lazy(() => import("./components/Home"));
+const Upload = lazy(() => import("./components/Upload"));
+const SignIn = lazy(() => import("./components/SignInForm"));
+const CategoryHome = lazy(() => import("./components/CategoryHome"));
+
+const App: React.FunctionComponent = () => (
+  <Router>
+    <div className="MC-App">
+      <Header />
+      <div className="mcBody">
+        <Suspense fallback={<Loader />}>
           <Switch>
+            <Route path="/" component={Home} exact></Route>
             <Route path="/upload" component={Upload} exact></Route>
             <Route
               path="/signin"
-              component={() => <SignInForm redirectToCategory />}
+              component={() => <SignIn redirectToCategory />}
               exact
             ></Route>
             <Route path="/:categoryTag" component={CategoryHome}></Route>
           </Switch>
-        </div>
-        <Footer />
+        </Suspense>
       </div>
-    </Router>
-  );
-}
+      <Footer />
+    </div>
+  </Router>
+);
 
 export default App;
