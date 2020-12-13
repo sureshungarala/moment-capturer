@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Loader from "./components/Loader";
 import Footer from "./components/Footer";
+import McErrorBoundary from "./components/ErrorBoundary";
 import "./App.scss";
 
 const Home = lazy(() => import("./components/Home"));
@@ -15,18 +16,23 @@ const App: React.FunctionComponent = () => (
     <div className="MC-App">
       <Header />
       <div className="mcBody">
-        <Suspense fallback={<Loader />}>
-          <Switch>
-            <Route path="/" component={Home} exact></Route>
-            <Route path="/upload" component={Upload} exact></Route>
-            <Route
-              path="/signin"
-              component={() => <SignIn redirectToCategory />}
-              exact
-            ></Route>
-            <Route path="/:categoryTag" component={CategoryHome}></Route>
-          </Switch>
-        </Suspense>
+        <McErrorBoundary>
+          <Suspense fallback={<Loader />}>
+            <Switch>
+              <Route path="/" component={Home} exact></Route>
+              <Route path="/upload" component={Upload} exact></Route>
+              <Route
+                path="/signin"
+                component={() => <SignIn redirectToCategory />}
+                exact
+              ></Route>
+              <Route
+                path="/:categoryTag"
+                component={() => <CategoryHome />}
+              ></Route>
+            </Switch>
+          </Suspense>
+        </McErrorBoundary>
       </div>
       <Footer />
     </div>

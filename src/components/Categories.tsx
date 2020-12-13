@@ -1,12 +1,7 @@
 import React, { MouseEvent, KeyboardEvent, useState, useEffect } from "react";
-import { getFirstCategory } from "../utils/helpers";
+import { getFirstCategory, getMappedCategory } from "../utils/helpers";
+import { Category } from "../info/types";
 import categories from "../info/categories.json";
-
-interface category {
-  name: string;
-  tag: string;
-  submenu: Array<category>;
-}
 
 interface dropDownProps {
   onClickHandler: (event: MouseEvent | KeyboardEvent) => void;
@@ -15,9 +10,9 @@ interface dropDownProps {
 const CategoriesDropDown: React.FunctionComponent<dropDownProps> = (
   props: dropDownProps
 ) => {
-  const renderDropDown = (categories: Array<category>) => {
+  const renderDropDown = (categories: Array<Category>) => {
     return categories.map((category) => {
-      return !category.submenu.length ? (
+      return !category.submenu?.length ? (
         <li
           custom-value={category.name}
           custom-tag={category.tag}
@@ -53,7 +48,9 @@ interface categoriesProps {
 const Categories: React.FunctionComponent<categoriesProps> = (
   props: categoriesProps
 ) => {
-  const firstCategory = getFirstCategory();
+  const firstCategory = props.routeCategoryTag
+    ? getMappedCategory(props.routeCategoryTag)
+    : getFirstCategory();
   let categoryName = firstCategory.name;
   let categoryTag = firstCategory.tag;
 
@@ -75,33 +72,6 @@ const Categories: React.FunctionComponent<categoriesProps> = (
     }
   }, [state.closeDropdown]);
 
-  // placing this after all `useState` & `useEffect` usage
-  if (
-    typeof props.routeCategoryTag !== "undefined" &&
-    props.routeCategoryTag.length
-  ) {
-    parentLoop: for (let ctgry of categories) {
-      if (ctgry.tag.length) {
-        if (ctgry.tag.toLowerCase() === props.routeCategoryTag.toLowerCase()) {
-          categoryName = ctgry.name;
-          categoryTag = ctgry.tag;
-          break;
-        }
-      } else {
-        for (let subCategory of ctgry.submenu) {
-          if (
-            subCategory.tag.toLowerCase() ===
-            props.routeCategoryTag.toLowerCase()
-          ) {
-            categoryName = subCategory.name;
-            categoryTag = subCategory.tag;
-            break parentLoop;
-          }
-        }
-      }
-    }
-  }
-
   const changeCategory = (event: MouseEvent | KeyboardEvent) => {
     const selectedCategory = (event.target as HTMLLIElement).getAttribute(
         "custom-value"
@@ -109,8 +79,8 @@ const Categories: React.FunctionComponent<categoriesProps> = (
       seletedCategoryTag = (event.target as HTMLLIElement).getAttribute(
         "custom-tag"
       );
-    selectedCategory &&
-      selectedCategory.length &&
+
+    selectedCategory?.length &&
       selectedCategory !== state.categoryName &&
       setState({
         categoryName: "" + selectedCategory,

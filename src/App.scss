@@ -105,6 +105,37 @@
       }
     }
 
+    .banner {
+      position: absolute;
+      @include flexXcentered;
+      flex-direction: column;
+      width: 100%;
+      top: 30%;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+
+      .title {
+        font-weight: 600;
+        font-size: 4vmin;
+      }
+
+      .refresh {
+        padding: 5px 20px;
+        color: $primaryColor;
+        background-color: $secondaryColor;
+        border-radius: 4px;
+        font-family: $fontFamily;
+        font-size: 3vmin;
+        transform: translateY(10px);
+        outline: none;
+
+        &:hover {
+          background-color: $secondaryColorHovered;
+        }
+      }
+    }
+
     .uploadOrSignInContainer {
       position: relative;
       width: 100vw;
