@@ -16,7 +16,7 @@ interface imageProps extends imageType {
   categoryTag: string;
 }
 
-export default class Image extends React.Component<imageProps, imageState> {
+class Image extends React.Component<imageProps, imageState> {
   containerRef: React.RefObject<HTMLDivElement>;
   constructor(props: imageProps) {
     super(props);
@@ -131,3 +131,5 @@ export default class Image extends React.Component<imageProps, imageState> {
     );
   }
 }
+
+export default Image;

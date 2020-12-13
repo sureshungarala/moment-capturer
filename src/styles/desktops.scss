@@ -40,6 +40,10 @@ $desktop_header_height: 4vmax;
     .mcBody {
       min-height: calc(100vh - 5vmax);
       padding-top: $desktop_header_height; //w.r.to header height
+
+      .banner {
+        max-width: 50%;
+      }
     }
 
     .mcFooter {

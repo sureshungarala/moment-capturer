@@ -40,6 +40,10 @@ $laptop_header_height: 4vmax;
     .mcBody {
       min-height: calc(100vh - #{$laptop_header_height});
       padding-top: $laptop_header_height; //w.r.to header height
+
+      .banner {
+        max-width: 50%;
+      }
     }
 
     .mcFooter {

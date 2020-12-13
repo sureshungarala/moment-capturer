@@ -1,28 +1,69 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
+import { ThunkDispatch } from "redux-thunk";
+import { withRouter, RouteComponentProps } from "react-router-dom";
 
 import Loader from "./Loader";
+import Banner from "./Banner";
 import ImageComponent from "./Image";
 
-import { initMoments } from "../redux/actions";
-import { Image, McMoments, McState } from "../info/types";
-import { getFirstCategory } from "../utils/helpers";
+import { Image, McAction, McMoments, McState } from "../info/types";
+import {
+  initMoments,
+  getImages,
+  checkIfUserSignedIn,
+  setCategory,
+} from "../redux/actions";
+import { getMappedCategory } from "../utils/helpers";
 
 interface MapStateToProps {
   images: McMoments;
   fetchingImages: boolean;
+  fetchingFailed: boolean;
   userSignedIn: boolean;
-  categoryTag: string;
 }
 
-interface homeProps extends MapStateToProps {}
+interface MapDispatchToProps {
+  getImages: (categoryTag: string) => Promise<void>;
+  checkIfUserSignedIn: () => Promise<void>;
+  setCategory: (category: string, categoryTag: string) => void;
+}
+
+interface categoryHomeRouterProps {
+  //contains history object and ...
+}
+
+interface homeProps
+  extends MapStateToProps,
+    MapDispatchToProps,
+    RouteComponentProps<categoryHomeRouterProps> {}
 
 const Home: React.FunctionComponent<homeProps> = (props: homeProps) => {
+  const routeCategoryTag = props.location.pathname.split("/")[1].trim();
+  const { name, tag } = getMappedCategory(routeCategoryTag);
   const { biotc, moments: images } = props.images;
+
+  useEffect(() => {
+    Promise.all([
+      props.getImages(tag),
+      props.checkIfUserSignedIn(),
+      props.setCategory(name, tag),
+    ]);
+  }, [tag]);
 
   let categoryHome = <></>;
   if (props.fetchingImages) {
     categoryHome = <Loader />;
+  } else if (props.fetchingFailed) {
+    categoryHome = <Banner canRefresh />;
+  } else if (!images.length) {
+    categoryHome = (
+      <Banner
+        title={
+          "No moments recorded for this category as of yet. Wait for some time and check again."
+        }
+      />
+    );
   } else {
     categoryHome = (
       <React.Fragment>
@@ -30,7 +71,7 @@ const Home: React.FunctionComponent<homeProps> = (props: homeProps) => {
           <ImageComponent
             {...biotc}
             userSignedIn={props.userSignedIn}
-            categoryTag={props.categoryTag}
+            categoryTag={tag}
           />
         )}
         <div className="images-container">
@@ -39,7 +80,7 @@ const Home: React.FunctionComponent<homeProps> = (props: homeProps) => {
               <ImageComponent
                 {...image}
                 userSignedIn={props.userSignedIn}
-                categoryTag={props.categoryTag}
+                categoryTag={tag}
                 key={image.updateTime}
               />
             );
@@ -55,9 +96,30 @@ const mapStateToProps = (state: McState): MapStateToProps => {
   return {
     images: state.images || initMoments,
     fetchingImages: state.fetchingImages || false,
+    fetchingFailed: state.fetchingFailed || false,
     userSignedIn: state.userSignedIn || false,
-    categoryTag: state.categoryTag || getFirstCategory().tag,
   };
 };
 
-export default connect<MapStateToProps>(mapStateToProps)(Home);
+const mapDispatchToProps = (
+  dispatch: ThunkDispatch<McState, {}, McAction>
+): MapDispatchToProps => {
+  return {
+    getImages: async (categoryTag: string) => {
+      await dispatch(getImages(categoryTag));
+    },
+    checkIfUserSignedIn: async () => {
+      await dispatch(checkIfUserSignedIn());
+    },
+    setCategory: (category: string, categoryTag: string) => {
+      dispatch(setCategory(category, categoryTag));
+    },
+  };
+};
+
+export default withRouter(
+  connect<MapStateToProps, MapDispatchToProps>(
+    mapStateToProps,
+    mapDispatchToProps
+  )(Home)
+);

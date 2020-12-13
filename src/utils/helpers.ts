@@ -42,7 +42,7 @@ export function getModalDimensions(image: Image): ModalDimensions {
 }
 
 /**
- * returns first category from categories
+ * @returns first category from categories
  */
 export function getFirstCategory(): Category {
   const categoryName = categories[0].tag.length
@@ -56,4 +56,23 @@ export function getFirstCategory(): Category {
     name: categoryName,
     tag: categoryTag,
   };
+}
+
+/**
+ * @returns category by categoryTag
+ * @param categoryTag
+ */
+export function getMappedCategory(
+  categoryTag: string,
+  categoriesArr: Category[] = categories
+): Category {
+  let mappedcategory = getFirstCategory();
+  for (const category of categoriesArr) {
+    if (category.tag.toLowerCase() === categoryTag.trim().toLowerCase()) {
+      mappedcategory = category;
+    } else if (category.submenu?.length) {
+      mappedcategory = getMappedCategory(categoryTag, category.submenu);
+    }
+  }
+  return mappedcategory;
 }

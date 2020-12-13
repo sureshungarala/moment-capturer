@@ -42,4 +42,5 @@ export interface ModalDimensions {
 export interface Category {
   name: string;
   tag: string;
+  submenu?: Category[];
 }

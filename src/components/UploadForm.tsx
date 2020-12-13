@@ -52,7 +52,7 @@ export default class extends React.Component<uploadProps, uploadState> {
 
   handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
-    if (files && files.length) {
+    if (files?.length) {
       if (files[0].size <= MAX_IMAGE_SIZE_IN_MB * 1024 * 1024) {
         this.setState(
           {
@@ -61,7 +61,7 @@ export default class extends React.Component<uploadProps, uploadState> {
             fileStatusMsg: `${files[0].name} is selected`,
           },
           () => {
-            this.descriptionRef.current && this.descriptionRef.current.focus();
+            this.descriptionRef.current?.focus();
           }
         );
       } else {

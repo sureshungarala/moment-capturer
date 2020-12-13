@@ -38,10 +38,6 @@ class Header extends React.Component<headerProps> {
     this.categoryTag = categoryTag;
     this.props.setCategory(category, categoryTag);
     this.props.history.push("/" + categoryTag);
-    Promise.all([
-      this.props.getImages(categoryTag),
-      this.props.checkIfUserSignedIn(),
-    ]);
   };
 
   redirectToHome = () => {
