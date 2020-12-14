@@ -68,10 +68,14 @@ export function getMappedCategory(
 ): Category {
   let mappedcategory = getFirstCategory();
   for (const category of categoriesArr) {
+    let tempCategory = mappedcategory;
     if (category.tag.toLowerCase() === categoryTag.trim().toLowerCase()) {
-      mappedcategory = category;
+      tempCategory = category;
     } else if (category.submenu?.length) {
-      mappedcategory = getMappedCategory(categoryTag, category.submenu);
+      tempCategory = getMappedCategory(categoryTag, category.submenu);
+    }
+    if (tempCategory.tag !== mappedcategory.tag) {
+      return tempCategory;
     }
   }
   return mappedcategory;
