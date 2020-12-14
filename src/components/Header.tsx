@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { ThunkDispatch } from "redux-thunk";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 
-import { setCategory, getImages, checkIfUserSignedIn } from "../redux/actions";
+import { getImages, checkIfUserSignedIn } from "../redux/actions";
 
 import Categories from "./Categories";
 import { McAction, McState } from "../info/types";
@@ -11,7 +11,6 @@ import { McAction, McState } from "../info/types";
 import Profiles from "./Profiles";
 
 interface MapDispatchToProps {
-  setCategory: (category: string, categoryTag: string) => void;
   getImages: (categoryTag: string) => Promise<void>;
   checkIfUserSignedIn: () => Promise<void>;
 }
@@ -36,7 +35,6 @@ class Header extends React.Component<headerProps> {
   // `this.props.location` gives browser url
   updateCategory = (category: string, categoryTag: string) => {
     this.categoryTag = categoryTag;
-    this.props.setCategory(category, categoryTag);
     this.props.history.push("/" + categoryTag);
   };
 
@@ -77,9 +75,6 @@ const mapDispatchToProps = (
     },
     checkIfUserSignedIn: async () => {
       await dispatch(checkIfUserSignedIn());
-    },
-    setCategory: (category: string, categoryTag: string) => {
-      dispatch(setCategory(category, categoryTag));
     },
   };
 };

@@ -48,11 +48,11 @@ interface categoriesProps {
 const Categories: React.FunctionComponent<categoriesProps> = (
   props: categoriesProps
 ) => {
-  const firstCategory = props.routeCategoryTag
+  const category = props.routeCategoryTag
     ? getMappedCategory(props.routeCategoryTag)
     : getFirstCategory();
-  let categoryName = firstCategory.name;
-  let categoryTag = firstCategory.tag;
+  let categoryName = category.name;
+  let categoryTag = category.tag;
 
   const [state, setState] = useState<categoriesState>({
     //no conditional statements before useState or useEffect
@@ -60,6 +60,17 @@ const Categories: React.FunctionComponent<categoriesProps> = (
     categoryTag,
     closeDropdown: false,
   });
+
+  useEffect(() => {
+    if (props.routeCategoryTag !== state.categoryTag) {
+      const { name, tag } = category;
+      setState({
+        categoryName: name,
+        categoryTag: tag,
+        closeDropdown: false,
+      });
+    }
+  }, [props.routeCategoryTag]);
 
   useEffect(() => {
     if (state.closeDropdown) {

@@ -8,12 +8,7 @@ import Banner from "./Banner";
 import ImageComponent from "./Image";
 
 import { Image, McAction, McMoments, McState } from "../info/types";
-import {
-  initMoments,
-  getImages,
-  checkIfUserSignedIn,
-  setCategory,
-} from "../redux/actions";
+import { initMoments, getImages, checkIfUserSignedIn } from "../redux/actions";
 import { getMappedCategory } from "../utils/helpers";
 
 interface MapStateToProps {
@@ -26,7 +21,6 @@ interface MapStateToProps {
 interface MapDispatchToProps {
   getImages: (categoryTag: string) => Promise<void>;
   checkIfUserSignedIn: () => Promise<void>;
-  setCategory: (category: string, categoryTag: string) => void;
 }
 
 interface categoryHomeRouterProps {
@@ -44,11 +38,7 @@ const Home: React.FunctionComponent<homeProps> = (props: homeProps) => {
   const { biotc, moments: images } = props.images;
 
   useEffect(() => {
-    Promise.all([
-      props.getImages(tag),
-      props.checkIfUserSignedIn(),
-      props.setCategory(name, tag),
-    ]);
+    Promise.all([props.getImages(tag), props.checkIfUserSignedIn()]);
   }, [tag]);
 
   let categoryHome = <></>;
@@ -110,9 +100,6 @@ const mapDispatchToProps = (
     },
     checkIfUserSignedIn: async () => {
       await dispatch(checkIfUserSignedIn());
-    },
-    setCategory: (category: string, categoryTag: string) => {
-      dispatch(setCategory(category, categoryTag));
     },
   };
 };
