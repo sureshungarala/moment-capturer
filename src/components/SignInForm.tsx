@@ -1,21 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { connect } from "react-redux";
-import { Dispatch } from "redux";
 import { withRouter, RouteComponentProps } from "react-router-dom";
-import { Auth } from "@aws-amplify/auth";
 
-import { McState } from "../info/types";
-
-import { SET_IF_USER_SIGNED_IN } from "../redux/actions";
+import {
+  signIn as CognitoSignIn,
+  changePassword as CognitoChangePassword,
+} from "../utils/apis";
 import { getFirstCategory } from "../utils/helpers";
-
-interface MapStateToProps {
-  categoryTag: string;
-}
-
-interface MapDispatchToProps {
-  userSignedIn: () => void;
-}
+import { signIncustomEventName } from "../utils/constants";
 
 interface signInFormRouterProps {
   //contains history object and ...
@@ -32,10 +23,7 @@ interface credentialsState {
   password: string;
 }
 
-interface signInFormProps
-  extends MapStateToProps,
-    MapDispatchToProps,
-    RouteComponentProps<signInFormRouterProps> {
+interface signInFormProps extends RouteComponentProps<signInFormRouterProps> {
   redirectToCategory?: boolean;
 }
 
@@ -53,6 +41,9 @@ const SignInForm: React.FunctionComponent<signInFormProps> = (
   props: signInFormProps
 ) => {
   // --------------------------- state -----------------------------
+
+  const firstCategoryTag = getFirstCategory().tag;
+
   const [currentUser, setCurrentUser] = useState<currentUser>({
     user: {},
   });
@@ -89,6 +80,12 @@ const SignInForm: React.FunctionComponent<signInFormProps> = (
 
   // --------------------------- end effects -----------------------------
 
+  const dispatchSignInStatus = () => {
+    document.dispatchEvent(
+      new CustomEvent(signIncustomEventName, { detail: true })
+    );
+  };
+
   const signIn = () => {
     setFormState({
       processing: true,
@@ -96,7 +93,7 @@ const SignInForm: React.FunctionComponent<signInFormProps> = (
       succeeded: false,
     });
 
-    Auth.signIn(credentials.username, credentials.password).then(
+    CognitoSignIn(credentials.username, credentials.password).then(
       (data) => {
         setCurrentUser(data);
         setFormState({
@@ -113,9 +110,9 @@ const SignInForm: React.FunctionComponent<signInFormProps> = (
             failed: false,
           });
           if (props.redirectToCategory) {
-            props.history.push(`/${props.categoryTag}`);
+            props.history.push(`/${firstCategoryTag}`);
           }
-          props.userSignedIn();
+          dispatchSignInStatus();
         }
       },
       (error) => {
@@ -136,7 +133,7 @@ const SignInForm: React.FunctionComponent<signInFormProps> = (
       succeeded: false,
     });
 
-    Auth.completeNewPassword(currentUser, newPassword).then(
+    CognitoChangePassword(currentUser, newPassword).then(
       () => {
         setFormState({
           processing: false,
@@ -144,9 +141,9 @@ const SignInForm: React.FunctionComponent<signInFormProps> = (
           succeeded: true,
         });
         if (props.redirectToCategory) {
-          props.history.push(`/${props.categoryTag}`);
+          props.history.push(`/${firstCategoryTag}`);
         }
-        props.userSignedIn();
+        dispatchSignInStatus();
       },
       (error) => {
         console.error("Failed to update password with error: ", error);
@@ -260,24 +257,4 @@ const SignInForm: React.FunctionComponent<signInFormProps> = (
   );
 };
 
-const mapStateToProps = (state: McState) => ({
-  categoryTag: state.categoryTag || getFirstCategory().tag,
-});
-
-const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToProps => {
-  return {
-    userSignedIn: () => {
-      dispatch({
-        type: SET_IF_USER_SIGNED_IN,
-        userSignedIn: true,
-      });
-    },
-  };
-};
-
-export default withRouter(
-  connect<MapStateToProps, MapDispatchToProps>(
-    mapStateToProps,
-    mapDispatchToProps
-  )(SignInForm)
-);
+export default withRouter(SignInForm);

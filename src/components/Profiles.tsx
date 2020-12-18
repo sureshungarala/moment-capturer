@@ -1,31 +1,38 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import { connect } from "react-redux";
-import { ThunkDispatch } from "redux-thunk";
 
-import { McState, McAction } from "../info/types";
 import { getFirstCategory } from "../utils/helpers";
-import { signOutUser } from "../redux/actions";
+import { checkIfUserSignedIn, signOutUser } from "../utils/apis";
+import { signIncustomEventName } from "../utils/constants";
 
-interface MapStateToProps {
-  categoryTag: string;
-  userSignedIn: boolean;
-}
-
-interface MapDispatchToProps {
-  signOutUser: () => Promise<void>;
-}
-
-interface profileProps extends MapStateToProps, MapDispatchToProps {}
+interface profileProps {}
 
 const Profiles: React.FunctionComponent<profileProps> = (props) => {
+  const [isUserSignedIn, userSignedIn] = useState(false);
+
+  // workaround for redux cleanup ---
+  const customEventDetail = (event: Event): event is CustomEvent =>
+    "detail" in event;
+
+  document.addEventListener(signIncustomEventName, (event: Event) => {
+    userSignedIn(customEventDetail(event));
+  });
+  // --------------------------------
+  useEffect(() => {
+    checkIfUserSignedIn().then((userDidSignIn) => {
+      userSignedIn(userDidSignIn);
+    });
+  }, []);
+
   const signInOrSignOut = () => {
-    if (props.userSignedIn) {
+    if (isUserSignedIn) {
       return (
         <NavLink
-          to={`/${props.categoryTag}`}
+          to={`/${getFirstCategory().tag}`}
           onClick={() => {
-            props.signOutUser();
+            signOutUser().then((userSignedOut: Boolean) => {
+              userSignedIn(!userSignedOut);
+            });
           }}
         >
           Sign out
@@ -68,22 +75,4 @@ const Profiles: React.FunctionComponent<profileProps> = (props) => {
   );
 };
 
-const mapStateToProps = (state: McState) => ({
-  categoryTag: state.categoryTag || getFirstCategory().tag,
-  userSignedIn: state.userSignedIn || false,
-});
-
-const mapDispatchToProps = (
-  dispatch: ThunkDispatch<McState, {}, McAction>
-): MapDispatchToProps => {
-  return {
-    signOutUser: async () => {
-      await dispatch(signOutUser());
-    },
-  };
-};
-
-export default connect<MapStateToProps, MapDispatchToProps>(
-  mapStateToProps,
-  mapDispatchToProps
-)(Profiles);
+export default Profiles;

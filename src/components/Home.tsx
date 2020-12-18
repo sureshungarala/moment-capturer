@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { connect } from "react-redux";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 
 import { getFirstCategory } from "../utils/helpers";
@@ -20,4 +19,4 @@ const Home: React.FunctionComponent<HomeProps> = (props) => {
   return <></>;
 };
 
-export default withRouter(connect()(Home));
+export default withRouter(Home);

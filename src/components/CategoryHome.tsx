@@ -1,52 +1,80 @@
-import React, { useEffect } from "react";
-import { connect } from "react-redux";
-import { ThunkDispatch } from "redux-thunk";
+import React, { useState, useEffect } from "react";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 
 import Loader from "./Loader";
 import Banner from "./Banner";
 import ImageComponent from "./Image";
 
-import { Image, McAction, McMoments, McState } from "../info/types";
-import { initMoments, getImages, checkIfUserSignedIn } from "../redux/actions";
+import { fetchImages, checkIfUserSignedIn } from "../utils/apis";
+import { Image, McMoments } from "../info/types";
 import { getMappedCategory } from "../utils/helpers";
-
-interface MapStateToProps {
-  images: McMoments;
-  fetchingImages: boolean;
-  fetchingFailed: boolean;
-  userSignedIn: boolean;
-}
-
-interface MapDispatchToProps {
-  getImages: (categoryTag: string) => Promise<void>;
-  checkIfUserSignedIn: () => Promise<void>;
-}
+import { initMoments } from "../utils/constants";
 
 interface categoryHomeRouterProps {
   //contains history object and ...
 }
 
-interface homeProps
-  extends MapStateToProps,
-    MapDispatchToProps,
-    RouteComponentProps<categoryHomeRouterProps> {}
+interface homeProps extends RouteComponentProps<categoryHomeRouterProps> {}
 
 const Home: React.FunctionComponent<homeProps> = (props: homeProps) => {
   const routeCategoryTag = props.location.pathname.split("/")[1].trim();
-  const { name, tag } = getMappedCategory(routeCategoryTag);
-  const { biotc, moments: images } = props.images;
+  const { tag } = getMappedCategory(routeCategoryTag);
 
+  const [categoryHomeState, setCategoryHomeState] = useState({
+    images: initMoments,
+    fetchingImages: true,
+    fetchingFailed: false,
+    userSignedIn: false,
+  });
+
+  /* --------------------- data fetch start---------------------- */
   useEffect(() => {
-    Promise.all([props.getImages(tag), props.checkIfUserSignedIn()]);
+    setCategoryHomeState({
+      ...categoryHomeState,
+      fetchingImages: true,
+    });
+
+    Promise.all([fetchImages(tag), checkIfUserSignedIn()]).then(
+      ([data, isUserSignedIn]) => {
+        const images: McMoments = JSON.parse(JSON.stringify(initMoments));
+        (data.images as Image[]).forEach((image: Image) => {
+          if (image.biotc) {
+            images.biotc = image;
+          } else {
+            images.moments.push(image);
+          }
+        });
+        setCategoryHomeState({
+          images,
+          fetchingImages: false,
+          fetchingFailed: false,
+          userSignedIn: isUserSignedIn,
+        });
+      },
+      () => {
+        setCategoryHomeState({
+          ...categoryHomeState,
+          fetchingImages: false,
+          fetchingFailed: true,
+        });
+      }
+    );
   }, [tag]);
+  /* --------------------- data fetch end---------------------- */
+
+  const {
+    images: { biotc, moments: images },
+    fetchingImages,
+    fetchingFailed,
+    userSignedIn,
+  } = categoryHomeState;
 
   let categoryHome = <></>;
-  if (props.fetchingImages) {
+  if (fetchingImages) {
     categoryHome = <Loader />;
-  } else if (props.fetchingFailed) {
+  } else if (fetchingFailed) {
     categoryHome = <Banner canRefresh />;
-  } else if (!images.length) {
+  } else if (!(images.length || biotc.original.length)) {
     categoryHome = (
       <Banner
         title={
@@ -60,7 +88,7 @@ const Home: React.FunctionComponent<homeProps> = (props: homeProps) => {
         {biotc.original.length > 0 && (
           <ImageComponent
             {...biotc}
-            userSignedIn={props.userSignedIn}
+            userSignedIn={userSignedIn}
             categoryTag={tag}
           />
         )}
@@ -69,7 +97,7 @@ const Home: React.FunctionComponent<homeProps> = (props: homeProps) => {
             return (
               <ImageComponent
                 {...image}
-                userSignedIn={props.userSignedIn}
+                userSignedIn={userSignedIn}
                 categoryTag={tag}
                 key={image.updateTime}
               />
@@ -82,31 +110,4 @@ const Home: React.FunctionComponent<homeProps> = (props: homeProps) => {
   return <div className="category-home">{categoryHome}</div>;
 };
 
-const mapStateToProps = (state: McState): MapStateToProps => {
-  return {
-    images: state.images || initMoments,
-    fetchingImages: state.fetchingImages || false,
-    fetchingFailed: state.fetchingFailed || false,
-    userSignedIn: state.userSignedIn || false,
-  };
-};
-
-const mapDispatchToProps = (
-  dispatch: ThunkDispatch<McState, {}, McAction>
-): MapDispatchToProps => {
-  return {
-    getImages: async (categoryTag: string) => {
-      await dispatch(getImages(categoryTag));
-    },
-    checkIfUserSignedIn: async () => {
-      await dispatch(checkIfUserSignedIn());
-    },
-  };
-};
-
-export default withRouter(
-  connect<MapStateToProps, MapDispatchToProps>(
-    mapStateToProps,
-    mapDispatchToProps
-  )(Home)
-);
+export default withRouter(Home);

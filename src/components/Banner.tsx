@@ -10,9 +10,7 @@ const Banner: React.FunctionComponent<BannerProps> = ({
   canRefresh,
 }: BannerProps) => (
   <section className="banner">
-    <div className="title">
-      {title || "Failed to load. Refresh and try again."}
-    </div>
+    <div className="title">{title || "Failed to load. Try again."}</div>
     {canRefresh && (
       <button className="refresh" onClick={() => window.location.reload()}>
         Refresh

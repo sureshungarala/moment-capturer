@@ -1,19 +1,36 @@
-import React from "react";
-import { connect } from "react-redux";
+import React, { useState, useEffect } from "react";
 
+import Loader from "./Loader";
 import SignInForm from "./SignInForm";
 import UploadForm from "./UploadForm";
-import { McState } from "../info/types";
+import { checkIfUserSignedIn } from "../utils/apis";
 
-interface MapStateToProps {
-  userSignedIn: boolean;
-}
+const Upload: React.FunctionComponent = () => {
+  const [uploadState, setUploadState] = useState({
+    checkingIfUserSignedIn: false,
+    userSignedIn: false,
+  });
 
-interface uploadProps extends MapStateToProps {}
+  useEffect(() => {
+    setUploadState({
+      ...uploadState,
+      checkingIfUserSignedIn: true,
+    });
 
-const Upload: React.FunctionComponent<uploadProps> = (props: uploadProps) => {
+    checkIfUserSignedIn().then((userSignedIn) => {
+      setUploadState({
+        checkingIfUserSignedIn: false,
+        userSignedIn,
+      });
+    });
+  }, []);
+
+  const { checkingIfUserSignedIn, userSignedIn } = uploadState;
+
   const renderTemplate = () => {
-    if (props.userSignedIn) {
+    if (checkingIfUserSignedIn) {
+      return <Loader />;
+    } else if (userSignedIn) {
       return <UploadForm />;
     }
     return <SignInForm />;
@@ -22,8 +39,4 @@ const Upload: React.FunctionComponent<uploadProps> = (props: uploadProps) => {
   return renderTemplate();
 };
 
-const mapStateToProps = (state: McState) => ({
-  userSignedIn: state.userSignedIn || false,
-});
-
-export default connect<MapStateToProps>(mapStateToProps)(Upload);
+export default Upload;

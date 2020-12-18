@@ -22,7 +22,7 @@ interface uploadState {
   requestStatusMsg: string;
 }
 
-export default class extends React.Component<uploadProps, uploadState> {
+class UploadForm extends React.Component<uploadProps, uploadState> {
   fileRef: React.RefObject<HTMLInputElement>;
   descriptionRef: React.RefObject<HTMLTextAreaElement>;
 
@@ -284,7 +284,7 @@ export default class extends React.Component<uploadProps, uploadState> {
             />
             {this.textArea()}
             <Categories
-              onSelectCategory={(category, categoryTag) => {
+              onSelectCategory={(categoryTag) => {
                 this.setState({
                   categorySelected: categoryTag,
                 });
@@ -326,3 +326,5 @@ export default class extends React.Component<uploadProps, uploadState> {
     );
   }
 }
+
+export default UploadForm;

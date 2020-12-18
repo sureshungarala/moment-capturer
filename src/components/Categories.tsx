@@ -41,7 +41,7 @@ interface categoriesState {
 }
 
 interface categoriesProps {
-  onSelectCategory: (category: string, categoryTag: string) => void;
+  onSelectCategory: (categoryTag: string) => void;
   routeCategoryTag?: string;
 }
 
@@ -78,8 +78,7 @@ const Categories: React.FunctionComponent<categoriesProps> = (
         ...state,
         closeDropdown: !state.closeDropdown,
       });
-      props.onSelectCategory &&
-        props.onSelectCategory(state.categoryName, state.categoryTag);
+      props.onSelectCategory && props.onSelectCategory(state.categoryTag);
     }
   }, [state.closeDropdown]);
 

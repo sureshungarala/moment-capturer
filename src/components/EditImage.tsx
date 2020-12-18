@@ -293,7 +293,7 @@ const EditImage: React.FunctionComponent<editImageProps> = (
     <section className="imageActionFormContainer">
       <form className="editForm" onSubmit={updateImageMetadata}>
         <Categories
-          onSelectCategory={(category, categoryTag) => {
+          onSelectCategory={(categoryTag) => {
             setEditState({
               ...editState,
               categoryTag: categoryTag,
