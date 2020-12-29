@@ -1,7 +1,7 @@
 import React, { MouseEvent, KeyboardEvent, useState, useEffect } from "react";
-import { getFirstCategory, getMappedCategory } from "../utils/helpers";
-import { Category } from "../info/types";
-import categories from "../info/categories.json";
+import { getFirstCategory, getMappedCategory } from "../../utils/helpers";
+import { Category } from "../../info/types";
+import categories from "../../info/categories.json";
 
 interface dropDownProps {
   onClickHandler: (event: MouseEvent | KeyboardEvent) => void;

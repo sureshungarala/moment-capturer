@@ -2,10 +2,10 @@ import React, { useState, memo } from "react";
 import { Auth } from "@aws-amplify/auth";
 import { CognitoUserSession } from "amazon-cognito-identity-js";
 
-import Categories from "./Categories";
-import { Image } from "../info/types";
+import Categories from "../Utils/Categories";
+import { Image } from "../../info/types";
 
-import { editImage, deleteImage } from "../utils/apis";
+import { editImage, deleteImage } from "../../utils/apis";
 
 interface editImageProps extends Image {
   categoryTag: string;

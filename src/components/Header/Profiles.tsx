@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 
-import { getFirstCategory } from "../utils/helpers";
-import { checkIfUserSignedIn, signOutUser } from "../utils/apis";
-import { signIncustomEventName } from "../utils/constants";
+import { getFirstCategory } from "../../utils/helpers";
+import { checkIfUserSignedIn, signOutUser } from "../../utils/apis";
+import { signIncustomEventName } from "../../utils/constants";
 
 interface profileProps {}
 

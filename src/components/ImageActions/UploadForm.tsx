@@ -2,8 +2,8 @@ import React from "react";
 import { Auth } from "@aws-amplify/auth";
 import { CognitoUserSession } from "amazon-cognito-identity-js";
 
-import { MAX_IMAGE_SIZE_IN_MB, getFirstCategory } from "../utils/helpers";
-import Categories from "./Categories";
+import { MAX_IMAGE_SIZE_IN_MB, getFirstCategory } from "../../utils/helpers";
+import Categories from "../Utils/Categories";
 
 interface uploadProps {}
 

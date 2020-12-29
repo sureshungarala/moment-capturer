@@ -4,9 +4,9 @@ import { withRouter, RouteComponentProps } from "react-router-dom";
 import {
   signIn as CognitoSignIn,
   changePassword as CognitoChangePassword,
-} from "../utils/apis";
-import { getFirstCategory } from "../utils/helpers";
-import { signIncustomEventName } from "../utils/constants";
+} from "../../utils/apis";
+import { getFirstCategory } from "../../utils/helpers";
+import { signIncustomEventName } from "../../utils/constants";
 
 interface signInFormRouterProps {
   //contains history object and ...
@@ -25,6 +25,7 @@ interface credentialsState {
 
 interface signInFormProps extends RouteComponentProps<signInFormRouterProps> {
   redirectToCategory?: boolean;
+  onSuccessfulSignIn?: Function;
 }
 
 interface processingState {
@@ -111,6 +112,8 @@ const SignInForm: React.FunctionComponent<signInFormProps> = (
           });
           if (props.redirectToCategory) {
             props.history.push(`/${firstCategoryTag}`);
+          } else if (props.onSuccessfulSignIn) {
+            props.onSuccessfulSignIn();
           }
           dispatchSignInStatus();
         }
@@ -142,6 +145,8 @@ const SignInForm: React.FunctionComponent<signInFormProps> = (
         });
         if (props.redirectToCategory) {
           props.history.push(`/${firstCategoryTag}`);
+        } else if (props.onSuccessfulSignIn) {
+          props.onSuccessfulSignIn();
         }
         dispatchSignInStatus();
       },

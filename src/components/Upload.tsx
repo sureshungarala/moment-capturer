@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 
-import Loader from "./Loader";
-import SignInForm from "./SignInForm";
-import UploadForm from "./UploadForm";
+import Loader from "./Utils/Loader";
+import SignInForm from "./SignIn/SignInForm";
+import UploadForm from "./ImageActions/UploadForm";
 import { checkIfUserSignedIn } from "../utils/apis";
 
 const Upload: React.FunctionComponent = () => {
@@ -33,7 +33,13 @@ const Upload: React.FunctionComponent = () => {
     } else if (userSignedIn) {
       return <UploadForm />;
     }
-    return <SignInForm />;
+    return (
+      <SignInForm
+        onSuccessfulSignIn={() => {
+          setUploadState({ ...uploadState, userSignedIn: true });
+        }}
+      />
+    );
   };
 
   return renderTemplate();

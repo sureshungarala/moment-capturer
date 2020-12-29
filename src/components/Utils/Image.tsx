@@ -1,9 +1,9 @@
 import React from "react";
 
-import EditImage from "./EditImage";
+import EditImage from "../ImageActions/EditImage";
 import McModal from "./McModal";
 
-import { Image as imageType } from "../info/types";
+import { Image as imageType } from "../../info/types";
 
 interface imageState {
   children: React.ReactFragment;

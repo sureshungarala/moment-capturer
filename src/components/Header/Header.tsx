@@ -1,7 +1,7 @@
 import React from "react";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 
-import Categories from "./Categories";
+import Categories from "../Utils/Categories";
 
 import Profiles from "./Profiles";
 

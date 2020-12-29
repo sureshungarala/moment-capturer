@@ -1,14 +1,14 @@
 import React, { lazy, Suspense } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Header from "./components/Header";
-import Loader from "./components/Loader";
-import Footer from "./components/Footer";
-import McErrorBoundary from "./components/ErrorBoundary";
+import Header from "./components/Header/Header";
+import Loader from "./components/Utils/Loader";
+import Footer from "./components/Footer/Footer";
+import McErrorBoundary from "./components/Utils/ErrorBoundary";
 import "./App.scss";
 
 const Home = lazy(() => import("./components/Home"));
 const Upload = lazy(() => import("./components/Upload"));
-const SignIn = lazy(() => import("./components/SignInForm"));
+const SignIn = lazy(() => import("./components/SignIn/SignInForm"));
 const CategoryHome = lazy(() => import("./components/CategoryHome"));
 
 const App: React.FunctionComponent = () => (

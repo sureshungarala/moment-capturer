@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 
-import Loader from "./Loader";
-import Banner from "./Banner";
-import ImageComponent from "./Image";
+import Loader from "./Utils/Loader";
+import Banner from "./Utils/Banner";
+import ImageComponent from "./Utils/Image";
 
 import { fetchImages, checkIfUserSignedIn } from "../utils/apis";
 import { Image, McMoments } from "../info/types";
