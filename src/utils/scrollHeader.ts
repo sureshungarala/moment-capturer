@@ -7,8 +7,8 @@ function watchAndScrollHeader() {
 
   document.addEventListener("scroll", () => {
     let tempDocTop = window.pageYOffset || document.documentElement.scrollTop;
-    if (tempDocTop > initScrollY) {
-      translateY = 0 - (tempDocTop < headerHeight ? tempDocTop : headerHeight);
+    if (tempDocTop > initScrollY && tempDocTop >= headerHeight) {
+      translateY = 0 - headerHeight;
     } else {
       translateY = 0;
     }
