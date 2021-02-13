@@ -17,20 +17,23 @@ const CategoriesDropDown: React.FunctionComponent<dropDownProps> = (
           custom-value={category.name}
           custom-tag={category.tag}
           key={category.name}
+          role="option"
         >
           {category.name}
         </li>
       ) : (
-        <li custom-value="" custom-tag="" key={category.name}>
+        <li custom-value="" custom-tag="" key={category.name} role="option">
           {category.name}
-          <ul>{renderDropDown(category.submenu)}</ul>
+          <ul role="listbox">{renderDropDown(category.submenu)}</ul>
         </li>
       );
     });
   };
   return (
     //separated <ul> here...to avoid duplicating onClickHandler on <ul> tags
-    <ul onClick={props.onClickHandler}>{renderDropDown(categories)}</ul>
+    <ul onClick={props.onClickHandler} role="listbox">
+      {renderDropDown(categories)}
+    </ul>
   );
 };
 
@@ -103,7 +106,15 @@ const Categories: React.FunctionComponent<categoriesProps> = (
     <div className="categories">
       <span className="title">Category: </span>
       <div className="categories-dd">
-        <div className="selectedCategory">{state.categoryName}</div>
+        <div
+          className="selectedCategory"
+          tabIndex={0}
+          aria-label="Selected category"
+          role="option"
+          aria-haspopup="listbox"
+        >
+          {state.categoryName}
+        </div>
         {!state.closeDropdown && (
           <CategoriesDropDown
             onClickHandler={(event) => changeCategory(event)}

@@ -17,7 +17,15 @@
     color: $secondaryColorInverted;
 
     .logoSection {
-      cursor: pointer;
+      @include flexXalignCentered;
+
+      &:focus {
+        @include focusInset;
+      }
+
+      & > * {
+        cursor: pointer;
+      }
 
       .logo {
         background-image: url("logo.svg");
@@ -25,7 +33,7 @@
         background-position: center;
       }
 
-      .branding-title {
+      #brand-name {
         font-weight: 700;
       }
     }
@@ -59,18 +67,26 @@
               text-decoration: none;
             }
 
-            &:hover {
+            &:hover,
+            &:focus {
               cursor: pointer;
+              outline: none;
               background-color: $primaryColor;
             }
           }
         }
 
         &:hover > ul,
-        ul:hover {
+        &:focus > ul,
+        ul:hover,
+        ul:focus {
           @include showDropdown;
           background-color: $secondaryColor;
           z-index: 1;
+        }
+
+        &:focus {
+          @include focus;
         }
       }
 
@@ -126,12 +142,16 @@
         background-color: $secondaryColor;
         border-radius: 4px;
         font-family: $fontFamily;
-        font-size: 3vmin;
+        font-size: 2.5vmin;
         transform: translateY(10px);
         outline: none;
 
         &:hover {
           background-color: $secondaryColorHovered;
+        }
+
+        &:focus {
+          @include focus;
         }
       }
     }
@@ -299,7 +319,10 @@
 
       .imageContainer {
         position: relative;
-        &:hover {
+        &:hover,
+        &:focus,
+        &:focus-within {
+          @include focus;
           .editImage .actions {
             display: block;
           }
@@ -395,6 +418,10 @@
           &:hover {
             transform: scale3d(1.1, 1.1, 1.1);
           }
+
+          &:focus {
+            @include focus;
+          }
         }
 
         .enlarge {
@@ -472,7 +499,8 @@
               .yesEdit {
                 margin-left: 2vmin;
                 background-color: $alertColor;
-                &:hover {
+                &:hover,
+                &:focus {
                   border-color: $alternateDarkOrange;
                 }
                 &:disabled {
@@ -483,12 +511,14 @@
 
               .yesEdit {
                 background-color: $alternateDarkOrange;
-                &:not([disabled]):hover {
+                &:not([disabled]):hover,
+                &:not([disabled]):focus {
                   border-color: $alternateDarkOrangeHovered;
                 }
               }
 
-              .cancel:hover {
+              .cancel:hover,
+              .cancel:focus {
                 border-color: $primaryColor;
               }
             }
@@ -546,7 +576,8 @@
         @include imageActionBtn;
         position: absolute;
         background-image: url("assets/close.svg");
-        &:hover {
+        &:hover,
+        &:focus {
           transform: rotate(360deg);
           transition-duration: 500ms;
         }

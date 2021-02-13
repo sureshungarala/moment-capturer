@@ -8,8 +8,7 @@
       justify-content: space-around;
 
       .logoSection {
-        flex-basis: 55%;
-        @include flexXalignCentered;
+        flex-basis: 50%;
 
         .logo {
           width: 5vmax;
@@ -17,7 +16,7 @@
           margin: 0 2vmin;
         }
 
-        .branding-title {
+        #brand-name {
           font-size: calc(10px + 3vmin);
           margin-left: 2vmin;
         }

@@ -8,8 +8,7 @@ $laptop_header_height: 4vmax;
       justify-content: space-between;
 
       .logoSection {
-        flex-basis: 60%;
-        @include flexXalignCentered;
+        flex-basis: 30%;
 
         .logo {
           width: $laptop_header_height;
@@ -17,7 +16,7 @@ $laptop_header_height: 4vmax;
           margin-left: 7vmin;
         }
 
-        .branding-title {
+        #brand-name {
           font-size: calc(10px + 2.5vmin);
           margin-left: 3vmin;
         }

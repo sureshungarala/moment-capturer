@@ -13,6 +13,9 @@ $alertColor: #c91818;
 $mcCheckboxSize: 18px;
 $ulHandheldWidthOnHover: 110px;
 $formBoxShadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+$focusBoxShadow: 0px 0px 2px 2px #5bba47;
+$focusBoxShadowInset: inset 0px 0px 2px 2px #5bba47;
+$focusBoxShadowSecondary: 0px 0px 2px 2px rgba(0, 0, 0, 0.85);
 $transition: all 0.5s ease-in-out;
 
 input[type="button"],
@@ -45,7 +48,8 @@ input[type="submit"] {
   color: $secondaryColorInverted;
   cursor: pointer;
 
-  &:hover {
+  &:hover,
+  &:focus {
     background-color: $secondaryColorHovered;
   }
 }
@@ -64,7 +68,8 @@ input[type="submit"].disabled {
 input[type="button"] {
   background-color: $secondaryColorDisabled;
 
-  &:hover {
+  &:hover,
+  &:focus {
     background-color: $secondaryColorHovered;
   }
 
@@ -115,6 +120,21 @@ input[type="button"] {
   top: 100%;
 }
 
+@mixin focus {
+  outline: none;
+  box-shadow: $focusBoxShadow;
+}
+
+@mixin focusInset {
+  outline: none;
+  box-shadow: $focusBoxShadowInset;
+}
+
+@mixin focusBoxShadowSecondary {
+  outline: none;
+  box-shadow: $focusBoxShadowSecondary;
+}
+
 @keyframes rotation {
   from {
     transform: rotate(0deg);
@@ -144,7 +164,6 @@ input[type="button"] {
       padding: 0px 10px;
       font-size: calc(10px + 1.25vmin);
       font-weight: 600;
-      box-shadow: 0px 4px 9px 0px rgba(0, 0, 0, 0.2);
 
       &::after {
         content: "\00a0\00a0\25BC";
@@ -157,8 +176,15 @@ input[type="button"] {
       @include initDropdownState;
     }
 
+    .selectedCategory:hover,
+    .selectedCategory:focus {
+      @include focus;
+    }
+
     .selectedCategory:hover + ul,
-    ul:hover {
+    .selectedCategory:focus + ul,
+    ul:hover,
+    ul:focus {
       @include showDropdown;
       background-color: $secondaryColor;
       z-index: 10;
@@ -169,15 +195,19 @@ input[type="button"] {
       color: $secondaryColorInverted;
       padding: 5px 0px 5px 10px;
 
-      &:hover {
+      &:hover,
+      &:focus {
         cursor: pointer;
+        outline: none;
         background-color: $primaryColor;
       }
     }
 
     ul li:hover ul,
+    ul li:focus ul,
     ul li:focus-within ul,
-    ul li ul:hover {
+    ul li ul:hover,
+    ul li ul:focus {
       @include showDropdown;
       width: 155px;
       background-color: $secondaryColor;
@@ -228,7 +258,8 @@ input[type="button"] {
     z-index: 1;
   }
 
-  input[type="checkbox"] + .mcCheckboxHidden:hover {
+  input[type="checkbox"] + .mcCheckboxHidden:hover,
+  input[type="checkbox"] + .mcCheckboxHidden:focus {
     box-shadow: 0 0 2px 2px $primaryColor;
   }
 

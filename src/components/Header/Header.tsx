@@ -1,5 +1,5 @@
 import React from "react";
-import { withRouter, RouteComponentProps } from "react-router-dom";
+import { NavLink, RouteComponentProps, withRouter } from "react-router-dom";
 
 import Categories from "../Utils/Categories";
 
@@ -27,10 +27,12 @@ class Header extends React.Component<headerProps> {
 
     return (
       <header className="mcHeader">
-        <div className="logoSection" onClick={this.redirectToHome}>
-          <span className="logo"></span>
-          <h3 className="branding-title">Moment Capturer</h3>
-        </div>
+        <NavLink to="/" className="logoSection" aria-label="link to home page">
+          <span className="logo" aria-labelledby="brand-name"></span>
+          <h3 className="branding-title" id="brand-name">
+            Moment Capturer
+          </h3>
+        </NavLink>
         <div className="actionSection">
           <Categories
             onSelectCategory={this.updateCategory}

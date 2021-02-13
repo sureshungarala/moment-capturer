@@ -118,15 +118,17 @@ class Image extends React.Component<imageProps, imageState> {
             : "landscape"
         }`}
         ref={this.containerRef}
+        tabIndex={0}
       >
         {this.state.children}
-        {this.state.showModal && (
-          <McModal {...this.props} closeModal={this.closeModal} />
-        )}
+
         {this.state.imageLoaded && (
           <div className="descriptionContainer">{this.props.description}</div>
         )}
         <EditImage {...this.props} enlargeImage={this.openModal} />
+        {this.state.showModal && (
+          <McModal {...this.props} closeModal={this.closeModal} />
+        )}
       </div>
     );
   }

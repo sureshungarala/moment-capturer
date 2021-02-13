@@ -342,26 +342,46 @@ const EditImage: React.FunctionComponent<editImageProps> = (
           <>
             <div
               className="delete"
-              title="Delete"
-              onClick={() => {
-                onDeleteBtnClick();
+              title="Delete image"
+              onClick={onDeleteBtnClick}
+              onKeyUp={({ keyCode }) => {
+                if (keyCode === 13) {
+                  onDeleteBtnClick();
+                }
               }}
+              role="img"
+              aria-haspopup="true"
+              tabIndex={0}
             ></div>
             <div
               className="edit"
-              title="Edit"
+              title="Edit image"
               onClick={() => {
                 onEditBtnClick();
               }}
+              onKeyUp={({ keyCode }) => {
+                if (keyCode === 13) {
+                  onEditBtnClick();
+                }
+              }}
+              role="img"
+              aria-haspopup="true"
+              tabIndex={0}
             ></div>
           </>
         )}
         <div
           className="enlarge"
           title="Click to view full resolution image"
-          onClick={() => {
-            props.enlargeImage();
+          onClick={props.enlargeImage}
+          onKeyUp={({ keyCode }) => {
+            if (keyCode === 13) {
+              props.enlargeImage();
+            }
           }}
+          role="img"
+          aria-haspopup="true"
+          tabIndex={0}
         ></div>
       </div>
       {componentState.editImage && renderEditForm()}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
 
 import { getFirstCategory } from "../../utils/helpers";
@@ -9,6 +9,8 @@ interface profileProps {}
 
 const Profiles: React.FunctionComponent<profileProps> = (props) => {
   const [isUserSignedIn, userSignedIn] = useState(false);
+
+  const profilesRef = useRef(null);
 
   // workaround for redux cleanup ---
   const customEventDetail = (event: Event): event is CustomEvent =>
@@ -43,10 +45,15 @@ const Profiles: React.FunctionComponent<profileProps> = (props) => {
   };
 
   return (
-    <div className="profiles">
-      <div className="profileMenu"></div>
-      <ul>
-        <li>
+    <div className="profiles" tabIndex={0} ref={profilesRef}>
+      <div
+        className="profileMenu"
+        role="menuitem"
+        aria-haspopup="menu"
+        aria-label="Menu"
+      ></div>
+      <ul role="menu">
+        <li role="menuitem">
           <a
             target="_blank"
             rel="noopener noreferrer"
@@ -56,7 +63,7 @@ const Profiles: React.FunctionComponent<profileProps> = (props) => {
             <span>Instagram</span>
           </a>
         </li>
-        <li>
+        <li role="menuitem">
           <a
             target="_blank"
             rel="noopener noreferrer"
@@ -66,10 +73,10 @@ const Profiles: React.FunctionComponent<profileProps> = (props) => {
             <span>Facebook</span>
           </a>
         </li>
-        <li>
+        <li role="menuitem">
           <NavLink to="/upload">Add Captures</NavLink>
         </li>
-        <li>{signInOrSignOut()}</li>
+        <li role="menuitem">{signInOrSignOut()}</li>
       </ul>
     </div>
   );

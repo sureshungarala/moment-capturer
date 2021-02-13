@@ -8,7 +8,6 @@
       .logoSection {
         flex-basis: 55%;
         margin-left: 1vmax;
-        @include flexXalignCentered;
 
         .logo {
           width: 6vmax;
@@ -16,7 +15,7 @@
           margin: 0 1vmin;
         }
 
-        .branding-title {
+        #brand-name {
           font-size: calc(10px + 2vmin);
           margin-left: 1vmin;
         }
@@ -48,14 +47,18 @@
             }
 
             .selectedCategory:hover + ul,
-            ul:hover {
+            .selectedCategory:focus + ul,
+            ul:hover,
+            ul:focus {
               left: auto;
               width: $ulHandheldWidthOnHover;
             }
 
             ul li:hover ul,
+            ul li:focus ul,
             ul li:focus-within ul,
-            ul li ul:hover {
+            ul li ul:hover,
+            ul li ul:focus {
               left: -95%;
               width: $ulHandheldWidthOnHover;
             }
@@ -85,14 +88,18 @@
           justify-content: flex-end;
 
           .selectedCategory:hover + ul,
-          ul:hover {
+          .selectedCategory:focus + ul,
+          ul:hover,
+          ul:focus {
             left: auto;
             width: 110px;
           }
 
           ul li:hover ul,
+          ul li:focus ul,
           ul li:focus-within ul,
-          ul li ul:hover {
+          ul li ul:hover,
+          ul li ul:focus {
             left: -95%;
             width: 110px;
           }
@@ -104,12 +111,6 @@
         .fetchingImages .spinner {
           width: 40px !important;
           height: 40px !important;
-        }
-
-        .imageContainer {
-          picture {
-            pointer-events: none !important;
-          }
         }
 
         .images-container {
