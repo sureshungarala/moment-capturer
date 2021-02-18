@@ -68,7 +68,8 @@
             }
 
             &:hover,
-            &:focus {
+            &:focus,
+            &:focus-within {
               cursor: pointer;
               outline: none;
               background-color: $primaryColor;
@@ -78,6 +79,7 @@
 
         &:hover > ul,
         &:focus > ul,
+        &:focus-within > ul,
         ul:hover,
         ul:focus {
           @include showDropdown;
@@ -322,10 +324,13 @@
         &:hover,
         &:focus,
         &:focus-within {
-          @include focus;
           .editImage .actions {
             display: block;
           }
+        }
+        &:hover,
+        &:focus {
+          @include focus;
         }
       }
 
