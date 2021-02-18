@@ -11,9 +11,13 @@ const Profiles: React.FunctionComponent<profileProps> = (props) => {
   const [isUserSignedIn, userSignedIn] = useState(false);
   const [isFocussed, setIfFocussed] = useState(false);
 
+  let stopFocusUseEffect = false;
+
   const focusRef = useRef(isFocussed);
   const profilesRef = useRef<HTMLDivElement>(null);
-
+  let listItems:
+    | NodeListOf<HTMLLIElement>
+    | undefined = profilesRef.current?.querySelectorAll("ul > li");
   let focussedElem: HTMLLIElement | null | undefined = null;
 
   /* --------------------------- Event handlers start(a11y) ------------------------------ */
@@ -21,6 +25,7 @@ const Profiles: React.FunctionComponent<profileProps> = (props) => {
     focusRef.current = focussed;
     setIfFocussed(focussed);
   };
+
   const focus = () => {
     focussedElem?.querySelector("a")?.focus({ preventScroll: true });
   };
@@ -31,6 +36,10 @@ const Profiles: React.FunctionComponent<profileProps> = (props) => {
   const mouseoverHandler = (elem: HTMLLIElement) => {
     focussedElem = elem;
     focus();
+  };
+
+  const clickHandler = () => {
+    updateFocus(false);
   };
 
   const keyUpHandler = ({ key }: KeyboardEvent) => {
@@ -66,26 +75,34 @@ const Profiles: React.FunctionComponent<profileProps> = (props) => {
     });
 
     /* ------------------------------- A11y ---------------------------------- */
-    const listItems = profilesRef.current?.querySelectorAll(
-      "ul > li"
-    ) as NodeListOf<HTMLLIElement>;
     profilesRef.current?.addEventListener("focus", focusHandler);
+    profilesRef.current?.addEventListener("mouseover", focusHandler);
     profilesRef.current?.addEventListener("keyup", keyUpHandler);
-    listItems.forEach((elem: HTMLLIElement) => {
-      elem.addEventListener("mouseover", () => mouseoverHandler(elem));
-    });
     document.addEventListener(signIncustomEventName, signInWatchHandler);
 
     return () => {
       updateFocus(false);
       profilesRef.current?.removeEventListener("keyup", keyUpHandler);
       profilesRef.current?.removeEventListener("focus", focusHandler);
-      listItems.forEach((elem: HTMLLIElement) => {
+      profilesRef.current?.removeEventListener("mouseover", focusHandler);
+      listItems?.forEach((elem: HTMLLIElement) => {
         elem.removeEventListener("mouseover", () => mouseoverHandler(elem));
+        elem.removeEventListener("click", clickHandler);
       });
       document.removeEventListener(signIncustomEventName, signInWatchHandler);
     };
   }, []);
+
+  useEffect(() => {
+    if (isFocussed && !stopFocusUseEffect) {
+      stopFocusUseEffect = true;
+      listItems = profilesRef.current?.querySelectorAll("ul > li");
+      listItems?.forEach((elem: HTMLLIElement) => {
+        elem.addEventListener("mouseover", () => mouseoverHandler(elem));
+        elem.addEventListener("click", clickHandler);
+      });
+    }
+  }, [isFocussed]);
 
   const signInOrSignOut = () => {
     if (isUserSignedIn) {
