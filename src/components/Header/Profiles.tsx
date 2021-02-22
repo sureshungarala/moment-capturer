@@ -42,17 +42,20 @@ const Profiles: React.FunctionComponent<profileProps> = (props) => {
     updateFocus(false);
   };
 
-  const keyUpHandler = ({ key }: KeyboardEvent) => {
+  const keydownHandler = (event: KeyboardEvent) => {
+    const { key } = event;
     if (focusRef.current) {
       if (key === "ArrowDown") {
         focussedElem =
           (focussedElem?.nextElementSibling as HTMLLIElement) ||
           profilesRef.current?.querySelector("ul > li:first-child");
+        event.preventDefault();
         focus();
       } else if (key === "ArrowUp") {
         focussedElem =
           (focussedElem?.previousElementSibling as HTMLLIElement) ||
           profilesRef.current?.querySelector("ul > li:last-child");
+        event.preventDefault();
         focus();
       } else if (key === "Escape") {
         updateFocus(false);
@@ -77,12 +80,12 @@ const Profiles: React.FunctionComponent<profileProps> = (props) => {
     const { current } = profilesRef;
     current?.addEventListener("focus", focusHandler);
     current?.addEventListener("mouseover", focusHandler);
-    current?.addEventListener("keyup", keyUpHandler);
+    current?.addEventListener("keydown", keydownHandler);
     document.addEventListener(signIncustomEventName, signInWatchHandler);
 
     return () => {
       updateFocus(false);
-      current?.removeEventListener("keyup", keyUpHandler);
+      current?.removeEventListener("keydown", keydownHandler);
       current?.removeEventListener("focus", focusHandler);
       current?.removeEventListener("mouseover", focusHandler);
       listItems?.forEach((elem: HTMLLIElement) => {

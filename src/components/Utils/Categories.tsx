@@ -121,8 +121,7 @@ const Categories: React.FunctionComponent<categoriesProps> = (
     focus();
   };
 
-  const keyupHandler = (event: any) => {
-    event.preventDefault();
+  const keydownHandler = (event: any) => {
     const { key } = event;
     if (focusRef.current) {
       if (key === "ArrowDown") {
@@ -139,6 +138,7 @@ const Categories: React.FunctionComponent<categoriesProps> = (
         } else {
           focussedElem = tempElem;
         }
+        event.preventDefault();
         focus();
       } else if (key === "ArrowUp") {
         const tempElem = focussedElem?.previousElementSibling as HTMLLIElement;
@@ -156,17 +156,20 @@ const Categories: React.FunctionComponent<categoriesProps> = (
         } else {
           focussedElem = tempElem;
         }
+        event.preventDefault();
         focus();
       } else if (key === "ArrowRight") {
         const tempElem = focussedElem?.querySelector("ul > li");
         if (tempElem) {
           focussedElem = tempElem as HTMLLIElement;
+          event.preventDefault();
           focus();
         }
       } else if (key === "ArrowLeft") {
         const tempElem = focussedElem?.parentElement?.parentElement;
         if (tempElem?.tagName.toLowerCase() === "li") {
           focussedElem = tempElem as HTMLLIElement;
+          event.preventDefault();
           focus();
         }
       } else if (key === "Escape") {
@@ -181,12 +184,12 @@ const Categories: React.FunctionComponent<categoriesProps> = (
 
     categoriesElem?.addEventListener("focus", onSelectedCategoryFocus);
     categoriesElem?.addEventListener("mouseover", onSelectedCategoryFocus);
-    categoriesElem?.addEventListener("keyup", keyupHandler);
+    categoriesElem?.addEventListener("keydown", keydownHandler);
 
     return () => {
       categoriesElem?.removeEventListener("focus", onSelectedCategoryFocus);
       categoriesElem?.removeEventListener("mouseover", onSelectedCategoryFocus);
-      categoriesElem.removeEventListener("keyup", keyupHandler);
+      categoriesElem.removeEventListener("keydown", keydownHandler);
     };
   }, []);
 
