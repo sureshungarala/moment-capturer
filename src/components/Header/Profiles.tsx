@@ -73,18 +73,18 @@ const Profiles: React.FunctionComponent<profileProps> = (props) => {
     checkIfUserSignedIn().then((userDidSignIn) => {
       userSignedIn(userDidSignIn);
     });
-
     /* ------------------------------- A11y ---------------------------------- */
-    profilesRef.current?.addEventListener("focus", focusHandler);
-    profilesRef.current?.addEventListener("mouseover", focusHandler);
-    profilesRef.current?.addEventListener("keyup", keyUpHandler);
+    const { current } = profilesRef;
+    current?.addEventListener("focus", focusHandler);
+    current?.addEventListener("mouseover", focusHandler);
+    current?.addEventListener("keyup", keyUpHandler);
     document.addEventListener(signIncustomEventName, signInWatchHandler);
 
     return () => {
       updateFocus(false);
-      profilesRef.current?.removeEventListener("keyup", keyUpHandler);
-      profilesRef.current?.removeEventListener("focus", focusHandler);
-      profilesRef.current?.removeEventListener("mouseover", focusHandler);
+      current?.removeEventListener("keyup", keyUpHandler);
+      current?.removeEventListener("focus", focusHandler);
+      current?.removeEventListener("mouseover", focusHandler);
       listItems?.forEach((elem: HTMLLIElement) => {
         elem.removeEventListener("mouseover", () => mouseoverHandler(elem));
         elem.removeEventListener("click", clickHandler);
