@@ -414,8 +414,8 @@
         display: none;
         & > * {
           @include imageActionBtn;
-          width: 3vmax;
-          height: 3vmax;
+          width: 2vmax;
+          height: 2vmax;
           position: absolute;
           padding: 3px;
           border: none;
@@ -430,15 +430,15 @@
         }
 
         .enlarge {
-          width: 4vmax;
+          width: 2vmax;
         }
 
         .edit {
-          right: 65px;
+          right: calc(15px + 2vmax + 15px);
         }
 
         .delete {
-          right: 105px;
+          right: calc(15px + 4vmax + 30px);
         }
       }
 
