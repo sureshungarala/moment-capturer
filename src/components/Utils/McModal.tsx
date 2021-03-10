@@ -25,13 +25,18 @@ export default class McModal extends React.Component<
           }}
         >
           <div className="mcModalBody">
-            <img src={this.props.original} alt={this.props.description} />
+            <img
+              src={this.props.original}
+              alt={this.props.description}
+              tabIndex={0}
+            />
           </div>
         </div>
         <div
           className="close"
           onClick={(event) => this.props.closeModal(event)}
           title="close"
+          tabIndex={0}
         ></div>
       </div>
     );

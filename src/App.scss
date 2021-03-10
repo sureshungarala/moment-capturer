@@ -328,10 +328,6 @@
             display: block;
           }
         }
-        &:hover,
-        &:focus {
-          @include focus;
-        }
       }
 
       & > .imageContainer {
@@ -393,6 +389,11 @@
               display: block;
               width: 100%;
               border-radius: 5px;
+
+              &:hover,
+              &:focus {
+                @include focus;
+              }
             }
           }
         }
@@ -615,6 +616,7 @@
       .linkedin {
         display: inline-block;
         background-image: url("assets/linkedin.svg");
+        background-position: center;
         padding-right: 3vmin;
       }
 

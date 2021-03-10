@@ -61,7 +61,6 @@ class Image extends React.Component<imageProps, imageState> {
         const entry = entries[0],
           { isIntersecting } = entry;
         const title = this.props.description;
-        // console.info("isIntersecting ", isIntersecting);
         if (isIntersecting) {
           let sources = [];
           for (let key in this.props.srcSet) {
@@ -69,7 +68,6 @@ class Image extends React.Component<imageProps, imageState> {
               <source
                 media={`(max-width: ${key})`}
                 srcSet={this.props.srcSet[key]}
-                title={title}
                 type="image/jpeg"
                 key={key}
               />
@@ -81,10 +79,11 @@ class Image extends React.Component<imageProps, imageState> {
                 <picture>
                   {sources}
                   <img
-                    alt={this.props.description}
+                    alt=""
                     src={this.props.original}
                     title={title}
                     onLoad={() => this.setState({ imageLoaded: true })}
+                    tabIndex={0}
                   />
                 </picture>
               ),
@@ -118,7 +117,6 @@ class Image extends React.Component<imageProps, imageState> {
             : "landscape"
         }`}
         ref={this.containerRef}
-        tabIndex={0}
       >
         {this.state.children}
 
