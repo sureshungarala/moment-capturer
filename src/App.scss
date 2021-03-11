@@ -332,6 +332,7 @@
 
       & > .imageContainer {
         width: 100%;
+        margin-bottom: 0.5vw;
 
         picture {
           width: 100%;
@@ -352,13 +353,13 @@
 
       .images-container {
         display: flex;
-        justify-content: space-around;
+        justify-content: center;
         flex-wrap: wrap;
 
         & > * {
           &:not(.panorama):not(.portrait) {
-            flex-basis: 48vw; //keeping aspect ratio => 3:2
-            height: calc(48vw * 0.666); //change them both simultaneously
+            flex-basis: 48.75vw; //keeping aspect ratio => 3:2
+            height: calc(48.75vw * 0.666); //change them both simultaneously
           }
 
           &.portrait {
@@ -378,7 +379,7 @@
             }
           }
 
-          margin: 1vw;
+          margin: 0.5vw;
           border-radius: 5px;
           box-shadow: 10px 10px 10px #40383830;
 
@@ -390,7 +391,6 @@
               width: 100%;
               border-radius: 5px;
 
-              &:hover,
               &:focus {
                 @include focus;
               }
@@ -407,7 +407,7 @@
       margin: 0.5em;
       font-size: calc(10px + 2vmin);
       color: $secondaryColorInverted;
-      mix-blend-mode: difference;
+      mix-blend-mode: luminosity;
     }
 
     .editImage {
