@@ -114,8 +114,6 @@ const Categories: React.FunctionComponent<categoriesProps> = (
     updateFocus(true);
   };
 
-  const clickHandler = () => {};
-
   const mouseoverHandler = (elem: HTMLLIElement) => {
     focussedElem = elem;
     focus();
@@ -172,6 +170,10 @@ const Categories: React.FunctionComponent<categoriesProps> = (
           event.preventDefault();
           focus();
         }
+      } else if (key === "Enter") {
+        changeCategory({
+          target: focussedElem,
+        });
       } else if (key === "Escape") {
         updateFocus(false);
       }
@@ -199,7 +201,6 @@ const Categories: React.FunctionComponent<categoriesProps> = (
       listItemsRef.current = categoriesRef.current?.querySelectorAll("ul > li");
       listItemsRef.current?.forEach((elem: HTMLLIElement) => {
         elem.addEventListener("mouseover", () => mouseoverHandler(elem));
-        elem.addEventListener("click", clickHandler);
       });
     }
   }, [isFocussed]);
@@ -225,21 +226,21 @@ const Categories: React.FunctionComponent<categoriesProps> = (
     }
   }, [state.closeDropdown]);
 
-  const changeCategory = (event: MouseEvent | KeyboardEvent) => {
+  const changeCategory = (event: any) => {
     const selectedCategory = (event.target as HTMLLIElement).getAttribute(
         "custom-value"
       ),
       seletedCategoryTag = (event.target as HTMLLIElement).getAttribute(
         "custom-tag"
       );
-
-    selectedCategory?.length &&
-      selectedCategory !== state.categoryName &&
+    if (selectedCategory?.length && selectedCategory !== state.categoryName) {
       setState({
         categoryName: "" + selectedCategory,
         categoryTag: "" + seletedCategoryTag,
         closeDropdown: true,
       });
+      updateFocus(false);
+    }
   };
 
   return (
