@@ -80,3 +80,23 @@ export function getMappedCategory(
   }
   return mappedcategory;
 }
+
+/**
+ * @param categoriesArr
+ * @returns all category tags
+ */
+export function getAllCategories(categoriesArr?: Category[]) {
+  let allCategories: Category[] = [];
+
+  for (const category of categoriesArr || categories) {
+    if (category.tag.length) {
+      allCategories.push({
+        tag: category.tag,
+        name: category.name,
+      });
+    } else {
+      allCategories = allCategories.concat(getAllCategories(category.submenu));
+    }
+  }
+  return allCategories;
+}

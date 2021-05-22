@@ -26,3 +26,12 @@ export interface Category {
   tag: string;
   submenu?: Category[];
 }
+
+export interface CardImage {
+  category: string;
+  tag?: string;
+  biotc?: boolean;
+  srcSet: {
+    [key: string]: string;
+  };
+}

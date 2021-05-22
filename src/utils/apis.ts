@@ -1,5 +1,15 @@
 import { Auth } from "@aws-amplify/auth";
 
+export const fetchBestImagePerCategory = async (categoryTag: String) =>
+  fetch(
+    `https://api.momentcapturer.com/getBestImagePerCategory?category=${categoryTag}`,
+    {
+      headers: {
+        accept: "application/json",
+      },
+    }
+  );
+
 export const fetchImages = async (categoryTag: string) => {
   const response = await fetch(
     `https://api.momentcapturer.com/getData?category=${categoryTag}`,

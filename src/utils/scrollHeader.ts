@@ -2,7 +2,7 @@ function watchAndScrollHeader() {
   let initScrollY = 0;
   let translateY = 0;
   let animationFrame = 0;
-  const header = <HTMLElement>document.querySelector(".mcHeader");
+  const header = document.querySelector(".mcHeader") as HTMLElement;
   const headerHeight = header.clientHeight;
 
   document.addEventListener("scroll", () => {

@@ -106,6 +106,25 @@
         }
       }
 
+      .home {
+        .categoryCard {
+          max-width: calc(100vw - 40px) !important;
+          margin: 20px 0px !important;
+          .thumbnail {
+            img,
+            .fallback {
+              width: calc(100vw - 80px) !important;
+              height: calc(
+                2 / 3 * (100vw - 80px)
+              ) !important; // aspect ratio 3:2
+            }
+          }
+          .title {
+            font-size: calc(10px + 2vmin) !important;
+          }
+        }
+      }
+
       .category-home {
         .fetchingCurrentUserDetails,
         .fetchingImages .spinner {
