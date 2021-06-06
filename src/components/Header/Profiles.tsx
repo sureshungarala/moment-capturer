@@ -15,9 +15,8 @@ const Profiles: React.FunctionComponent<profileProps> = (props) => {
 
   const focusRef = useRef(isFocussed);
   const profilesRef = useRef<HTMLDivElement>(null);
-  let listItems:
-    | NodeListOf<HTMLLIElement>
-    | undefined = profilesRef.current?.querySelectorAll("ul > li");
+  let listItems: NodeListOf<HTMLLIElement> | undefined =
+    profilesRef.current?.querySelectorAll("ul > li");
   let focussedElem: HTMLLIElement | null | undefined = null;
 
   /* --------------------------- Event handlers start(a11y) ------------------------------ */
@@ -63,12 +62,8 @@ const Profiles: React.FunctionComponent<profileProps> = (props) => {
     }
   };
 
-  // workaround for redux cleanup ---
-  const customEventDetail = (event: Event): event is CustomEvent =>
-    "detail" in event;
-
-  const signInWatchHandler = (event: Event) => {
-    userSignedIn(customEventDetail(event));
+  const signInWatchHandler = (event: CustomEvent) => {
+    userSignedIn(event.detail);
   };
   /* --------------------------- Event handlers end ------------------------------ */
 
@@ -81,7 +76,10 @@ const Profiles: React.FunctionComponent<profileProps> = (props) => {
     current?.addEventListener("focus", focusHandler);
     current?.addEventListener("mouseover", focusHandler);
     current?.addEventListener("keydown", keydownHandler);
-    document.addEventListener(signIncustomEventName, signInWatchHandler);
+    document.addEventListener(
+      signIncustomEventName,
+      signInWatchHandler as EventListener
+    );
 
     return () => {
       updateFocus(false);
@@ -92,7 +90,10 @@ const Profiles: React.FunctionComponent<profileProps> = (props) => {
         elem.removeEventListener("mouseover", () => mouseoverHandler(elem));
         elem.removeEventListener("click", clickHandler);
       });
-      document.removeEventListener(signIncustomEventName, signInWatchHandler);
+      document.removeEventListener(
+        signIncustomEventName,
+        signInWatchHandler as EventListener
+      );
     };
   }, []);
 

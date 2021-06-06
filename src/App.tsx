@@ -4,6 +4,7 @@ import Header from "./components/Header/Header";
 import Loader from "./components/Utils/Loader";
 import Footer from "./components/Footer/Footer";
 import McErrorBoundary from "./components/Utils/ErrorBoundary";
+import ServiceWorkerStatus from "./components/Utils/ServiceWorkerStatus";
 import "./App.scss";
 
 import { watchAndScrollHeader } from "./utils/scrollHeader";
@@ -40,6 +41,7 @@ const App: React.FunctionComponent = () => {
               </Switch>
             </Suspense>
           </McErrorBoundary>
+          <ServiceWorkerStatus />
         </div>
         <Footer />
       </div>

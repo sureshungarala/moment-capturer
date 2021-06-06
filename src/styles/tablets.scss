@@ -1,5 +1,3 @@
-// @media only screen and (min-device-width: 600px) and (max-device-width: 899px) {}
-
 @media only screen and (min-device-width: 600px) and (max-device-width: 1199px) {
   .MC-App {
     .mcHeader {
@@ -68,6 +66,17 @@
 
       .banner {
         max-width: 70%;
+      }
+
+      .swStatus {
+        bottom: 20px !important;
+        margin: 0px 10px !important;
+        font-size: calc(10px + 2vmin) !important;
+
+        button {
+          margin: 0px 10px !important;
+          font-size: calc(10px + 2vmin) !important;
+        }
       }
     }
 

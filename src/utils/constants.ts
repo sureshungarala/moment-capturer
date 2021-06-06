@@ -15,3 +15,4 @@ export const initMoments: McMoments = {
 };
 
 export const signIncustomEventName = "userSignInStatus";
+export const swEventName = "serviceWorkerStatus";

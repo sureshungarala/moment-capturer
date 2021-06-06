@@ -46,7 +46,7 @@
   "devDependencies": {
     "cra-preact": "^0.4.0",
     "serverless": "^1.57.0",
-    "serverless-cloudfront-invalidate": "^1.3.0",
+    "serverless-cloudfront-invalidate": "1.3.0",
     "serverless-hooks-plugin": "^1.1.0",
     "serverless-s3-sync": "^1.9.1"
   }

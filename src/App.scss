@@ -631,6 +631,61 @@
         }
       }
     }
+
+    .swStatus {
+      position: fixed;
+      bottom: 30px;
+      font-size: 3vmin;
+      margin: 0px 20px;
+      border-radius: 5px;
+
+      .updateAvailable,
+      .updateDone {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: relative;
+        color: $primaryColor;
+        background-color: $secondaryColor;
+        border-radius: 5px;
+        padding: 5px 10px;
+        border: 1px solid $primaryColor;
+        color: $secondaryColorInverted;
+
+        button {
+          padding: 5px 10px;
+          margin: 10px;
+          font-size: 2vmin;
+          font-weight: bold;
+          font-family: $fontFamily;
+          background-color: transparent;
+          border: none;
+          text-decoration: underline;
+          color: $primaryColor;
+        }
+
+        .close {
+          @include imageActionBtn;
+          border: none;
+          background-image: url("assets/close.svg");
+          width: 25px;
+          height: 25px;
+
+          &:focus {
+            @include focus;
+          }
+        }
+
+        & > * {
+          margin: 0px 10px;
+        }
+      }
+
+      .updateDone {
+        color: $primaryColor;
+        border: 1px solid $secondaryColorInverted;
+      }
+    }
   }
 
   .mcFooter {
