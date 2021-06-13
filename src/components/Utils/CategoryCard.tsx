@@ -9,19 +9,19 @@ interface CardProps {
 }
 
 const CategoryCard: React.FunctionComponent<CardProps> = (props: CardProps) => (
-  <NavLink to={`/${props.categoryTag}`}>
-    <div className="categoryCard">
+  <div className="categoryCard">
+    <NavLink to={`/${props.categoryTag}`}>
       <div className="thumbnail">
         {props.src && <img src={props.src} alt={props.altText} />}
         {!props.src && (
           <div className="fallback">
-            No moments yet. Check again after some time.
+            <span>No moments yet. Check again after some time.</span>
           </div>
         )}
       </div>
       <div className="title">{props.title}</div>
-    </div>
-  </NavLink>
+    </NavLink>
+  </div>
 );
 
 export default CategoryCard;
