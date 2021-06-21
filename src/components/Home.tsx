@@ -14,17 +14,17 @@ const Home: React.FunctionComponent<HomeProps> = (props) => {
 
   const createCategoryCardData = (
     category: Category,
-    images: CardImage | undefined
+    image: CardImage | undefined
   ) => {
     let categoryData = null;
-    if (images) {
+    if (image) {
       categoryData = {
         category: category.name,
         tag: category.tag,
-        srcSet: images.srcSet,
+        src: image.src,
       };
     } else {
-      categoryData = { category: category.name, tag: category.tag, srcSet: {} };
+      categoryData = { category: category.name, tag: category.tag, src: "" };
     }
     categoryCards.current = [...categoryCards.current, categoryData];
     setCards(categoryCards.current);
@@ -55,7 +55,7 @@ const Home: React.FunctionComponent<HomeProps> = (props) => {
       {cards.map((card) => (
         <CategoryCard
           key={card.tag}
-          src={card.srcSet["599px"]}
+          src={card.src}
           altText={card.category}
           title={card.category}
           categoryTag={card.tag!}

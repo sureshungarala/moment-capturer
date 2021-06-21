@@ -31,7 +31,5 @@ export interface CardImage {
   category: string;
   tag?: string;
   biotc?: boolean;
-  srcSet: {
-    [key: string]: string;
-  };
+  src: string;
 }
