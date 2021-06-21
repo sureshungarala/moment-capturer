@@ -160,11 +160,22 @@ input[type="button"] {
     outline: none;
 
     .selectedCategory {
+      position: relative;
       border: 1px solid $primaryColor;
       border-radius: 4px;
       padding: 0px 10px;
       font-size: calc(10px + 1.25vmin);
       font-weight: 600;
+
+      &[data-content="-"] {
+        min-width: 10vmin;
+        text-align: center;
+        &::after {
+          position: absolute;
+          top: calc(2.5px + 0.625vmin);
+          right: 1vmin;
+        }
+      }
 
       &::after {
         content: "\00a0\00a0\25BC";

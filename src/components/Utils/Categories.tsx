@@ -66,7 +66,12 @@ const Categories: React.FunctionComponent<categoriesProps> = (
 ) => {
   const category = props.routeCategoryTag
     ? getMappedCategory(props.routeCategoryTag)
-    : getFirstCategory();
+    : typeof props.routeCategoryTag === "undefined"
+    ? getFirstCategory()
+    : {
+        name: "-",
+        tag: "",
+      };
   let categoryName = category.name;
   let categoryTag = category.tag;
   let stopFocusUseEffect = false;
@@ -147,9 +152,8 @@ const Categories: React.FunctionComponent<categoriesProps> = (
               "ul > li:last-child"
             ) as HTMLLIElement;
           } else {
-            focussedElem = listItemsRef.current![
-              listItemsRef.current?.length! - 1
-            ];
+            focussedElem =
+              listItemsRef.current![listItemsRef.current?.length! - 1];
           }
         } else {
           focussedElem = tempElem;
@@ -252,6 +256,7 @@ const Categories: React.FunctionComponent<categoriesProps> = (
           aria-label="Selected category"
           role="option"
           aria-haspopup="listbox"
+          data-content={state.categoryName}
         >
           {state.categoryName}
         </div>
