@@ -28,7 +28,7 @@ class Header extends React.Component<headerProps> {
     return (
       <header className="mcHeader">
         <NavLink to="/" className="logoSection" aria-label="link to home page">
-          <span className="logo" aria-labelledby="brand-name"></span>
+          <span className="logo" role="img"></span>
           <h3 className="branding-title" id="brand-name">
             Moment Capturer
           </h3>

@@ -254,7 +254,6 @@ const Categories: React.FunctionComponent<categoriesProps> = (
         <div
           className="selectedCategory"
           aria-label="Selected category"
-          role="option"
           aria-haspopup="listbox"
           data-content={state.categoryName}
         >

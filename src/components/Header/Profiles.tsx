@@ -130,7 +130,7 @@ const Profiles: React.FunctionComponent<profileProps> = (props) => {
     <div className="profiles" tabIndex={0} ref={profilesRef}>
       <div
         className="profileMenu"
-        role="menuitem"
+        role="img"
         aria-haspopup="menu"
         aria-label="Menu"
       ></div>
