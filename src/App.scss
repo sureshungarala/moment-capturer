@@ -695,6 +695,7 @@
     justify-content: space-around;
     background-color: $secondaryColor;
     color: $secondaryColorInverted;
+    font-size: 1.25rem;
 
     .column {
       display: flex;
@@ -716,12 +717,13 @@
         display: inline-block;
         background-image: url("assets/linkedin.svg");
         background-position: center;
-        padding-right: 3vmin;
+        margin-left: 0.5rem;
       }
 
       .github {
         display: inline-block;
         background-image: url("assets/github.svg");
+        margin: 0 1rem;
       }
     }
 

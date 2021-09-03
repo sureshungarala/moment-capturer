@@ -46,7 +46,14 @@ $laptop_header_height: 4vmax;
     }
 
     .mcFooter {
-      height: 5vmin;
+      height: 6vmin;
+      font-size: 1.5rem !important;
+
+      .linkedin,
+      .github {
+        height: 2.5vmin !important;
+        width: 2.5vmin !important;
+      }
     }
   }
 }

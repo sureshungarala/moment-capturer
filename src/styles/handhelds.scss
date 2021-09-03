@@ -158,13 +158,14 @@
     }
 
     .mcFooter {
-      height: 5vmin;
+      height: 6vmin;
       padding: 1vmin 0;
+      font-size: 1rem !important;
 
       .linkedin,
       .github {
-        height: 3vmin !important;
-        width: 3vmin !important;
+        height: 4vmin !important;
+        width: 4vmin !important;
       }
     }
   }

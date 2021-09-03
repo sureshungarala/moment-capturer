@@ -81,7 +81,13 @@
     }
 
     .mcFooter {
-      height: 5vmin;
+      height: 6vmin;
+
+      .linkedin,
+      .github {
+        height: 3vmin !important;
+        width: 3vmin !important;
+      }
     }
   }
 }
