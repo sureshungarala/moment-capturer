@@ -1,4 +1,5 @@
 import { Image, ModalDimensions, Category } from "../info/types";
+import { signIncustomEventName } from "./constants";
 import categories from "../info/categories.json";
 
 /**
@@ -99,4 +100,13 @@ export function getAllCategories(categoriesArr?: Category[]) {
     }
   }
   return allCategories;
+}
+
+/**
+ * Dispatches "User Signed-in event"
+ */
+export function distachSignedInEvent() {
+  document.dispatchEvent(
+    new CustomEvent(signIncustomEventName, { detail: true })
+  );
 }

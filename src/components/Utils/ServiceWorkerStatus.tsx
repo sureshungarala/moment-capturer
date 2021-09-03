@@ -15,7 +15,7 @@ const ServiceWorkerStatus: React.FunctionComponent = () => {
         showSuccessStatus();
         window.setTimeout(() => {
           hideStatuses();
-        }, 3000);
+        }, 5000);
       }
     }) as EventListener);
   });

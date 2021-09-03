@@ -1,4 +1,4 @@
-import { Auth } from "@aws-amplify/auth";
+import { AuthClass } from "@aws-amplify/auth/lib-esm/Auth";
 
 export const fetchBestImagePerCategory = async (categoryTag: String) =>
   fetch(
@@ -47,7 +47,7 @@ export const deleteImage = (idToken: string, body: string) =>
     body,
   });
 
-export const checkIfUserSignedIn = async () => {
+export const checkIfUserSignedIn = async (Auth: AuthClass) => {
   let isUserSignedIn = false;
   try {
     await Auth.currentAuthenticatedUser();
@@ -58,7 +58,7 @@ export const checkIfUserSignedIn = async () => {
   return isUserSignedIn;
 };
 
-export const signOutUser = async () => {
+export const signOutUser = async (Auth: AuthClass) => {
   let userSignedOut = false;
   try {
     await Auth.signOut();
@@ -69,8 +69,11 @@ export const signOutUser = async () => {
   return userSignedOut;
 };
 
-export const signIn = (userName: string, password: string) =>
+export const signIn = (Auth: AuthClass, userName: string, password: string) =>
   Auth.signIn(userName, password);
 
-export const changePassword = (currentUser: Object, newPassword: string) =>
-  Auth.completeNewPassword(currentUser, newPassword);
+export const changePassword = (
+  Auth: AuthClass,
+  currentUser: Object,
+  newPassword: string
+) => Auth.completeNewPassword(currentUser, newPassword);

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { withRouter, RouteComponentProps } from "react-router-dom";
+import { Auth } from "@aws-amplify/auth";
 
 import {
   signIn as CognitoSignIn,
@@ -94,7 +95,7 @@ const SignInForm: React.FunctionComponent<signInFormProps> = (
       succeeded: false,
     });
 
-    CognitoSignIn(credentials.username, credentials.password).then(
+    CognitoSignIn(Auth, credentials.username, credentials.password).then(
       (data) => {
         setCurrentUser(data);
         setFormState({
@@ -136,7 +137,7 @@ const SignInForm: React.FunctionComponent<signInFormProps> = (
       succeeded: false,
     });
 
-    CognitoChangePassword(currentUser, newPassword).then(
+    CognitoChangePassword(Auth, currentUser, newPassword).then(
       () => {
         setFormState({
           processing: false,

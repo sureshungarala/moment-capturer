@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { Auth } from "@aws-amplify/auth";
 
 import Loader from "./Utils/Loader";
 import SignInForm from "./SignIn/SignInForm";
 import UploadForm from "./ImageActions/UploadForm";
 import { checkIfUserSignedIn } from "../utils/apis";
+import { distachSignedInEvent } from "../utils/helpers";
 
 const Upload: React.FunctionComponent = () => {
   const [uploadState, setUploadState] = useState({
@@ -17,11 +19,12 @@ const Upload: React.FunctionComponent = () => {
       checkingIfUserSignedIn: true,
     });
 
-    checkIfUserSignedIn().then((userSignedIn) => {
+    checkIfUserSignedIn(Auth).then((userSignedIn) => {
       setUploadState({
         checkingIfUserSignedIn: false,
         userSignedIn,
       });
+      if (userSignedIn) distachSignedInEvent();
     });
   }, []);
 

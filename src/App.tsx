@@ -9,10 +9,25 @@ import "./App.scss";
 
 import { watchAndScrollHeader } from "./utils/scrollHeader";
 
+const importAmplifyOnNeed = async () => {
+  const { Amplify } = await import("@aws-amplify/core");
+  const { default: awsconfig } = await import("./aws-exports");
+  Amplify.configure(awsconfig);
+};
+
 const Home = lazy(() => import("./components/Home"));
-const Upload = lazy(() => import("./components/Upload"));
-const SignIn = lazy(() => import("./components/SignIn/SignInForm"));
-const CategoryHome = lazy(() => import("./components/CategoryHome"));
+const Upload = lazy(async () => {
+  await importAmplifyOnNeed();
+  return import("./components/Upload");
+});
+const SignIn = lazy(async () => {
+  await importAmplifyOnNeed();
+  return import("./components/SignIn/SignInForm");
+});
+const CategoryHome = lazy(async () => {
+  await importAmplifyOnNeed();
+  return import("./components/CategoryHome");
+});
 
 const App: React.FunctionComponent = () => {
   useEffect(() => {

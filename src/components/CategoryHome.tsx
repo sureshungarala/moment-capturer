@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { withRouter, RouteComponentProps } from "react-router-dom";
+import { Auth } from "@aws-amplify/auth";
 
 import Loader from "./Utils/Loader";
 import Banner from "./Utils/Banner";
@@ -7,7 +8,7 @@ import ImageComponent from "./Utils/Image";
 
 import { fetchImages, checkIfUserSignedIn } from "../utils/apis";
 import { Image, McMoments } from "../info/types";
-import { getMappedCategory } from "../utils/helpers";
+import { getMappedCategory, distachSignedInEvent } from "../utils/helpers";
 import { initMoments } from "../utils/constants";
 
 interface categoryHomeRouterProps {
@@ -34,7 +35,7 @@ const Home: React.FunctionComponent<homeProps> = (props: homeProps) => {
       fetchingImages: true,
     });
 
-    Promise.all([fetchImages(tag), checkIfUserSignedIn()]).then(
+    Promise.all([fetchImages(tag), checkIfUserSignedIn(Auth)]).then(
       ([data, isUserSignedIn]) => {
         const images: McMoments = JSON.parse(JSON.stringify(initMoments));
         (data.images as Image[]).forEach((image: Image) => {
@@ -50,6 +51,7 @@ const Home: React.FunctionComponent<homeProps> = (props: homeProps) => {
           fetchingFailed: false,
           userSignedIn: isUserSignedIn,
         });
+        if (isUserSignedIn) distachSignedInEvent();
       },
       () => {
         setCategoryHomeState({

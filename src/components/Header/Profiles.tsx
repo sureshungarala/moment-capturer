@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
 
 import { getFirstCategory } from "../../utils/helpers";
-import { checkIfUserSignedIn, signOutUser } from "../../utils/apis";
+import { signOutUser } from "../../utils/apis";
 import { signIncustomEventName } from "../../utils/constants";
 
 interface profileProps {}
@@ -68,9 +68,6 @@ const Profiles: React.FunctionComponent<profileProps> = (props) => {
   /* --------------------------- Event handlers end ------------------------------ */
 
   useEffect(() => {
-    checkIfUserSignedIn().then((userDidSignIn) => {
-      userSignedIn(userDidSignIn);
-    });
     /* ------------------------------- A11y ---------------------------------- */
     const { current } = profilesRef;
     current?.addEventListener("focus", focusHandler);
@@ -108,23 +105,19 @@ const Profiles: React.FunctionComponent<profileProps> = (props) => {
     }
   }, [isFocussed]);
 
-  const signInOrSignOut = () => {
-    if (isUserSignedIn) {
-      return (
-        <NavLink
-          to={`/${getFirstCategory().tag}`}
-          onClick={() => {
-            signOutUser().then((userSignedOut: Boolean) => {
-              userSignedIn(!userSignedOut);
-            });
-          }}
-        >
-          Sign out
-        </NavLink>
-      );
-    }
-    return <NavLink to="/signin">Sign in</NavLink>;
-  };
+  const signInOrSignOut = () => (
+    <NavLink
+      to={`/${getFirstCategory().tag}`}
+      onClick={async () => {
+        const { Auth } = await import("@aws-amplify/auth");
+        signOutUser(Auth).then((userSignedOut: Boolean) => {
+          userSignedIn(!userSignedOut);
+        });
+      }}
+    >
+      Sign out
+    </NavLink>
+  );
 
   return (
     <div className="profiles" tabIndex={0} ref={profilesRef}>
@@ -159,7 +152,7 @@ const Profiles: React.FunctionComponent<profileProps> = (props) => {
           <li role="menuitem">
             <NavLink to="/upload">Add Captures</NavLink>
           </li>
-          <li role="menuitem">{signInOrSignOut()}</li>
+          {isUserSignedIn && <li role="menuitem">{signInOrSignOut()}</li>}
         </ul>
       )}
     </div>
