@@ -32,4 +32,5 @@ export interface CardImage {
   tag?: string;
   biotc?: boolean;
   src: string;
+  index: number;
 }
