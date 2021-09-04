@@ -8,7 +8,7 @@ import { CardImage, Category } from "../info/types";
 
 interface HomeProps {}
 
-const Home: React.FunctionComponent<HomeProps> = (props) => {
+const Home: React.FunctionComponent<HomeProps> = () => {
   const categoryCards = useRef<CardImage[]>([]);
   const [cards, setCards] = useState<CardImage[]>([]);
 

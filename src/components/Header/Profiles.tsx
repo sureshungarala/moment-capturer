@@ -130,27 +130,10 @@ const Profiles: React.FunctionComponent<profileProps> = (props) => {
       {isFocussed && (
         <ul role="menu">
           <li role="menuitem">
-            <a
-              target="_blank"
-              rel="noopener noreferrer"
-              href="https://www.instagram.com/i_am_the_moment_capturer/"
-            >
-              <span></span>
-              <span>Instagram</span>
-            </a>
-          </li>
-          <li role="menuitem">
-            <a
-              target="_blank"
-              rel="noopener noreferrer"
-              href="https://www.facebook.com/momentcapturer77"
-            >
-              <span></span>
-              <span>Facebook</span>
-            </a>
-          </li>
-          <li role="menuitem">
             <NavLink to="/upload">Add Captures</NavLink>
+          </li>
+          <li role="menuitem">
+            <NavLink to="/about">About me</NavLink>
           </li>
           {isUserSignedIn && <li role="menuitem">{signInOrSignOut()}</li>}
         </ul>

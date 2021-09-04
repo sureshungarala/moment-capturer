@@ -15,6 +15,7 @@ const importAmplifyOnNeed = async () => {
   Amplify.configure(awsconfig);
 };
 
+const AboutMe = lazy(() => import("./components/AboutMe"));
 const Home = lazy(() => import("./components/Home"));
 const Upload = lazy(async () => {
   await importAmplifyOnNeed();
@@ -43,6 +44,7 @@ const App: React.FunctionComponent = () => {
             <Suspense fallback={<Loader />}>
               <Switch>
                 <Route path="/" component={Home} exact></Route>
+                <Route path="/about" component={AboutMe}></Route>
                 <Route path="/upload" component={Upload} exact></Route>
                 <Route
                   path="/signin"

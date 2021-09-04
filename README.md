@@ -10,3 +10,7 @@
 - **API**s are served from `https://api.momentcapturer.com`. Checkout [momentcapturer-API](https://github.com/sureshUngarala/momentcapturer-API) repo for server code.
 
 This project was bootstrapped with [`Create React App`](https://github.com/facebook/create-react-app). So, all its scripts for build & run would work on this.
+
+#### Credits
+
+<div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div> & Icons by <a href="https://iconscout.com/contributors/pocike">Alpár - Etele Méder</a> on <a href="https://iconscout.com">Iconscout</a>

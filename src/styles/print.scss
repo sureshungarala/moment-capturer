@@ -1,0 +1,30 @@
+@media print {
+  @import url("https://fonts.googleapis.com/css2?family=Klee+One&display=swap");
+  .mcHeader,
+  .mcFooter {
+    display: none !important;
+  }
+  html {
+    color-adjust: exact;
+    background-color: $secondaryColor !important;
+    margin: 0;
+    height: 100%;
+    body {
+      margin: 0;
+      height: 100%;
+      background-repeat: no-repeat;
+    }
+  }
+  @page {
+    // margin: 1 cm !important;
+  }
+  .mcBody {
+    position: relative;
+    // min-height: 100vh !important;
+    .aboutme {
+      margin: 0 !important;
+      border-radius: 0 !important;
+      background-color: $secondaryColor !important;
+    }
+  }
+}

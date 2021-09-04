@@ -4,6 +4,7 @@
 @import "./styles/tablets.scss";
 @import "./styles/laptops.scss";
 @import "./styles/desktops.scss";
+@import "./styles/print.scss";
 
 .MC-App {
   font-family: $fontFamily;
@@ -686,6 +687,98 @@
       .updateDone {
         color: $primaryColor;
         border: 1px solid $secondaryColorInverted;
+      }
+    }
+
+    .aboutme {
+      display: flex;
+      flex-direction: column;
+      color: $secondaryColorInverted;
+      background-color: $secondaryColor;
+      font-size: 1.5rem;
+      max-width: 1024px;
+      margin: 15px;
+      border-radius: 4px;
+      padding: 35px 30px 30px 45px;
+      overflow: auto;
+      box-sizing: border-box;
+
+      section:nth-child(1) {
+        display: flex;
+        .intro {
+          display: flex;
+          flex-direction: column;
+          width: 70%;
+          margin-bottom: 15px;
+          .title {
+            font-size: 4rem;
+            margin-bottom: 10px;
+          }
+        }
+        .profile {
+          width: 30%;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          line-height: 4.5rem;
+          margin-top: 1.25rem;
+
+          .picture {
+            width: 150px;
+            height: 150px;
+            background-image: url("./assets/vamsi_dp.jpg");
+            background-repeat: no-repeat;
+            background-size: contain;
+            border-radius: 50%;
+            border: 1px solid $primaryColor;
+          }
+          .name {
+            color: $primaryColor;
+            font-size: 2rem;
+            font-weight: 600;
+          }
+          .social {
+            display: flex;
+            justify-content: space-evenly;
+            width: 100%;
+            margin-top: 5px;
+
+            & > a {
+              text-decoration: none;
+              & > span {
+                display: block;
+                background-repeat: no-repeat;
+                background-size: contain;
+                width: 25px;
+                height: 25px;
+              }
+              .whatsapp {
+                background-image: url("./assets/whatsapp.svg");
+              }
+              .instagram {
+                background-image: url("./assets/instagram.svg");
+              }
+              .facebook {
+                background-image: url("./assets/facebook.svg");
+              }
+            }
+          }
+        }
+      }
+
+      section:nth-child(n + 2) {
+        display: flex;
+        flex-direction: column;
+        margin: 15px 0px;
+        & > span:nth-child(1) {
+          color: $primaryColor;
+          text-decoration: underline;
+          font-weight: 600;
+        }
+      }
+
+      .sub-section > *:nth-child(2) {
+        line-height: 2.5rem;
       }
     }
   }

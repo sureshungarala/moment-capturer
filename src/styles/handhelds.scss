@@ -155,6 +155,23 @@
           font-size: calc(10px + 2vmin) !important;
         }
       }
+
+      .aboutme {
+        height: 100%;
+        margin: 0 !important;
+        padding: 15px 20px !important;
+        border-radius: 0 !important;
+        section:nth-child(1) {
+          flex-direction: column-reverse;
+          & > * {
+            width: 100% !important;
+          }
+
+          .profile {
+            margin-bottom: 1.25rem;
+          }
+        }
+      }
     }
 
     .mcFooter {
