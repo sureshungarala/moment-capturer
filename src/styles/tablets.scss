@@ -11,40 +11,29 @@
         .logo {
           width: 5vmax;
           height: 5vmax;
-          margin: 0 2vmin;
+          margin: 0 1rem;
         }
 
         #brand-name {
-          font-size: calc(10px + 3vmin);
-          margin-left: 2vmin;
+          font-size: 2.5rem;
+          margin-left: 1.5rem;
         }
       }
 
       .actionSection {
-        font-size: calc(10px + 1.5vmin);
-
         & > * {
           @include flexXalignCentered;
           align-items: baseline;
         }
 
+        .categories,
+        .profiles {
+          font-size: 1.75rem;
+        }
+
         .categories {
           .title {
-            font-size: calc(10px + 1.25vmin);
             padding-right: 0.5em;
-          }
-
-          .categories-dd,
-          .categories-dd .selectedCategory {
-            font-size: calc(10px + 0.75vmin);
-
-            li {
-              font-size: calc(10px + 1vmin);
-            }
-          }
-
-          .categories-dd .selectedCategory {
-            border: 1px solid $primaryColor;
           }
         }
       }
@@ -71,23 +60,15 @@
       .swStatus {
         bottom: 20px !important;
         margin: 0px 10px !important;
-        font-size: calc(10px + 2vmin) !important;
 
         button {
           margin: 0px 10px !important;
-          font-size: calc(10px + 2vmin) !important;
         }
       }
     }
 
     .mcFooter {
-      height: 6vmin;
-
-      .linkedin,
-      .github {
-        height: 3vmin !important;
-        width: 3vmin !important;
-      }
+      height: 3rem;
     }
   }
 }

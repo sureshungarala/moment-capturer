@@ -12,18 +12,17 @@
         .logo {
           width: 6vmax;
           height: 6vmax;
-          margin: 0 1vmin;
+          margin: 0 0.2rem;
         }
 
         #brand-name {
-          font-size: calc(10px + 2vmin);
-          margin-left: 1vmin;
+          font-size: 1.3rem;
+          margin-left: 0.3rem;
         }
       }
 
       .actionSection {
         justify-content: space-evenly;
-        font-size: calc(10px + 2.5vmin);
         flex-basis: 45% !important;
 
         & > * {
@@ -39,10 +38,9 @@
 
           .categories-dd {
             justify-content: flex-end;
-            font-size: calc(10px + 1.5vmin);
+            font-size: 1rem;
 
             .selectedCategory {
-              font-size: calc(10px + 1.5vmin);
               font-weight: 500;
             }
 
@@ -67,8 +65,8 @@
 
         .profiles {
           .profileMenu {
-            width: 4vmin !important;
-            height: 4vmin !important;
+            width: 1.5rem !important;
+            height: 1.5rem !important;
           }
 
           ul {
@@ -120,7 +118,7 @@
             }
           }
           .title {
-            font-size: calc(10px + 2vmin) !important;
+            font-size: 1.1rem !important;
           }
         }
       }
@@ -148,11 +146,12 @@
       .swStatus {
         bottom: 20px !important;
         margin: 0px 10px !important;
-        font-size: calc(10px + 2vmin) !important;
+        & > * {
+          font-size: 1rem !important;
+        }
 
         button {
           margin: 0px 10px !important;
-          font-size: calc(10px + 2vmin) !important;
         }
       }
 
@@ -175,14 +174,14 @@
     }
 
     .mcFooter {
-      height: 6vmin;
-      padding: 1vmin 0;
+      height: 2rem;
+      padding: 0.25rem 0;
       font-size: 1rem !important;
 
       .linkedin,
       .github {
-        height: 4vmin !important;
-        width: 4vmin !important;
+        height: 1rem !important;
+        width: 1rem !important;
       }
     }
   }

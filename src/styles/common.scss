@@ -31,7 +31,7 @@ a {
   outline: 0;
   text-decoration: none;
   color: $secondaryColorInverted;
-  font-family: $headingsFontFamily;
+  font-family: $headingsFontFamily !important;
 }
 
 h3 {
@@ -158,7 +158,7 @@ input[type="button"] {
     position: relative;
     display: flex;
     justify-content: flex-start;
-    font-size: calc(10px + 1.25vmin);
+    font-size: 1.25rem;
     outline: none;
 
     .selectedCategory {
@@ -166,16 +166,15 @@ input[type="button"] {
       border: 1px solid $primaryColor;
       border-radius: 4px;
       padding: 0px 10px;
-      font-size: calc(10px + 1.25vmin);
       font-weight: 600;
 
       &[data-content="-"] {
-        min-width: 10vmin;
+        min-width: 5rem;
         text-align: center;
         &::after {
           position: absolute;
-          top: calc(2.5px + 0.625vmin);
-          right: 1vmin;
+          top: 0.5rem;
+          right: 0.5rem;
         }
       }
 
@@ -301,12 +300,6 @@ input[type="button"] {
   .mcCheckboxLabel {
     margin-left: calc(10px + #{$mcCheckboxSize});
   }
-}
-
-@mixin borderAroundProfiles {
-  border: 1px solid #54744d;
-  border-radius: 3px;
-  padding: 1vmin;
 }
 
 .success {

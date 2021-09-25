@@ -13,25 +13,24 @@ $laptop_header_height: 4vmax;
         .logo {
           width: $laptop_header_height;
           height: $laptop_header_height;
-          margin-left: 7vmin;
+          margin-left: 4rem;
         }
 
         #brand-name {
-          font-size: calc(10px + 2.5vmin);
-          margin-left: 3vmin;
+          font-size: 2rem;
+          margin-left: 1.75rem;
         }
       }
 
       .actionSection {
-        font-size: calc(10px + 2.5vmin);
-
         & > * {
           @include flexXalignCentered;
           cursor: pointer;
         }
 
-        .categories {
-          font-size: calc(10px + 2vmin);
+        .categories,
+        .profiles {
+          font-size: 1.75rem;
         }
       }
     }
@@ -46,12 +45,12 @@ $laptop_header_height: 4vmax;
     }
 
     .mcFooter {
-      height: 6vmin;
+      height: 3rem;
 
       .linkedin,
       .github {
-        height: 2.5vmin !important;
-        width: 2.5vmin !important;
+        height: 2rem !important;
+        width: 2rem !important;
       }
     }
   }

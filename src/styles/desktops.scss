@@ -13,25 +13,28 @@ $desktop_header_height: 4vmax;
         .logo {
           width: $desktop_header_height;
           height: $desktop_header_height;
-          margin-left: 7vmin;
+          margin-left: 7rem;
         }
 
         #brand-name {
-          font-size: calc(10px + 2.5vmin);
-          margin-left: 3vmin;
+          font-size: 3.25rem;
+          margin-left: 3rem;
         }
       }
 
       .actionSection {
-        font-size: calc(10px + 2.5vmin);
-
         & > * {
           @include flexXalignCentered;
           cursor: pointer;
         }
 
-        .categories {
-          font-size: calc(10px + 2vmin);
+        .categories,
+        .profiles {
+          font-size: 2rem;
+        }
+
+        .profiles ul {
+          width: 180px !important;
         }
       }
     }
@@ -42,6 +45,13 @@ $desktop_header_height: 4vmax;
 
       .banner {
         max-width: 50%;
+      }
+
+      .swStatus {
+        bottom: 50px !important;
+        .updateAvailable button {
+          font-size: 1em !important;
+        }
       }
     }
 

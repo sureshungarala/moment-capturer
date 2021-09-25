@@ -51,8 +51,8 @@
         margin: 0px 5px;
 
         .profileMenu {
-          width: 3vmin;
-          height: 3vmin;
+          width: 1.75rem;
+          height: 1.75rem;
         }
 
         ul {
@@ -61,7 +61,7 @@
 
           li {
             position: relative;
-            font-size: calc(10px + 1.5vmin);
+            font-size: 0.75em;
             padding: 5px 0px 5px 10px;
 
             a {
@@ -132,7 +132,7 @@
 
       .title {
         font-weight: 600;
-        font-size: 4vmin;
+        font-size: 2rem;
       }
 
       .refresh {
@@ -141,7 +141,7 @@
         background-color: $secondaryColor;
         border-radius: 4px;
         font-family: $bodyFontFamily;
-        font-size: 2.5vmin;
+        font-size: 1.3rem;
         transform: translateY(10px);
         outline: none;
 
@@ -214,6 +214,8 @@
           }
 
           textarea {
+            font-size: 1rem;
+            min-height: 65px;
             resize: none;
             border: 1px solid $secondaryColor;
 
@@ -229,7 +231,7 @@
 
             .selectedCategory {
               box-shadow: none;
-              font-size: calc(10px + 1vmin);
+              font-size: 1.25rem;
             }
           }
 
@@ -241,7 +243,7 @@
             font-weight: 600;
 
             & > * {
-              margin: 0px 1vmin;
+              margin: 0px 1rem;
             }
           }
 
@@ -278,11 +280,11 @@
             }
           }
           input {
-            min-height: 4vmin;
+            min-height: 2.25rem;
             border: 1px solid $secondaryColor;
             border-radius: 2px;
             outline: none;
-            font-size: 1.25em;
+            font-size: 1em;
             font-family: $bodyFontFamily;
             &:focus {
               border: 1px solid #5bba47;
@@ -313,6 +315,7 @@
     }
 
     .home {
+      height: 100%;
       @include flexXjustifyCentered;
       flex-wrap: wrap;
       background-color: $secondaryColorInverted;
@@ -336,13 +339,14 @@
 
           .fallback {
             @include flexXalignCentered;
-            font-size: calc(10px + 1.5vmin) !important;
             color: $secondaryColor;
             background-color: $secondaryColorInverted;
             text-align: center;
 
             span {
               padding: 0px 15px;
+              font-size: 1.25em;
+              font-family: $bodyFontFamily;
             }
           }
         }
@@ -451,7 +455,7 @@
       bottom: 0;
       right: 0;
       margin: 0.5em;
-      font-size: calc(10px + 2vmin);
+      font-size: 1.25rem;
       color: $secondaryColorInverted;
       mix-blend-mode: luminosity;
     }
@@ -518,7 +522,7 @@
             resize: none;
             border: 1px solid $secondaryColor;
             border-radius: 3px;
-            margin-top: 1vmin;
+            margin-top: 1rem;
             outline: 0;
             width: calc(100% - 4px);
             font-size: 1.1em;
@@ -532,16 +536,16 @@
             display: flex;
             justify-content: space-between;
             align-items: baseline;
-            margin-top: 2vmin;
-            min-height: 2vmin;
-            line-height: 2vmin;
+            margin-top: 1rem;
+            min-height: 2rem;
+            line-height: 2rem;
 
             .deleteActions,
             .editActions {
               display: flex;
               justify-content: flex-end;
               & > * {
-                padding: 0 2vmin;
+                padding: 0 1.25rem;
                 border-radius: 2px;
                 border: 1px solid $secondaryColorInverted;
                 font-size: 1em;
@@ -549,7 +553,7 @@
               }
               .yesDelete,
               .yesEdit {
-                margin-left: 2vmin;
+                margin-left: 2rem;
                 background-color: $alertColor;
                 &:hover,
                 &:focus {
@@ -639,9 +643,12 @@
     .swStatus {
       position: fixed;
       bottom: 30px;
-      font-size: 3vmin;
       margin: 0px 20px;
       border-radius: 5px;
+
+      & > * {
+        font-size: 1.25rem;
+      }
 
       .updateAvailable,
       .updateDone {
@@ -659,7 +666,7 @@
         button {
           padding: 5px 10px;
           margin: 10px;
-          font-size: 2vmin;
+          font-size: inherit;
           font-weight: bold;
           font-family: $bodyFontFamily;
           background-color: transparent;
@@ -816,8 +823,8 @@
 
       .linkedin,
       .github {
-        height: 2vmin;
-        width: 2vmin;
+        height: 1.25rem;
+        width: 1.25rem;
         background-repeat: no-repeat;
         cursor: pointer;
       }
