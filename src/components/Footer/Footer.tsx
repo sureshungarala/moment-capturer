@@ -4,7 +4,7 @@ const Footer: React.FunctionComponent = () => (
   <div className="mcFooter">
     <div className="column">
       <span>
-        CopyRight &copy; {new Date().getFullYear()}. All rights reserved.
+        Copyright &copy; {new Date().getFullYear()}. All rights reserved.
       </span>
     </div>
     <div className="column">

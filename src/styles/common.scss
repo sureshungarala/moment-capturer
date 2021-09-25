@@ -1,4 +1,5 @@
-$fontFamily: "Caveat", "Monaco";
+$headingsFontFamily: Caveat, Roboto;
+$bodyFontFamily: Lato, Roboto;
 $primaryColor: #5bba47;
 $primaryColorHovered: #54744d;
 $secondaryColor: rgba(0, 0, 0, 0.85);
@@ -30,7 +31,7 @@ a {
   outline: 0;
   text-decoration: none;
   color: $secondaryColorInverted;
-  font-family: $fontFamily;
+  font-family: $headingsFontFamily;
 }
 
 h3 {
@@ -38,7 +39,7 @@ h3 {
 }
 
 textarea {
-  font-family: $fontFamily;
+  font-family: $bodyFontFamily;
 }
 
 button,
@@ -147,6 +148,7 @@ input[type="button"] {
 
 .categories {
   @include flexXjustifyCentered;
+  outline: none;
 
   .title {
     padding-right: 0.75em;

@@ -7,7 +7,7 @@
 @import "./styles/print.scss";
 
 .MC-App {
-  font-family: $fontFamily;
+  font-family: $bodyFontFamily;
   font-weight: 400;
 
   .mcHeader {
@@ -16,6 +16,7 @@
     z-index: 1;
     background-color: $secondaryColor;
     color: $secondaryColorInverted;
+    font-family: $headingsFontFamily;
 
     .logoSection {
       @include flexXalignCentered;
@@ -92,11 +93,6 @@
           @include focus;
         }
       }
-
-      .categories {
-        font-family: $fontFamily;
-        outline: none;
-      }
     }
   }
 
@@ -144,7 +140,7 @@
         color: $primaryColor;
         background-color: $secondaryColor;
         border-radius: 4px;
-        font-family: $fontFamily;
+        font-family: $bodyFontFamily;
         font-size: 2.5vmin;
         transform: translateY(10px);
         outline: none;
@@ -287,7 +283,7 @@
             border-radius: 2px;
             outline: none;
             font-size: 1.25em;
-            font-family: $fontFamily;
+            font-family: $bodyFontFamily;
             &:focus {
               border: 1px solid #5bba47;
             }
@@ -665,7 +661,7 @@
           margin: 10px;
           font-size: 2vmin;
           font-weight: bold;
-          font-family: $fontFamily;
+          font-family: $bodyFontFamily;
           background-color: transparent;
           border: none;
           text-decoration: underline;
@@ -700,13 +696,14 @@
       flex-direction: column;
       color: $secondaryColorInverted;
       background-color: $secondaryColor;
-      font-size: 1.5rem;
+      font-size: 1.25rem;
       max-width: 1024px;
       margin: 15px;
       border-radius: 4px;
       padding: 35px 30px 30px 45px;
       overflow: auto;
       box-sizing: border-box;
+      line-height: 2.5rem;
 
       section:nth-child(1) {
         display: flex;
@@ -716,8 +713,9 @@
           width: 70%;
           margin-bottom: 15px;
           .title {
-            font-size: 4rem;
-            margin-bottom: 10px;
+            font-size: 3.75rem;
+            font-family: $headingsFontFamily;
+            margin-bottom: 20px;
           }
         }
         .profile {
@@ -726,7 +724,7 @@
           flex-direction: column;
           align-items: center;
           line-height: 4.5rem;
-          margin-top: 1.25rem;
+          margin: 1.25rem 0;
 
           .picture {
             width: 150px;
@@ -741,6 +739,7 @@
             color: $primaryColor;
             font-size: 2rem;
             font-weight: 600;
+            font-family: $headingsFontFamily;
           }
           .social {
             display: flex;
@@ -771,20 +770,31 @@
         }
       }
 
-      section:nth-child(n + 2) {
+      section:nth-child(n + 3) {
         display: flex;
         flex-direction: column;
-        margin: 15px 0px;
+        margin: 12px 0px;
         & > span:nth-child(1) {
           color: $primaryColor;
-          text-decoration: underline;
+          font-size: 1.75rem;
           font-weight: 600;
+          font-family: $headingsFontFamily;
+          text-decoration: underline;
+        }
+        ul {
+          margin: 0;
         }
       }
 
-      .sub-section > *:nth-child(2) {
-        line-height: 2.5rem;
+      section:last-child > span:nth-child(1) {
+        text-decoration: none;
       }
+    }
+
+    .highlight {
+      font-family: $headingsFontFamily;
+      font-size: 1.1em;
+      font-weight: 600;
     }
   }
 
@@ -793,7 +803,8 @@
     justify-content: space-around;
     background-color: $secondaryColor;
     color: $secondaryColorInverted;
-    font-size: 1.25rem;
+    font-size: 1rem;
+    font-family: $headingsFontFamily;
 
     .column {
       display: flex;
