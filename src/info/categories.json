@@ -72,13 +72,18 @@
     "submenu": []
   },
   {
+    "name": "Aerial",
+    "tag": "aerial",
+    "submenu": []
+  },
+  {
     "name": "Baby",
     "tag": "baby",
     "submenu": []
   },
   {
-    "name": "Events",
-    "tag": "events",
+    "name": "Weddings",
+    "tag": "weddings",
     "submenu": []
   },
   {
