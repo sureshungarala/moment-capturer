@@ -38,7 +38,7 @@
 
           .categories-dd {
             justify-content: flex-end;
-            font-size: 1rem;
+            font-size: 0.85rem;
 
             .selectedCategory {
               font-weight: 500;
@@ -64,9 +64,10 @@
         }
 
         .profiles {
+          font-size: 1.25rem;
           .profileMenu {
-            width: 1.5rem !important;
-            height: 1.5rem !important;
+            width: 1.25rem !important;
+            height: 1.25rem !important;
           }
 
           ul {

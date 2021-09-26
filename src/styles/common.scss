@@ -173,14 +173,14 @@ input[type="button"] {
         text-align: center;
         &::after {
           position: absolute;
-          top: 0.5rem;
-          right: 0.5rem;
+          top: 1em;
+          right: 1em;
         }
       }
 
       &::after {
         content: "\00a0\00a0\25BC";
-        font-size: 0.6em;
+        font-size: 0.5em;
       }
     }
 
