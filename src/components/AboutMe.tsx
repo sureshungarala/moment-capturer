@@ -63,19 +63,19 @@ const AboutMe: React.FunctionComponent = () => {
         <span>My journey</span>
         <div>
           Growing up in Andhra Pradesh, India, in close proximity to nature, I
-          developed an interest in photography and nature.Over time, I started
+          developed an interest in photography and nature. Over time, I started
           getting passionate about photography, travelling and exploring nature.
-          So I pursued my passion for photography over societal trends and
-          earned a PG in Photography from NICC India.I would like to mention
-          that I had submitted a book in my final semester of PG Southern Fairy
-          Tales of India-a magazine which was accepted. I was well fortunate to
-          get mentorship from a veteran mentor, Dr. Akash Rose, a specialist
-          photographer and director of NICC, who was featured multiple times by
-          Cannon. He is a very well known person with dignity in the field of
-          photography. I got the chance to work at Wander Trails instantly after
-          completing my graduation from a first-tier university through direct
-          placement. Thus, I finally introduced myself to real-world photography
-          services!
+          So, I pursued my passion for photography over societal trends and
+          earned a PG in Photography from NICC situated in Bangalore, India. I
+          would like to mention that I submitted a book in my final semester of
+          PG, Southern Fairy Tales of India-a magazine which was accepted. I was
+          fortunate to get mentorship from a veteran mentor, Dr. Akash Rose, a
+          specialist photographer across multiple streams, director of NICC and
+          brand ambassador for Canon, India. He is a very well-known person with
+          dignity in the field of photography. I got the chance to work at
+          Wander Trails instantly after completing my graduation from a
+          first-tier university through direct placement. Thus, I finally
+          introduced myself to real-world photography services!
         </div>
       </section>
       <section className="sub-section">
@@ -152,7 +152,7 @@ const AboutMe: React.FunctionComponent = () => {
             jewellery, which makes me feel great even today!
           </li>
           <li>
-            One of the most famous brands, Cannon, has featured my photos more
+            One of the most famous brands, Canon, has featured my photos more
             than once.
           </li>
           <li>There are some magazines where I got featured in.</li>
