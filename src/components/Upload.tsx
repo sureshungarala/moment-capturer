@@ -7,6 +7,8 @@ import UploadForm from "./ImageActions/UploadForm";
 import { checkIfUserSignedIn } from "../utils/apis";
 import { distachSignedInEvent } from "../utils/helpers";
 
+import "../styles/templates/sign_in_or_upload_form.scss";
+
 const Upload: React.FunctionComponent = () => {
   const [uploadState, setUploadState] = useState({
     checkingIfUserSignedIn: false,

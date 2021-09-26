@@ -327,6 +327,10 @@ input[type="button"] {
   background-image: url("../assets/delete.svg");
 }
 
+.close {
+  background-image: url("../assets/close.svg");
+}
+
 @mixin imageActionBtn {
   width: 30px;
   height: 30px;

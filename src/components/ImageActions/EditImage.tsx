@@ -4,6 +4,7 @@ import { CognitoUserSession } from "amazon-cognito-identity-js";
 
 import Categories from "../Utils/Categories";
 import { Image } from "../../info/types";
+import "../../styles/templates/edit_image.scss";
 
 import { editImage, deleteImage } from "../../utils/apis";
 

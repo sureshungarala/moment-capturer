@@ -1,15 +1,15 @@
-@media print {
-  .mcHeader,
-  .mcFooter {
-    display: none !important;
-  }
-  html {
-    color-adjust: exact;
-    background-color: $secondaryColor !important;
-  }
-  .mcBody .aboutme {
-    margin: 0 !important;
-    border-radius: 0 !important;
-    background-color: $secondaryColor !important;
-  }
+@import "./common.scss";
+
+.mcHeader,
+.mcFooter {
+  display: none !important;
+}
+html {
+  color-adjust: exact;
+  background-color: $secondaryColor !important;
+}
+.mcBody .aboutme {
+  margin: 0 !important;
+  border-radius: 0 !important;
+  background-color: $secondaryColor !important;
 }

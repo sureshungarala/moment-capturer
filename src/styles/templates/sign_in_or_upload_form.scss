@@ -1,0 +1,160 @@
+@import "../common.scss";
+
+.uploadOrSignInContainer {
+  position: relative;
+  width: 100vw;
+  @include flexXjustifyCentered;
+
+  .upload-form,
+  .signin-form {
+    @include flexXcentered;
+    form {
+      @include flexXjustifyCentered;
+      position: absolute;
+      flex-direction: column;
+      justify-content: space-evenly;
+      color: $secondaryColor;
+      height: 320px;
+      width: 320px;
+      color: $secondaryColor;
+      border-radius: 5px;
+      padding: 0px 15px;
+      top: 40%;
+      transform: translateY(-50%);
+      border-top: 5px solid $secondaryColor;
+      box-shadow: $formBoxShadow;
+
+      .requestStatus,
+      .loginStatus {
+        display: flex;
+        justify-content: flex-start;
+        font-size: 1.25em;
+        & > div {
+          display: flex;
+          align-items: center;
+
+          .processing {
+            @include spinner;
+            width: 16px;
+            height: 16px;
+          }
+        }
+      }
+    }
+  }
+
+  .upload-form {
+    form {
+      & > * {
+        width: 100%;
+      }
+
+      input[type="submit"],
+      input[type="button"],
+      textarea,
+      .categories {
+        font-size: 1.5em;
+        border-radius: 4px;
+        outline: none;
+      }
+
+      textarea {
+        font-size: 1rem;
+        min-height: 65px;
+        resize: none;
+        border: 1px solid $secondaryColor;
+
+        &.error {
+          border: 1px solid red;
+        }
+      }
+
+      .categories {
+        .title {
+          font-size: 0.75em;
+        }
+
+        .selectedCategory {
+          box-shadow: none;
+          font-size: 1.25rem;
+        }
+      }
+
+      .resolutionCbToggles {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+        font-weight: 600;
+
+        & > * {
+          margin: 0px 1rem;
+        }
+      }
+
+      input[type="submit"] {
+        font-weight: 600;
+      }
+
+      input[type="file"] {
+        visibility: hidden;
+        height: 1px;
+        width: 1px;
+      }
+    }
+  }
+
+  .signin-form {
+    form {
+      font-weight: 600;
+      & > label {
+        color: $alternateDarkOrange;
+        font-size: 1.75em;
+      }
+      & > * {
+        display: flex;
+        flex-direction: column;
+        margin: 10px 10px;
+        & > label {
+          font-size: 1.25em;
+          margin: 5px 0px;
+          &::after {
+            content: "*";
+            color: $alternateDarkOrange;
+          }
+        }
+      }
+      input {
+        min-height: 2.25rem;
+        border: 1px solid $secondaryColor;
+        border-radius: 2px;
+        outline: none;
+        font-size: 1em;
+        font-family: $bodyFontFamily;
+        &:focus {
+          border: 1px solid #5bba47;
+        }
+      }
+      .signin,
+      .changePwd {
+        flex-direction: row;
+        justify-content: space-between;
+        input {
+          width: 50%;
+          font-size: 1.25em;
+          font-weight: 600;
+          border-radius: 3px;
+          color: $primaryColor;
+        }
+      }
+    }
+  }
+
+  .fetchingCurrentUserDetails {
+    @include spinner;
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    top: 40%;
+  }
+}

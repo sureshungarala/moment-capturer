@@ -1,0 +1,74 @@
+@import "../common.scss";
+
+.MC-App {
+  .mcHeader {
+    @include flexXalignCentered;
+    height: 5vmax;
+    justify-content: space-around;
+
+    .logoSection {
+      flex-basis: 50%;
+
+      .logo {
+        width: 5vmax;
+        height: 5vmax;
+        margin: 0 1rem;
+      }
+
+      #brand-name {
+        font-size: 2.5rem;
+        margin-left: 1.5rem;
+      }
+    }
+
+    .actionSection {
+      & > * {
+        @include flexXalignCentered;
+        align-items: baseline;
+      }
+
+      .categories,
+      .profiles {
+        font-size: 1.75rem;
+      }
+
+      .categories {
+        .title {
+          padding-right: 0.5em;
+        }
+      }
+    }
+  }
+
+  .mcBody {
+    min-height: calc(100vh - 5vmax);
+    padding-top: 5vmax; //w.r.to header height
+
+    .fetchingCurrentUserDetails,
+    .fetchingImages .spinner {
+      width: 60px !important;
+      height: 60px !important;
+    }
+
+    .upload-form {
+      top: 20% !important;
+    }
+
+    .banner {
+      max-width: 70%;
+    }
+
+    .swStatus {
+      bottom: 20px !important;
+      margin: 0px 10px !important;
+
+      button {
+        margin: 0px 10px !important;
+      }
+    }
+  }
+
+  .mcFooter {
+    height: 3rem;
+  }
+}

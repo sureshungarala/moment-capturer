@@ -6,6 +6,7 @@ import Loader from "./Utils/Loader";
 import { fetchBestImagePerCategory } from "../utils/apis";
 import { getAllCategories } from "../utils/helpers";
 import { CardImage, Category } from "../info/types";
+import "../styles/templates/home.scss";
 
 interface HomeProps {}
 

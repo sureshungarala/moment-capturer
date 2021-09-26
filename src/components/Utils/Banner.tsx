@@ -1,5 +1,7 @@
 import React from "react";
 
+import "../../styles/templates/banner.scss";
+
 interface BannerProps {
   title?: string;
   canRefresh?: boolean;

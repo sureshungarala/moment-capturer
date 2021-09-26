@@ -1,0 +1,87 @@
+@import "../common.scss";
+
+.category-home {
+  position: relative;
+  width: 100vw;
+
+  .imageContainer {
+    position: relative;
+    &:hover,
+    &:focus,
+    &:focus-within {
+      .editImage .actions {
+        display: block;
+      }
+    }
+  }
+
+  & > .imageContainer {
+    width: 100%;
+    margin-bottom: 0.5vw;
+
+    picture {
+      width: 100%;
+
+      img {
+        display: block;
+        width: 100%;
+        outline: none;
+      }
+    }
+
+    .imageActionFormContainer {
+      border-radius: 0px;
+      .editForm {
+        min-width: 30%;
+      }
+    }
+  }
+
+  .images-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    & > * {
+      &:not(.panorama):not(.portrait) {
+        flex-basis: 48.75vw; //keeping aspect ratio => 3:2
+        height: calc(48.75vw * 0.666); //change them both simultaneously
+      }
+
+      &.portrait {
+        flex-basis: 31vw;
+        height: calc(31vw * 1.5);
+      }
+
+      .imageActionFormContainer {
+        .editForm {
+          min-width: 50%;
+        }
+      }
+
+      &.panorama {
+        .editForm {
+          min-width: 30%;
+        }
+      }
+
+      margin: 0.5vw;
+      border-radius: 5px;
+      box-shadow: 10px 10px 10px #40383830;
+
+      picture {
+        width: 100%;
+
+        img {
+          display: block;
+          width: 100%;
+          border-radius: 5px;
+
+          &:focus {
+            @include focus;
+          }
+        }
+      }
+    }
+  }
+}

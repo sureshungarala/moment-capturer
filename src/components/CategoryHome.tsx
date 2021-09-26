@@ -5,6 +5,7 @@ import { Auth } from "@aws-amplify/auth";
 import Loader from "./Utils/Loader";
 import Banner from "./Utils/Banner";
 import ImageComponent from "./Utils/Image";
+import "../styles/templates/categoryHome.scss";
 
 import { fetchImages, checkIfUserSignedIn } from "../utils/apis";
 import { Image, McMoments } from "../info/types";

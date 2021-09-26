@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 
+import "../../styles/templates/swStatus.scss";
+
 import { swEventName } from "../../utils/constants";
 
 const ServiceWorkerStatus: React.FunctionComponent = () => {

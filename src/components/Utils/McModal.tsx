@@ -2,6 +2,7 @@ import React from "react";
 
 import { getModalDimensions } from "../../utils/helpers";
 import { Image } from "../../info/types";
+import "../../styles/templates/mcModal.scss";
 
 interface McModalProps extends Image {
   closeModal: (event: React.MouseEvent | React.KeyboardEvent) => void;

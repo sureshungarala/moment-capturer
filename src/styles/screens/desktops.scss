@@ -1,0 +1,62 @@
+@import "../common.scss";
+
+$desktop_header_height: 4vmax;
+
+.MC-App {
+  .mcHeader {
+    @include flexXalignCentered;
+    height: $desktop_header_height;
+    justify-content: space-between;
+
+    .logoSection {
+      flex-basis: 30%;
+
+      .logo {
+        width: $desktop_header_height;
+        height: $desktop_header_height;
+        margin-left: 7rem;
+      }
+
+      #brand-name {
+        font-size: 3.25rem;
+        margin-left: 3rem;
+      }
+    }
+
+    .actionSection {
+      & > * {
+        @include flexXalignCentered;
+        cursor: pointer;
+      }
+
+      .categories,
+      .profiles {
+        font-size: 2rem;
+      }
+
+      .profiles ul {
+        width: 180px !important;
+      }
+    }
+  }
+
+  .mcBody {
+    min-height: calc(100vh - 5vmax);
+    padding-top: $desktop_header_height; //w.r.to header height
+
+    .banner {
+      max-width: 50%;
+    }
+
+    .swStatus {
+      bottom: 50px !important;
+      .updateAvailable button {
+        font-size: 1em !important;
+      }
+    }
+  }
+
+  .mcFooter {
+    height: 5vmin;
+  }
+}

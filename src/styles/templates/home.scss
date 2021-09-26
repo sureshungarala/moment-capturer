@@ -1,0 +1,51 @@
+@import "../common.scss";
+
+.home {
+  height: 100%;
+  @include flexXjustifyCentered;
+  flex-wrap: wrap;
+  background-color: $secondaryColorInverted;
+  .categoryCard {
+    background-color: $secondaryColor;
+    max-width: 360px;
+    border-radius: 20px;
+    margin: 20px;
+    box-shadow: 0px 0px 15px 8px rgba(0, 0, 0, 0.2);
+
+    .thumbnail {
+      display: flex;
+      padding: 20px;
+      padding-bottom: 10px;
+      img,
+      .fallback {
+        width: 280px;
+        height: calc(2 / 3 * 280px);
+        border-radius: 20px;
+      }
+
+      .fallback {
+        @include flexXalignCentered;
+        color: $secondaryColor;
+        background-color: $secondaryColorInverted;
+        text-align: center;
+
+        span {
+          padding: 0px 15px;
+          font-size: 1.25em;
+          font-family: $bodyFontFamily;
+        }
+      }
+    }
+    .title {
+      font-size: 1.5em;
+      font-weight: 600;
+      padding: 0px 20px 10px 20px;
+      color: $secondaryColorInverted;
+    }
+    & > a:focus {
+      @include focus;
+      display: block;
+      border-radius: inherit;
+    }
+  }
+}

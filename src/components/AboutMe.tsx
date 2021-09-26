@@ -1,5 +1,7 @@
 import React from "react";
 
+import "../styles/templates/aboutMe.scss";
+
 const AboutMe: React.FunctionComponent = () => {
   return (
     <section className="aboutme">
