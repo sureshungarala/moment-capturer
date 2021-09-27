@@ -20,6 +20,7 @@
       .fallback {
         width: 280px;
         height: calc(2 / 3 * 280px);
+        background-size: contain;
         border-radius: 20px;
       }
 

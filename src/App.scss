@@ -157,31 +157,29 @@
 
     .row {
       @include flexXalignCentered;
+      a {
+        display: inline-flex;
+        .linkedin,
+        .github {
+          height: 1.25rem;
+          width: 1.25rem;
+          background-repeat: no-repeat;
+          cursor: pointer;
+        }
 
-      .linkedin,
-      .github {
-        height: 1.25rem;
-        width: 1.25rem;
-        background-repeat: no-repeat;
-        cursor: pointer;
+        .linkedin {
+          display: inline-block;
+          background-image: url("assets/linkedin.svg");
+          background-position: center;
+          margin-left: 0.5rem;
+        }
+
+        .github {
+          display: inline-block;
+          background-image: url("assets/github.svg");
+          margin: 0 1rem;
+        }
       }
-
-      .linkedin {
-        display: inline-block;
-        background-image: url("assets/linkedin.svg");
-        background-position: center;
-        margin-left: 0.5rem;
-      }
-
-      .github {
-        display: inline-block;
-        background-image: url("assets/github.svg");
-        margin: 0 1rem;
-      }
-    }
-
-    a {
-      text-decoration: underline;
     }
   }
 }
