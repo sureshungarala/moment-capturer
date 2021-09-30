@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { memo, useEffect, useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
 
 interface CardProps {
@@ -6,16 +6,20 @@ interface CardProps {
   src: string | undefined;
   altText: string;
   categoryTag: string;
+  fetching: boolean;
 }
 
 const CategoryCard: React.FunctionComponent<CardProps> = (props: CardProps) => {
   const [cardTemplate, setCardTemplate] = useState<React.ReactFragment>(
-    <div className="fallback"></div>
+    <div className="loader_facade"></div>
   );
   const cardRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (props.src) {
+    let template = cardTemplate;
+    if (props.fetching) {
+      template = <div className="loader_facade"></div>;
+    } else if (props.src) {
       const observer = new window.IntersectionObserver(
         (entries: Array<IntersectionObserverEntry>) => {
           const [{ isIntersecting }] = entries;
@@ -31,13 +35,14 @@ const CategoryCard: React.FunctionComponent<CardProps> = (props: CardProps) => {
       );
       observer.observe(cardRef.current as Element);
     } else {
-      setCardTemplate(
+      template = (
         <div className="fallback">
-          <span>No moments yet. Check again after some time.</span>
+          <span>No moments yet. Check back again later.</span>
         </div>
       );
     }
-  }, []);
+    setCardTemplate(template);
+  }, [props]);
 
   return (
     <div className="categoryCard" ref={cardRef}>
@@ -49,4 +54,4 @@ const CategoryCard: React.FunctionComponent<CardProps> = (props: CardProps) => {
   );
 };
 
-export default CategoryCard;
+export default memo(CategoryCard);

@@ -18,6 +18,7 @@ $focusBoxShadow: 0px 0px 0px 2px #5bba47;
 $focusBoxShadowInset: inset 0px 0px 2px 2px #5bba47;
 $focusBoxShadowSecondary: 0px 0px 2px 2px rgba(0, 0, 0, 0.85);
 $transition: all 0.5s ease-in-out;
+$loaderGradient: #3d443b;
 
 input[type="button"],
 input[type="submit"],
@@ -165,22 +166,22 @@ input[type="button"] {
       position: relative;
       border: 1px solid $primaryColor;
       border-radius: 4px;
-      padding: 0px 10px;
+      padding: 0px 1.25rem 0 0.5rem;
       font-weight: 600;
+      width: 7rem;
 
       &[data-content="-"] {
-        min-width: 5rem;
+        width: 5rem;
         text-align: center;
-        &::after {
-          position: absolute;
-          top: 1em;
-          right: 1em;
-        }
       }
 
       &::after {
+        position: absolute;
+        top: 50%;
+        right: 0.5em;
         content: "\00a0\00a0\25BC";
         font-size: 0.5em;
+        transform: translateY(-50%);
       }
     }
 

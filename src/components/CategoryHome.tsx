@@ -81,7 +81,7 @@ const Home: React.FunctionComponent<homeProps> = (props: homeProps) => {
     categoryHome = (
       <Banner
         title={
-          "No moments recorded for this category as of yet. Wait for some time and check again."
+          "No moments recorded for this category as of yet. Check back again later."
         }
       />
     );

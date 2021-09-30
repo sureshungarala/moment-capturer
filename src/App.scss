@@ -13,6 +13,7 @@
 .MC-App {
   font-family: $bodyFontFamily;
   font-weight: 400;
+  overflow: hidden;
 
   .mcHeader {
     position: fixed;
@@ -104,7 +105,7 @@
     position: relative;
     color: $secondaryColor;
     background-color: $secondaryColorInverted;
-    overflow-y: auto;
+    overflow: auto;
     @include flexXjustifyCentered;
 
     .loadingContainer {

@@ -1,7 +1,7 @@
 import React from "react";
 
 const Footer: React.FunctionComponent = () => (
-  <div className="mcFooter">
+  <footer className="mcFooter">
     <div className="column">
       <span>
         Copyright &copy; {new Date().getFullYear()}. All rights reserved.
@@ -28,7 +28,7 @@ const Footer: React.FunctionComponent = () => (
         </a>
       </div>
     </div>
-  </div>
+  </footer>
 );
 
 export default Footer;

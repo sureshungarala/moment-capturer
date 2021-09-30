@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 
 import CategoryCard from "./Utils/CategoryCard";
-import Loader from "./Utils/Loader";
 
 import { fetchBestImagePerCategory } from "../utils/apis";
 import { getAllCategories } from "../utils/helpers";
@@ -11,71 +10,56 @@ import "../styles/templates/home.scss";
 interface HomeProps {}
 
 const Home: React.FunctionComponent<HomeProps> = () => {
-  const categoryCards = useRef<CardImage[]>([]);
-  const [cards, setCards] = useState<CardImage[]>([]);
-  const [fetchingImages, isFetchingImages] = useState(true);
+  const categories: Category[] = getAllCategories();
+  const [cards, setCards] = useState<Array<CardImage>>(
+    categories.map((category: Category) => ({
+      category: category.name,
+      tag: category.tag,
+      src: "",
+      fetching: true,
+    }))
+  );
+  const cardsRef = useRef<CardImage[]>([...cards]);
 
-  const createCategoryCardData = (
-    category: Category,
-    image: CardImage | undefined,
-    index: number
-  ) => {
-    let categoryData = null;
-    if (image) {
-      categoryData = {
-        category: category.name,
-        tag: category.tag,
-        src: image.src,
-      };
-    } else {
-      categoryData = {
-        category: category.name,
-        tag: category.tag,
-        src: "",
-      };
-    }
-    categoryCards.current = [
-      ...categoryCards.current,
-      { ...categoryData, index },
-    ].sort((a, b) => a?.index - b?.index);
-    setCards(categoryCards.current);
+  const updateCategoryCard = (index: number, image: CardImage | undefined) => {
+    const cardsToUpdate = [...cardsRef.current];
+    cardsToUpdate[index]["src"] = image ? image.src : "";
+    cardsToUpdate[index]["fetching"] = false;
+    cardsRef.current = cardsToUpdate;
+    setCards(cardsToUpdate);
   };
 
   useEffect(() => {
-    const allCategories = getAllCategories();
-    allCategories.forEach((category, index) => {
+    categories.forEach((category, index) => {
       fetchBestImagePerCategory(category.tag)
         .then((response) => {
-          fetchingImages && isFetchingImages(false);
           if (response.ok) {
             response.json().then((data) => {
               const { images }: { images: CardImage | undefined } = data;
-              createCategoryCardData(category, images, index);
+              updateCategoryCard(index, images);
             });
           } else {
-            createCategoryCardData(category, undefined, index);
+            updateCategoryCard(index, undefined);
           }
         })
         .catch(() => {
-          fetchingImages && isFetchingImages(false);
-          createCategoryCardData(category, undefined, index);
+          updateCategoryCard(index, undefined);
         });
     });
   }, []);
 
   return (
     <div className="home">
-      {fetchingImages && <Loader />}
-      {!fetchingImages &&
-        cards.map((card) => (
-          <CategoryCard
-            key={card.tag}
-            src={card.src}
-            altText={card.category}
-            title={card.category}
-            categoryTag={card.tag!}
-          />
-        ))}
+      {cards.map((card) => (
+        <CategoryCard
+          key={card.tag}
+          src={card.src}
+          altText={card.category}
+          title={card.category}
+          categoryTag={card.tag!}
+          fetching={card.fetching!}
+        />
+      ))}
     </div>
   );
 };

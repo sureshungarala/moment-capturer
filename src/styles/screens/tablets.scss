@@ -3,7 +3,7 @@
 .MC-App {
   .mcHeader {
     @include flexXalignCentered;
-    height: 5vmax;
+    height: 6vmax;
     justify-content: space-around;
 
     .logoSection {
@@ -17,14 +17,13 @@
 
       #brand-name {
         font-size: 2.5rem;
-        margin-left: 1.5rem;
+        margin-left: 1rem;
       }
     }
 
     .actionSection {
       & > * {
         @include flexXalignCentered;
-        align-items: baseline;
       }
 
       .categories,
@@ -36,13 +35,21 @@
         .title {
           padding-right: 0.5em;
         }
+
+        ul li:hover ul,
+        ul li:focus ul,
+        ul li:focus-within ul,
+        ul li ul:hover,
+        ul li ul:focus {
+          left: -95%;
+        }
       }
     }
   }
 
   .mcBody {
-    min-height: calc(100vh - 5vmax);
-    padding-top: 5vmax; //w.r.to header height
+    min-height: calc(100vh - 6vmax);
+    padding-top: 6vmax; //w.r.to header height
 
     .fetchingCurrentUserDetails,
     .fetchingImages .spinner {

@@ -47,6 +47,7 @@
 
           .selectedCategory {
             font-weight: 500;
+            width: 5rem !important;
           }
 
           .selectedCategory:hover + ul,
@@ -116,7 +117,8 @@
         margin: 20px 0px !important;
         .thumbnail {
           img,
-          .fallback {
+          .fallback,
+          .loader_facade {
             width: calc(100vw - 80px) !important;
             height: calc(2 / 3 * (100vw - 80px)) !important; // aspect ratio 3:2
           }
