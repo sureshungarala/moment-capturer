@@ -1,8 +1,5 @@
-@import "../common.scss";
-
 .MC-App {
   .mcHeader {
-    @include flexXalignCentered;
     height: 6vmax;
     justify-content: space-around;
 
@@ -17,15 +14,11 @@
 
       #brand-name {
         font-size: 2.5rem;
-        margin-left: 1rem;
+        transform: translateX(1rem);
       }
     }
 
     .actionSection {
-      & > * {
-        @include flexXalignCentered;
-      }
-
       .categories,
       .profiles {
         font-size: 1.75rem;
@@ -33,7 +26,7 @@
 
       .categories {
         .title {
-          padding-right: 0.5em;
+          transform: translateX(-0.5em);
         }
 
         ul li:hover ul,
@@ -49,7 +42,7 @@
 
   .mcBody {
     min-height: calc(100vh - 6vmax);
-    padding-top: 6vmax; //w.r.to header height
+    transform: translateY(6vmax); //w.r.to header height
 
     .fetchingCurrentUserDetails,
     .fetchingImages .spinner {

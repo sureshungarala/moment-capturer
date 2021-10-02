@@ -1,17 +1,16 @@
 @import "./styles/fonts.scss";
 @import "./styles/common.scss";
 @import url("./styles/screens/handhelds.scss") only screen and
-  (max-device-width: 599px);
-@import url("./styles/screens/tablets.scss") only screen and
-  (min-device-width: 600px) and (max-device-width: 1199px);
-@import url("./styles/screens/laptops.scss") only screen and
-  (min-device-width: 1200px) and (max-device-width: 1899px);
+  (max-width: 599px);
+@import url("./styles/screens/tablets.scss") only screen and (min-width: 600px)
+  and (max-width: 1199px);
+@import url("./styles/screens/laptops.scss") only screen and (min-width: 1200px)
+  and (max-width: 1899px);
 @import url("./styles/screens/desktops.scss") only screen and
-  (min-device-width: 1900px);
+  (min-width: 1900px);
 @import url("./styles/print.scss") print;
 
 .MC-App {
-  font-family: $bodyFontFamily;
   font-weight: 400;
   overflow: hidden;
 
@@ -19,17 +18,10 @@
     position: fixed;
     width: 100%;
     z-index: 1;
-    background-color: $secondaryColor;
-    color: $secondaryColorInverted;
-    font-family: $headingsFontFamily;
+    background-color: var(--secondary-color);
+    color: var(--secondary-color-inverted);
 
     .logoSection {
-      @include flexXalignCentered;
-
-      &:focus {
-        @include focusInset;
-      }
-
       & > * {
         cursor: pointer;
       }
@@ -46,9 +38,12 @@
     }
 
     .actionSection {
-      @include flexXalignCentered;
       justify-content: space-around;
       flex-basis: 40%;
+
+      & > * {
+        cursor: pointer;
+      }
 
       .profiles {
         position: relative;
@@ -61,7 +56,6 @@
         }
 
         ul {
-          @include initDropdownState;
           right: 0;
 
           li {
@@ -79,7 +73,7 @@
             &:focus-within {
               cursor: pointer;
               outline: none;
-              background-color: $primaryColor;
+              background-color: var(--primary-color);
             }
           }
         }
@@ -89,13 +83,12 @@
         &:focus-within > ul,
         ul:hover,
         ul:focus {
-          @include showDropdown;
-          background-color: $secondaryColor;
+          background-color: var(--secondary-color);
           z-index: 1;
         }
 
         &:focus {
-          @include focus;
+          outline: none;
         }
       }
     }
@@ -103,13 +96,11 @@
 
   .mcBody {
     position: relative;
-    color: $secondaryColor;
-    background-color: $secondaryColorInverted;
+    color: var(--secondary-color);
+    background-color: var(--secondary-color-inverted);
     overflow: auto;
-    @include flexXjustifyCentered;
 
     .loadingContainer {
-      @include flexXjustifyCentered;
       position: absolute;
       top: 0;
       left: 0;
@@ -117,7 +108,6 @@
       bottom: 0;
 
       .spinner {
-        @include spinner;
         position: absolute;
         width: 80px;
         height: 80px;
@@ -131,25 +121,22 @@
       right: 0;
       margin: 0.5em;
       font-size: 1.25rem;
-      color: $secondaryColorInverted;
+      color: var(--secondary-color-inverted);
       word-break: break-word;
       mix-blend-mode: luminosity;
     }
 
     .highlight {
-      font-family: $headingsFontFamily;
       font-size: 1.1em;
       font-weight: 600;
     }
   }
 
   .mcFooter {
-    @include flexXalignCentered;
     justify-content: space-around;
-    background-color: $secondaryColor;
-    color: $secondaryColorInverted;
+    background-color: var(--secondary-color);
+    color: var(--secondary-color-inverted);
     font-size: 1rem;
-    font-family: $headingsFontFamily;
 
     .column {
       display: flex;
@@ -157,7 +144,6 @@
     }
 
     .row {
-      @include flexXalignCentered;
       a {
         display: inline-flex;
         .linkedin,

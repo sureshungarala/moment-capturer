@@ -1,34 +1,25 @@
-@import "../common.scss";
-
-$laptop_header_height: 4vmax;
-
 .MC-App {
+  --laptop-header-height: 4vmax;
   .mcHeader {
-    @include flexXalignCentered;
-    height: $laptop_header_height;
+    height: var(--laptop-header-height);
     justify-content: space-between;
 
     .logoSection {
       flex-basis: 30%;
 
       .logo {
-        width: $laptop_header_height;
-        height: $laptop_header_height;
+        width: var(--laptop-header-height);
+        height: var(--laptop-header-height);
         margin-left: 4rem;
       }
 
       #brand-name {
         font-size: 2rem;
-        margin-left: 1.75rem;
+        transform: translateX(1.75rem);
       }
     }
 
     .actionSection {
-      & > * {
-        @include flexXalignCentered;
-        cursor: pointer;
-      }
-
       .categories,
       .profiles {
         font-size: 1.75rem;
@@ -37,8 +28,8 @@ $laptop_header_height: 4vmax;
   }
 
   .mcBody {
-    min-height: calc(100vh - #{$laptop_header_height});
-    padding-top: $laptop_header_height; //w.r.to header height
+    min-height: calc(100vh - var(--laptop-header-height));
+    transform: translateY(var(--laptop-header-height)); //w.r.to header height
 
     .banner {
       max-width: 50%;

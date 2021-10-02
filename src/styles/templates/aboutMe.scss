@@ -1,10 +1,8 @@
-@import "../common.scss";
-
 .aboutme {
   display: flex;
   flex-direction: column;
-  color: $secondaryColorInverted;
-  background-color: $secondaryColor;
+  color: var(--secondary-color-inverted);
+  background-color: var(--secondary-color);
   font-size: 1.25rem;
   max-width: 1024px;
   margin: 15px;
@@ -23,7 +21,6 @@
       margin-bottom: 15px;
       .title {
         font-size: 3.75rem;
-        font-family: $headingsFontFamily;
         margin-bottom: 20px;
       }
     }
@@ -42,13 +39,12 @@
         background-repeat: no-repeat;
         background-size: contain;
         border-radius: 50%;
-        border: 1px solid $primaryColor;
+        border: 1px solid var(--primary-color);
       }
       .name {
-        color: $primaryColor;
+        color: var(--primary-color);
         font-size: 2rem;
         font-weight: 600;
-        font-family: $headingsFontFamily;
       }
       .social {
         display: flex;
@@ -84,10 +80,11 @@
     flex-direction: column;
     margin: 12px 0px;
     & > span:nth-child(1) {
-      color: $primaryColor;
+      color: var(--primary-color);
       font-size: 1.75rem;
       font-weight: 600;
-      font-family: $headingsFontFamily;
+      font-family: var(--headings-font-family);
+      font-style: normal;
       text-decoration: underline;
     }
     ul {

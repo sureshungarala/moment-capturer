@@ -37,7 +37,7 @@ const CategoryCard: React.FunctionComponent<CardProps> = (props: CardProps) => {
     } else {
       template = (
         <div className="fallback">
-          <span>No moments yet. Check back again later.</span>
+          <span>No moments yet. Refresh or check back again later.</span>
         </div>
       );
     }
@@ -54,4 +54,8 @@ const CategoryCard: React.FunctionComponent<CardProps> = (props: CardProps) => {
   );
 };
 
-export default memo(CategoryCard);
+export default memo(
+  CategoryCard,
+  (prevProps: CardProps, nextProps: CardProps) =>
+    prevProps.fetching === nextProps.fetching
+);

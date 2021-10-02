@@ -1,10 +1,7 @@
-@import "../common.scss";
-
 .editImage {
   .actions {
     display: none;
     & > * {
-      @include imageActionBtn;
       width: 2vmax;
       height: 2vmax;
       position: absolute;
@@ -13,10 +10,6 @@
       border-radius: 3px;
       &:hover {
         transform: scale3d(1.1, 1.1, 1.1);
-      }
-
-      &:focus {
-        @include focus;
       }
     }
 
@@ -34,21 +27,20 @@
   }
 
   .imageActionFormContainer {
-    @include flexXcentered;
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
     border-radius: 5px;
-    background-color: $secondaryColorInverted;
+    background-color: var(--secondary-color-inverted);
     cursor: auto;
 
     .deleteConfirmation,
     .editForm {
       position: absolute;
-      background-color: $secondaryColor;
-      box-shadow: $formBoxShadow;
+      background-color: var(--secondary-color);
+      box-shadow: var(--form-box-shadow);
       border-radius: 5px;
       padding: 1vmax;
       top: 30%;
@@ -60,7 +52,7 @@
 
       textarea {
         resize: none;
-        border: 1px solid $secondaryColor;
+        border: 1px solid var(--secondary-color);
         border-radius: 3px;
         margin-top: 1rem;
         outline: 0;
@@ -87,17 +79,17 @@
           & > * {
             padding: 0 1.25rem;
             border-radius: 2px;
-            border: 1px solid $secondaryColorInverted;
+            border: 1px solid var(--secondary-color-inverted);
             font-size: 1em;
             font-weight: 600;
           }
           .yesDelete,
           .yesEdit {
             margin-left: 2rem;
-            background-color: $alertColor;
+            background-color: var(--alert-color);
             &:hover,
             &:focus {
-              border-color: $alternateDarkOrange;
+              border-color: var(--alternate-dark-orange);
             }
             &:disabled {
               background-color: lightgray;
@@ -106,16 +98,16 @@
           }
 
           .yesEdit {
-            background-color: $alternateDarkOrange;
+            background-color: var(--alternate-dark-orange);
             &:not([disabled]):hover,
             &:not([disabled]):focus {
-              border-color: $alternateDarkOrangeHovered;
+              border-color: var(--alternate-dark-orange-hovered);
             }
           }
 
           .cancel:hover,
           .cancel:focus {
-            border-color: $primaryColor;
+            border-color: var(--primary-color);
           }
         }
 
@@ -127,7 +119,6 @@
             font-size: 1.25em;
           }
           .processing {
-            @include spinner;
             width: 16px;
             height: 16px;
           }

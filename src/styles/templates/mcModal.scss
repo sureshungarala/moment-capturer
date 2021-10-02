@@ -1,5 +1,3 @@
-@import "../common.scss";
-
 .mcModal {
   position: fixed;
   top: 0;
@@ -33,7 +31,6 @@
   }
 
   .close {
-    @include imageActionBtn;
     position: absolute;
     &:hover,
     &:focus {

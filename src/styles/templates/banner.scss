@@ -1,8 +1,5 @@
-@import "../common.scss";
-
 .banner {
   position: absolute;
-  @include flexXcentered;
   flex-direction: column;
   width: 100%;
   top: 30%;
@@ -17,20 +14,15 @@
 
   .refresh {
     padding: 5px 20px;
-    color: $primaryColor;
-    background-color: $secondaryColor;
+    color: var(--primary-color);
+    background-color: var(--secondary-color);
     border-radius: 4px;
-    font-family: $bodyFontFamily;
     font-size: 1.3rem;
     transform: translateY(10px);
     outline: none;
 
     &:hover {
-      background-color: $secondaryColorHovered;
-    }
-
-    &:focus {
-      @include focus;
+      background-color: var(--secondary-color-hovered);
     }
   }
 }

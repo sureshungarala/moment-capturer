@@ -1,40 +1,46 @@
-@import "../common.scss";
-
 .home {
   height: 100%;
-  @include flexXjustifyCentered;
   flex-wrap: wrap;
-  background-color: $secondaryColorInverted;
+  background-color: var(--secondary-color-inverted);
   .categoryCard {
-    background-color: $secondaryColor;
+    background-color: var(--secondary-color);
     max-width: 360px;
     border-radius: 20px;
     margin: 20px;
     box-shadow: 0px 0px 15px 8px rgba(0, 0, 0, 0.2);
 
+    a {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
     .thumbnail {
       display: flex;
       padding: 20px;
       padding-bottom: 10px;
+      width: 280px;
+      height: calc(2 / 3 * 280px);
+      aspect-ratio: 3/2;
+
       img,
       .fallback,
       .loader_facade {
-        width: 280px;
-        height: calc(2 / 3 * 280px);
+        width: 100%;
+        height: 100%;
         border-radius: 20px;
         object-fit: fill;
+        box-sizing: border-box;
       }
 
       .fallback {
-        @include flexXalignCentered;
-        color: $secondaryColor;
-        background-color: $secondaryColorInverted;
+        color: var(--secondary-color);
+        background-color: var(--secondary-color-inverted);
         text-align: center;
 
         span {
           padding: 0px 15px;
           font-size: 1.25em;
-          font-family: $bodyFontFamily;
         }
       }
     }
@@ -42,12 +48,11 @@
       font-size: 1.5em;
       font-weight: 600;
       padding: 0px 20px 10px 20px;
-      color: $secondaryColorInverted;
+      color: var(--secondary-color-inverted);
     }
 
     .loader_facade {
       position: relative;
-      display: inline-block;
       background-color: rgba(0, 0, 0, 0.2);
       box-sizing: border-box;
       overflow: hidden;
@@ -64,7 +69,7 @@
       background-image: linear-gradient(
         45deg,
         transparent,
-        $loaderGradient,
+        var(--loader-gradient),
         transparent
       );
       transform: translateX(-400%);
@@ -86,7 +91,6 @@
     }
 
     & > a:focus {
-      @include focus;
       display: block;
       border-radius: inherit;
     }

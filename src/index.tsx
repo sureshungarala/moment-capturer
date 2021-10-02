@@ -6,7 +6,9 @@ import "./index.css";
 
 import * as serviceWorker from "./serviceWorker";
 import { swEventName } from "./utils/constants";
-
+new PerformanceObserver((entryList) => {
+  console.log(entryList.getEntries());
+}).observe({ type: "layout-shift", buffered: true });
 ReactDOM.render(<App />, document.getElementById("root"));
 
 // Learn more about service workers: https://bit.ly/CRA-PWA
