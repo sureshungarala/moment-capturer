@@ -1,4 +1,5 @@
 .MC-App {
+  --handheld-header-height: 8vmax;
   .mcHeader {
     height: 8vmax;
     justify-content: space-around;
@@ -79,8 +80,8 @@
   }
 
   .mcBody {
-    height: calc(100vh - 8vmax);
-    transform: translateY(8vmax); //w.r.to header height
+    height: calc(100vh - var(--handheld-header-height));
+    transform: translateY(var(--handheld-header-height)); //w.r.to header height
 
     .upload-form,
     .imageActionFormContainer .editForm {
@@ -150,18 +151,6 @@
       }
     }
 
-    .swStatus {
-      bottom: 20px !important;
-      margin: 0px 10px !important;
-      & > * {
-        font-size: 1rem !important;
-      }
-
-      button {
-        margin: 0px 10px !important;
-      }
-    }
-
     .aboutme {
       height: 100%;
       margin: 0 !important;
@@ -180,11 +169,22 @@
     }
   }
 
+  .swStatus {
+    max-width: calc(100% - 20px);
+    & > * {
+      font-size: 1rem !important;
+    }
+
+    button {
+      margin: 0px 10px !important;
+    }
+  }
+
   .mcFooter {
     height: 2rem;
     padding: 0.25rem 0;
     font-size: 1rem !important;
-    margin-top: 8vmax;
+    margin-top: var(--handheld-header-height);
 
     .linkedin,
     .github {

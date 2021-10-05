@@ -1,8 +1,9 @@
 .swStatus {
   position: fixed;
-  bottom: 30px;
-  margin: 0px 20px;
+  top: 0;
+  left: 50%;
   border-radius: 5px;
+  transform: translateY(calc(100vh - 100% - 50px)) translateX(-50%);
 
   & > * {
     font-size: 1.25rem;
@@ -40,6 +41,7 @@
 
     & > * {
       margin: 0px 10px;
+      white-space: nowrap;
     }
   }
 

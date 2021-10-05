@@ -58,8 +58,8 @@ const App: React.FunctionComponent = () => {
               </Switch>
             </Suspense>
           </McErrorBoundary>
-          <ServiceWorkerStatus />
         </div>
+        <ServiceWorkerStatus />
         <Footer />
       </div>
     </Router>
