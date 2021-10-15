@@ -3,7 +3,7 @@
   top: 0;
   left: 50%;
   border-radius: 5px;
-  transform: translateY(calc(100vh - 100% - 50px)) translateX(-50%);
+  transform: translateY(calc(100vh - 250%)) translateX(-50%);
 
   & > * {
     font-size: 1.25rem;

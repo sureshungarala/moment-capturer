@@ -17,13 +17,19 @@ export function getModalDimensions(image: Image): ModalDimensions {
   const deviceAspectRatio = deviceWidth / deviceHeight;
   const [imageWidth, imageHeight] = image.resolution.split(":").map(Number);
   const aspectRatio = imageWidth / imageHeight;
-
   let width: number = deviceWidth;
   let height: number = deviceHeight;
 
   if (image.portrait) {
     height = height > imageHeight ? imageHeight : height;
     width = height * aspectRatio;
+    if (width > deviceWidth) {
+      width = deviceWidth;
+      height = width / aspectRatio;
+      if (height > deviceHeight) {
+        height = width / deviceAspectRatio;
+      }
+    }
   } else {
     width = width > imageWidth ? imageWidth : width;
     height = width / aspectRatio;

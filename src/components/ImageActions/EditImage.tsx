@@ -7,11 +7,11 @@ import { Image } from "../../info/types";
 import "../../styles/templates/edit_image.scss";
 
 import { editImage, deleteImage } from "../../utils/apis";
+import { toggleModalEventName } from "../../utils/constants";
 
 interface editImageProps extends Image {
   categoryTag: string;
   userSignedIn: boolean;
-  enlargeImage: () => void;
 }
 
 const EditImage: React.FunctionComponent<editImageProps> = (
@@ -126,6 +126,13 @@ const EditImage: React.FunctionComponent<editImageProps> = (
   };
 
   /* --------------------- state updates end ------------------------- */
+
+  const enlargeImage = () => {
+    const { categoryTag, userSignedIn, ...image } = props;
+    document.dispatchEvent(
+      new CustomEvent(toggleModalEventName, { detail: image })
+    );
+  };
 
   const updateImageMetadata = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -374,10 +381,10 @@ const EditImage: React.FunctionComponent<editImageProps> = (
         <div
           className="enlarge"
           title="Click to view full resolution image"
-          onClick={props.enlargeImage}
+          onClick={enlargeImage}
           onKeyUp={({ keyCode }) => {
             if (keyCode === 13) {
-              props.enlargeImage();
+              enlargeImage();
             }
           }}
           role="img"

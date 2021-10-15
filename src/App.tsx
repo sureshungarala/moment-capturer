@@ -5,6 +5,7 @@ import Loader from "./components/Utils/Loader";
 import Footer from "./components/Footer/Footer";
 import McErrorBoundary from "./components/Utils/ErrorBoundary";
 import ServiceWorkerStatus from "./components/Utils/ServiceWorkerStatus";
+import McModal from "./components/Utils/McModal";
 import "./App.scss";
 
 import { watchAndScrollHeader } from "./utils/scrollHeader";
@@ -59,6 +60,7 @@ const App: React.FunctionComponent = () => {
             </Suspense>
           </McErrorBoundary>
         </div>
+        <McModal />
         <ServiceWorkerStatus />
         <Footer />
       </div>

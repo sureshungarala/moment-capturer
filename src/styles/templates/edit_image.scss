@@ -2,8 +2,8 @@
   .actions {
     display: none;
     & > * {
-      width: 2vmax;
-      height: 2vmax;
+      width: 2rem;
+      height: 2rem;
       position: absolute;
       padding: 3px;
       border: none;
@@ -13,16 +13,12 @@
       }
     }
 
-    .enlarge {
-      width: 2vmax;
-    }
-
     .edit {
-      right: calc(15px + 2vmax + 15px);
+      right: calc(2rem + 30px);
     }
 
     .delete {
-      right: calc(15px + 4vmax + 30px);
+      right: calc(4rem + 45px);
     }
   }
 

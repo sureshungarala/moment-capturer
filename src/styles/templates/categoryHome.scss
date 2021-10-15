@@ -17,14 +17,10 @@
     width: 100%;
     margin-bottom: 0.5vw;
 
-    picture {
+    picture img {
+      display: block;
       width: 100%;
-
-      img {
-        display: block;
-        width: 100%;
-        outline: none;
-      }
+      outline: none;
     }
 
     .imageActionFormContainer {

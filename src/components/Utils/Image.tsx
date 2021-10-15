@@ -1,13 +1,11 @@
 import React from "react";
 
 import EditImage from "../ImageActions/EditImage";
-import McModal from "./McModal";
 
 import { Image as imageType } from "../../info/types";
 
 interface imageState {
   children: React.ReactFragment;
-  showModal: boolean;
   imageLoaded: boolean;
 }
 
@@ -22,7 +20,6 @@ class Image extends React.Component<imageProps, imageState> {
     super(props);
     this.state = {
       children: <picture />,
-      showModal: false,
       imageLoaded: false,
     };
     this.containerRef = React.createRef();
@@ -32,42 +29,20 @@ class Image extends React.Component<imageProps, imageState> {
     console.error(`${this.props.original} failed to load!`);
   };
 
-  openModal = () => {
-    this.setState({
-      showModal: true,
-    });
-  };
-
-  closeModal = (event: React.MouseEvent | React.KeyboardEvent) => {
-    event.stopPropagation();
-    this.setState({
-      showModal: false,
-    });
-  };
-
-  escapeModal = (event: KeyboardEvent) => {
-    if (event.key === "Escape" || event.keyCode === 27) {
-      this.state.showModal &&
-        this.setState({
-          showModal: false,
-        });
-    }
-  };
-
   componentDidMount() {
     //For later: if no support for IntersectionObserver, render image
     const observer = new window.IntersectionObserver(
       (entries: Array<IntersectionObserverEntry>) => {
         const entry = entries[0],
           { isIntersecting } = entry;
-        const title = this.props.description;
+        const { description: title, srcSet, original } = this.props;
         if (isIntersecting) {
           let sources = [];
-          for (let key in this.props.srcSet) {
+          for (let key in srcSet) {
             sources.push(
               <source
                 media={`(max-width: ${key})`}
-                srcSet={this.props.srcSet[key]}
+                srcSet={srcSet[key]}
                 type="image/jpeg"
                 key={key}
               />
@@ -80,7 +55,7 @@ class Image extends React.Component<imageProps, imageState> {
                   {sources}
                   <img
                     alt=""
-                    src={this.props.original}
+                    src={original}
                     title={title}
                     onLoad={() => this.setState({ imageLoaded: true })}
                     tabIndex={0}
@@ -98,35 +73,23 @@ class Image extends React.Component<imageProps, imageState> {
       }
     );
     observer.observe(this.containerRef.current as Element);
-
-    document.addEventListener("keyup", this.escapeModal);
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener("keyup", this.escapeModal);
   }
 
   render() {
+    const { panorama, portrait, description } = this.props;
     return (
       <div
         className={`imageContainer ${
-          this.props.panorama
-            ? "panorama"
-            : this.props.portrait
-            ? "portrait"
-            : "landscape"
+          panorama ? "panorama" : portrait ? "portrait" : "landscape"
         }`}
         ref={this.containerRef}
       >
         {this.state.children}
 
         {this.state.imageLoaded && (
-          <div className="descriptionContainer">{this.props.description}</div>
+          <div className="descriptionContainer">{description}</div>
         )}
-        <EditImage {...this.props} enlargeImage={this.openModal} />
-        {this.state.showModal && (
-          <McModal {...this.props} closeModal={this.closeModal} />
-        )}
+        <EditImage {...this.props} />
       </div>
     );
   }

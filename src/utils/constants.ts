@@ -14,5 +14,6 @@ export const initMoments: McMoments = {
   moments: [],
 };
 
+export const toggleModalEventName = "showModal";
 export const signIncustomEventName = "userSignInStatus";
 export const swEventName = "serviceWorkerStatus";

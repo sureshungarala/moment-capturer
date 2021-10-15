@@ -1,45 +1,70 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { getModalDimensions } from "../../utils/helpers";
 import { Image } from "../../info/types";
 import "../../styles/templates/mcModal.scss";
 
-interface McModalProps extends Image {
-  closeModal: (event: React.MouseEvent | React.KeyboardEvent) => void;
-}
+import { toggleModalEventName } from "../../utils/constants";
 
-interface McModalState {}
+const McModal: React.FunctionComponent = () => {
+  const [showModal, toggleModal] = useState(false);
+  const [image, setImage] = useState<Image>();
+  const [dimensions, setDimensions] = useState({
+    width: 0,
+    height: 0,
+  });
 
-export default class McModal extends React.Component<
-  McModalProps,
-  McModalState
-> {
-  render() {
-    const { width, height } = getModalDimensions(this.props);
-    return (
-      <div className="mcModal">
-        <div
-          className="mcModalContent"
-          style={{
-            width: width + "px",
-            height: height + "px",
-          }}
-        >
-          <div className="mcModalBody">
-            <img
-              src={this.props.original}
-              alt={this.props.description}
-              tabIndex={0}
-            />
-          </div>
-        </div>
-        <div
-          className="close"
-          onClick={(event) => this.props.closeModal(event)}
-          title="close"
-          tabIndex={0}
-        ></div>
-      </div>
+  const escapeModal = (event: KeyboardEvent) => {
+    if (event.key === "Escape" || event.keyCode === 27) {
+      showModal && toggleModal(false);
+    }
+  };
+
+  const renderModal = (event: CustomEvent) => {
+    const { detail } = event;
+    setImage(detail);
+    setDimensions(getModalDimensions(detail));
+    toggleModal(true);
+  };
+
+  useEffect(() => {
+    document.addEventListener(
+      toggleModalEventName,
+      renderModal as EventListener
     );
-  }
-}
+    document.addEventListener("keyup", escapeModal);
+    return () => {
+      document.removeEventListener("keyup", escapeModal);
+      document.removeEventListener(
+        toggleModalEventName,
+        renderModal as EventListener
+      );
+    };
+  });
+
+  return showModal ? (
+    <div className="mcModal">
+      <div
+        className="mcModalContent"
+        style={{
+          width: dimensions.width + "px",
+          height: dimensions.height + "px",
+        }}
+      >
+        <div className="mcModalBody">
+          <img src={image!.original} alt={image!.description} tabIndex={0} />
+        </div>
+      </div>
+      <div
+        className="close"
+        onClick={() => toggleModal(false)}
+        title="close"
+        tabIndex={0}
+      ></div>
+    </div>
+  ) : (
+    <></>
+  );
+};
+
+export default McModal;
