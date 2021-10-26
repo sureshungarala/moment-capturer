@@ -165,13 +165,13 @@ const AboutMe: React.FunctionComponent = () => {
         </ul>
       </section>
       <section className="sub-section">
-        <span>So, </span>
-        <div>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; you've learned about me and my
-          experience, as well as how you can benefit from my skill sets.I also
-          want to mention that I am an amateur drone cinematographer who loves
-          experiencing the aerial view of this world. So, if you have any
-          requirements, don’t forget to connect with me.
+        <span>So,</span>
+        <div style={{ textIndent: "3ch" }}>
+          you've learned about me and my experience, as well as how you can
+          benefit from my skill sets.I also want to mention that I am an amateur
+          drone cinematographer who loves experiencing the aerial view of this
+          world. So, if you have any requirements, don’t forget to connect with
+          me.
         </div>
         <br />
         <div>

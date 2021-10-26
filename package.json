@@ -15,14 +15,14 @@
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "^3.4.3",
+    "react-scripts": "^3.4.4",
     "source-map-explorer": "^2.5.0",
     "typescript": "^3.9.9"
   },
   "scripts": {
     "react-test": "react-scripts start",
     "start": "cra-preact start",
-    "build": "cra-preact build",
+    "build": "cra-preact build && node ./preload.js",
     "test": "cra-preact test",
     "eject": "react-scripts eject",
     "deploy": "serverless deploy",
