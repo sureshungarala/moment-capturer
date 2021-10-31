@@ -102,15 +102,13 @@ class UploadForm extends React.Component<uploadProps, uploadState> {
         requestStarted: true,
         requestProcessing: true,
       });
-      const file = this.state.files[0],
-        start = window.performance.now();
+      const file = this.state.files[0];
       let reader = new FileReader(),
         image = new Image(),
         imageName = this.state.files[0].name;
 
       reader.addEventListener("load", () => {
         image.addEventListener("load", () => {
-          console.info(window.performance.now() - start);
           let body = JSON.stringify({
             image: reader.result,
             imageName: imageName,

@@ -2,7 +2,7 @@ module.exports = {
   style: {
     css: {
       loaderOptions: () => {
-        return { url: false };
+        return { url: false }; // resolve relative /public folder and not from defined file [https://github.com/facebook/create-react-app/issues/10022]
       },
     },
     sass: {

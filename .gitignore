@@ -5,6 +5,7 @@
 /.pnp
 .pnp.js
 .serverless
+.sass-cache
 
 # testing
 /coverage
