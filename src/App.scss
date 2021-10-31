@@ -1,14 +1,10 @@
 @import "./styles/fonts.scss";
 @import "./styles/common.scss";
-@import url("./styles/screens/handhelds.scss") only screen and
-  (max-width: 599px);
-@import url("./styles/screens/tablets.scss") only screen and (min-width: 600px)
-  and (max-width: 1199px);
-@import url("./styles/screens/laptops.scss") only screen and (min-width: 1200px)
-  and (max-width: 1899px);
-@import url("./styles/screens/desktops.scss") only screen and
-  (min-width: 1900px);
-@import url("./styles/print.scss") print;
+@import "./styles/screens/handhelds.scss";
+@import "./styles/screens/tablets.scss";
+@import "./styles/screens/laptops.scss";
+@import "./styles/screens/desktops.scss";
+@import "./styles/print.scss";
 
 .MC-App {
   font-weight: 400;
@@ -156,14 +152,14 @@
 
         .linkedin {
           display: inline-block;
-          background-image: url("assets/linkedin.svg");
+          background-image: url("/assets/linkedin.svg"); // CRA v4.x.x issue. Assets needs to be relative to public folder [https://github.com/facebook/create-react-app/issues/10022]
           background-position: center;
           margin-left: 0.5rem;
         }
 
         .github {
           display: inline-block;
-          background-image: url("assets/github.svg");
+          background-image: url("/assets/github.svg");
           margin: 0 1rem;
         }
       }

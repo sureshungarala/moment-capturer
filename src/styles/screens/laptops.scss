@@ -1,44 +1,46 @@
-.MC-App {
-  --laptop-header-height: 4vmax;
-  .mcHeader {
-    height: var(--laptop-header-height);
-    justify-content: space-between;
+@media only screen and (min-width: 1200px) and (max-width: 1899px) {
+  .MC-App {
+    --laptop-header-height: 4vmax;
+    .mcHeader {
+      height: var(--laptop-header-height);
+      justify-content: space-between;
 
-    .logoSection {
-      flex-basis: 30%;
+      .logoSection {
+        flex-basis: 30%;
 
-      .logo {
-        width: var(--laptop-header-height);
-        height: var(--laptop-header-height);
-        margin-left: 4rem;
+        .logo {
+          width: var(--laptop-header-height);
+          height: var(--laptop-header-height);
+          margin-left: 4rem;
+        }
+
+        #brand-name {
+          font-size: 2rem;
+          transform: translateX(1.75rem);
+        }
       }
 
-      #brand-name {
-        font-size: 2rem;
-        transform: translateX(1.75rem);
+      .actionSection {
+        .categories,
+        .profiles {
+          font-size: 1.75rem;
+        }
       }
     }
 
-    .actionSection {
-      .categories,
-      .profiles {
-        font-size: 1.75rem;
+    .mcBody {
+      min-height: calc(100vh - var(--laptop-header-height));
+      transform: translateY(var(--laptop-header-height)); //w.r.to header height
+
+      .banner {
+        max-width: 50%;
       }
     }
-  }
 
-  .mcBody {
-    min-height: calc(100vh - var(--laptop-header-height));
-    transform: translateY(var(--laptop-header-height)); //w.r.to header height
-
-    .banner {
-      max-width: 50%;
+    .mcFooter {
+      height: 3rem;
+      font-size: 1.25rem !important;
+      margin-top: 4vmax;
     }
-  }
-
-  .mcFooter {
-    height: 3rem;
-    font-size: 1.25rem !important;
-    margin-top: 4vmax;
   }
 }

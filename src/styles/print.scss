@@ -1,13 +1,15 @@
-.mcHeader,
-.mcFooter {
-  display: none !important;
-}
-html {
-  color-adjust: exact;
-  background-color: var(--secondary-color) !important;
-}
-.mcBody .aboutme {
-  margin: 0 !important;
-  border-radius: 0 !important;
-  background-color: var(--secondary-color) !important;
+@media print {
+  .mcHeader,
+  .mcFooter {
+    display: none !important;
+  }
+  html {
+    color-adjust: exact;
+    background-color: var(--secondary-color) !important;
+  }
+  .mcBody .aboutme {
+    margin: 0 !important;
+    border-radius: 0 !important;
+    background-color: var(--secondary-color) !important;
+  }
 }
