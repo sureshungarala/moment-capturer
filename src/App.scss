@@ -152,14 +152,14 @@
 
         .linkedin {
           display: inline-block;
-          background-image: url("/assets/linkedin.svg"); // CRA v4.x.x issue. Assets needs to be relative to public folder [https://github.com/facebook/create-react-app/issues/10022]
+          background-image: url("./assets/linkedin.svg");
           background-position: center;
           margin-left: 0.5rem;
         }
 
         .github {
           display: inline-block;
-          background-image: url("/assets/github.svg");
+          background-image: url("./assets/github.svg");
           margin: 0 1rem;
         }
       }

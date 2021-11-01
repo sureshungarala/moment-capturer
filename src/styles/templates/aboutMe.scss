@@ -35,7 +35,7 @@
       .picture {
         width: 150px;
         height: 150px;
-        background-image: url("/assets/vamsi_dp.jpg");
+        background-image: url("../../assets/vamsi_dp.jpg");
         background-repeat: no-repeat;
         background-size: contain;
         border-radius: 50%;
@@ -62,13 +62,13 @@
             height: 25px;
           }
           .whatsapp {
-            background-image: url("/assets/whatsapp.svg");
+            background-image: url("../../assets/whatsapp.svg");
           }
           .instagram {
-            background-image: url("/assets/instagram.svg");
+            background-image: url("../../assets/instagram.svg");
           }
           .facebook {
-            background-image: url("/assets/facebook.svg");
+            background-image: url("../../assets/facebook.svg");
           }
         }
       }
