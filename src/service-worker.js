@@ -1,8 +1,7 @@
 import { CacheableResponsePlugin } from "workbox-cacheable-response/CacheableResponsePlugin";
 import { ExpirationPlugin } from "workbox-expiration";
-import { CacheFirst } from "workbox-strategies/CacheFirst";
 import { registerRoute } from "workbox-routing";
-import { StaleWhileRevalidate } from "workbox-strategies";
+import { CacheFirst, StaleWhileRevalidate } from "workbox-strategies";
 import { precacheAndRoute } from "workbox-precaching/precacheAndRoute";
 
 precacheAndRoute(self.__WB_MANIFEST);
@@ -36,6 +35,18 @@ registerRoute(
         maxAgeSeconds: 63072e3,
         purgeOnQuotaError: true,
       }),
+      new CacheableResponsePlugin({
+        statuses: [0, 200],
+      }),
+    ],
+  })
+);
+
+registerRoute(
+  ({ url }) => url.origin === "https://api.momentcapturer.com",
+  new StaleWhileRevalidate({
+    cacheName: "moments-api",
+    plugins: [
       new CacheableResponsePlugin({
         statuses: [0, 200],
       }),
