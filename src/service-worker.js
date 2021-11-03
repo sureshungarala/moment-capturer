@@ -2,8 +2,9 @@ import { CacheableResponsePlugin } from "workbox-cacheable-response/CacheableRes
 import { ExpirationPlugin } from "workbox-expiration";
 import { registerRoute } from "workbox-routing";
 import { CacheFirst, StaleWhileRevalidate } from "workbox-strategies";
-import { precacheAndRoute } from "workbox-precaching/precacheAndRoute";
+import { precacheAndRoute, precache } from "workbox-precaching";
 
+precache(["favicon.png"]);
 precacheAndRoute(self.__WB_MANIFEST);
 
 self.addEventListener("message", (event) => {
