@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import ReactGA from "react-ga";
 
 import App from "./App";
 import "./index.css";
@@ -8,6 +9,7 @@ import * as serviceWorker from "./serviceWorker";
 import { swEventName } from "./utils/constants";
 
 ReactDOM.render(<App />, document.getElementById("root"));
+ReactGA.initialize("G-QYM9TKWP2J");
 
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.register({
