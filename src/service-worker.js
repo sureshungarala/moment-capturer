@@ -24,7 +24,8 @@ registerRoute(
 );
 
 registerRoute(
-  /^https:\/\/moments-redefined.s3.ap-south-1.amazonaws.com/,
+  ({ url }) =>
+    url.origin === "https://moments-redefined.s3.ap-south-1.amazonaws.com",
   new CacheFirst({
     cacheName: "moments-s3",
     matchOptions: {
