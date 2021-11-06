@@ -1,5 +1,7 @@
 import React from "react";
 
+import { GAEvent } from "../Utils/GA-Tracker";
+
 const Footer: React.FunctionComponent = () => (
   <footer className="mcFooter">
     <div className="column">
@@ -15,6 +17,7 @@ const Footer: React.FunctionComponent = () => (
           title="LinkedIn"
           rel="noopener noreferrer"
           target="_blank"
+          onClick={() => GAEvent("Dev", "LinkedIn", "clicked")}
         >
           <span className="linkedin"></span>
         </a>
@@ -23,6 +26,7 @@ const Footer: React.FunctionComponent = () => (
           title="GitHub"
           rel="noopener noreferrer"
           target="_blank"
+          onClick={() => GAEvent("Dev", "GitHub", "clicked")}
         >
           <span className="github"></span>
         </a>

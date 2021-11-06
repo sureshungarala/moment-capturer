@@ -1,5 +1,7 @@
 import React from "react";
 
+import { GAEvent } from "./Utils/GA-Tracker";
+
 import "../styles/templates/aboutMe.scss";
 
 const AboutMe: React.FunctionComponent = () => {
@@ -29,6 +31,7 @@ const AboutMe: React.FunctionComponent = () => {
               target="_blank"
               rel="noopener noreferrer"
               title="Whatsapp"
+              onClick={() => GAEvent("AboutMe", "Whatsapp", "clicked")}
             >
               <span className="whatsapp"></span>
             </a>
@@ -37,6 +40,7 @@ const AboutMe: React.FunctionComponent = () => {
               target="_blank"
               rel="noopener noreferrer"
               title="Instagram"
+              onClick={() => GAEvent("AboutMe", "Instagram", "clicked")}
             >
               <span className="instagram"></span>
             </a>
@@ -45,6 +49,7 @@ const AboutMe: React.FunctionComponent = () => {
               target="_blank"
               rel="noopener noreferrer"
               title="Facebook"
+              onClick={() => GAEvent("AboutMe", "Facebook", "clicked")}
             >
               <span className="facebook"></span>
             </a>

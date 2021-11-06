@@ -1,5 +1,6 @@
 import React, { memo, useEffect, useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
+import { GAEvent } from "../Utils/GA-Tracker";
 
 interface CardProps {
   title: string;
@@ -46,7 +47,12 @@ const CategoryCard: React.FunctionComponent<CardProps> = (props: CardProps) => {
 
   return (
     <div className="categoryCard" ref={cardRef}>
-      <NavLink to={`/${props.categoryTag}`}>
+      <NavLink
+        to={`/${props.categoryTag}`}
+        onClick={() => {
+          GAEvent("Home", "Navigate_to", `/${props.categoryTag}`);
+        }}
+      >
         <div className="thumbnail">{cardTemplate}</div>
         <div className="title">{props.title}</div>
       </NavLink>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import { getModalDimensions } from "../../utils/helpers";
 import { Image } from "../../info/types";
+import { GAEvent } from "../Utils/GA-Tracker";
 import "../../styles/templates/mcModal.scss";
 
 import { toggleModalEventName } from "../../utils/constants";
@@ -16,7 +17,10 @@ const McModal: React.FunctionComponent = () => {
 
   const escapeModal = (event: KeyboardEvent) => {
     if (event.key === "Escape" || event.keyCode === 27) {
-      showModal && toggleModal(false);
+      if (showModal) {
+        toggleModal(false);
+        GAEvent("Image", "Modal", "Escaped");
+      }
     }
   };
 
@@ -57,7 +61,10 @@ const McModal: React.FunctionComponent = () => {
       </div>
       <div
         className="close"
-        onClick={() => toggleModal(false)}
+        onClick={() => {
+          toggleModal(false);
+          GAEvent("Image", "Modal", "Closed");
+        }}
         title="close"
         tabIndex={0}
       ></div>

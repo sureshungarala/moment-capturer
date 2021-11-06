@@ -2,6 +2,8 @@ import React from "react";
 import { Auth } from "@aws-amplify/auth";
 import { CognitoUserSession } from "amazon-cognito-identity-js";
 
+import { GAEvent } from "../Utils/GA-Tracker";
+
 import { MAX_IMAGE_SIZE_IN_MB, getFirstCategory } from "../../utils/helpers";
 import Categories from "../Utils/Categories";
 
@@ -92,6 +94,7 @@ class UploadForm extends React.Component<uploadProps, uploadState> {
         requestStatusSuccess: false,
         requestStatusMsg: `Failed to upload ${imageName}. Try again!`,
       });
+      GAEvent("Upload", this.state.categorySelected, "failed");
     };
     if (
       this.state.files &&
@@ -138,12 +141,18 @@ class UploadForm extends React.Component<uploadProps, uploadState> {
                       requestStatusSuccess: true,
                       requestStatusMsg: `${imageName} uploaded successfully.`,
                     });
+                    GAEvent(
+                      "Upload",
+                      this.state.categorySelected,
+                      "successful"
+                    );
                   } else {
                     uploadFailed(imageName);
                   }
                 },
                 (error) => {
                   uploadFailed(imageName);
+                  GAEvent("Upload", this.state.categorySelected, "auth-failed");
                   console.error("CSR failed with error: ", error);
                 }
               );

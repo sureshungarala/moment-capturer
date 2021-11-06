@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 import { Auth } from "@aws-amplify/auth";
 
+import { GAEvent } from "../Utils/GA-Tracker";
+
 import {
   signIn as CognitoSignIn,
   changePassword as CognitoChangePassword,
@@ -105,6 +107,7 @@ const SignInForm: React.FunctionComponent<signInFormProps> = (
         });
         if (data.challengeName === "NEW_PASSWORD_REQUIRED") {
           shouldChangePwd(true);
+          GAEvent("SignIn", "NEW_PASSWORD_REQUIRED");
         } else {
           setFormState({
             processing: false,
@@ -117,6 +120,7 @@ const SignInForm: React.FunctionComponent<signInFormProps> = (
             props.onSuccessfulSignIn();
           }
           dispatchSignInStatus();
+          GAEvent("SignIn", "successful");
         }
       },
       (error) => {
@@ -126,6 +130,7 @@ const SignInForm: React.FunctionComponent<signInFormProps> = (
           succeeded: false,
           failed: true,
         });
+        GAEvent("SignIn", "failed");
       }
     );
   };
@@ -150,6 +155,7 @@ const SignInForm: React.FunctionComponent<signInFormProps> = (
           props.onSuccessfulSignIn();
         }
         dispatchSignInStatus();
+        GAEvent("SignIn", "Update-password", "successful");
       },
       (error) => {
         console.error("Failed to update password with error: ", error);
@@ -158,6 +164,7 @@ const SignInForm: React.FunctionComponent<signInFormProps> = (
           succeeded: false,
           failed: true,
         });
+        GAEvent("SignIn", "Update-password", "failed");
       }
     );
   };

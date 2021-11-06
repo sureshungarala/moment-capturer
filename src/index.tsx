@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import ReactGA from "react-ga";
+import { BrowserRouter as Router } from "react-router-dom";
 
 import App from "./App";
 import "./index.css";
@@ -8,8 +8,13 @@ import "./index.css";
 import * as serviceWorker from "./serviceWorker";
 import { swEventName } from "./utils/constants";
 
-ReactDOM.render(<App />, document.getElementById("root"));
-ReactGA.initialize("G-QYM9TKWP2J");
+// Moved Router here to access `location` for GA tracking
+ReactDOM.render(
+  <Router>
+    <App />
+  </Router>,
+  document.getElementById("root")
+);
 
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.register({

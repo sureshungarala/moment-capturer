@@ -2,6 +2,7 @@ import React from "react";
 import { NavLink, RouteComponentProps, withRouter } from "react-router-dom";
 
 import Categories from "../Utils/Categories";
+import { GAEvent } from "../Utils/GA-Tracker";
 
 import Profiles from "./Profiles";
 
@@ -15,11 +16,13 @@ class Header extends React.Component<headerProps> {
   // updating the url in browser's url bar if url is changed manually or page is refreshed
   // `this.props.location` gives browser url
   updateCategory = (categoryTag: string) => {
-    this.props.history.push("/" + categoryTag);
+    this.props.history.push(`/${categoryTag}`);
+    GAEvent("Header", "Navigate_to", `/${categoryTag}`);
   };
 
   redirectToHome = () => {
     this.props.history.push(`/`);
+    GAEvent("Header", "Navigate_to", "Home");
   };
 
   render() {

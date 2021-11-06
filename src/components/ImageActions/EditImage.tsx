@@ -4,6 +4,7 @@ import { CognitoUserSession } from "amazon-cognito-identity-js";
 
 import Categories from "../Utils/Categories";
 import { Image } from "../../info/types";
+import { GAEvent } from "../Utils/GA-Tracker";
 import "../../styles/templates/edit_image.scss";
 
 import { editImage, deleteImage } from "../../utils/apis";
@@ -42,6 +43,7 @@ const EditImage: React.FunctionComponent<editImageProps> = (
       ...componentState,
       editImage: true,
     });
+    GAEvent("Image", "Edit-image clicked", props.categoryTag);
   };
 
   const onDeleteBtnClick = () => {
@@ -49,10 +51,12 @@ const EditImage: React.FunctionComponent<editImageProps> = (
       ...componentState,
       deleteImage: true,
     });
+    GAEvent("Image", "Delete-image clicked", props.categoryTag);
   };
 
   const cancelAction = () => {
     setComponentState(initState);
+    GAEvent("Image", "Edit/Delete action canceled", props.categoryTag);
   };
 
   const startEditAction = () => {
@@ -62,6 +66,7 @@ const EditImage: React.FunctionComponent<editImageProps> = (
       editingImage: true,
       editingImageFailed: false,
     });
+    GAEvent("Image", "Edit-image started", props.categoryTag);
   };
 
   const editActionSucceded = () => {
@@ -72,6 +77,7 @@ const EditImage: React.FunctionComponent<editImageProps> = (
       requestStarted: true,
       requestStatusMsg: "Capture Updated.",
     });
+    GAEvent("Image", "Edit-image successful", props.categoryTag);
   };
 
   const editActionFailed = () => {
@@ -82,6 +88,7 @@ const EditImage: React.FunctionComponent<editImageProps> = (
       requestStarted: true,
       requestStatusMsg: "Failed to update.",
     });
+    GAEvent("Image", "Edit-image failed", props.categoryTag);
   };
 
   const startDeleteAction = () => {
@@ -91,6 +98,7 @@ const EditImage: React.FunctionComponent<editImageProps> = (
       deletingImage: true,
       deletingImageFailed: false,
     });
+    GAEvent("Image", "Delete-image started", props.categoryTag);
   };
 
   const deleteActionSucceded = () => {
@@ -101,6 +109,7 @@ const EditImage: React.FunctionComponent<editImageProps> = (
       requestStarted: true,
       requestStatusMsg: "Capture deleted.",
     });
+    GAEvent("Image", "Delete-image successful", props.categoryTag);
   };
 
   const deleteActionFailed = () => {
@@ -111,6 +120,7 @@ const EditImage: React.FunctionComponent<editImageProps> = (
       requestStarted: true,
       requestStatusMsg: "Failed to delete.",
     });
+    GAEvent("Image", "Delete-image failed", props.categoryTag);
   };
 
   const authFailed = () => {
@@ -123,6 +133,22 @@ const EditImage: React.FunctionComponent<editImageProps> = (
       requestStarted: true,
       requestStatusMsg: "Log in and try again.",
     });
+    GAEvent("Image", "Auth failed for Edit/Delete action", props.categoryTag);
+  };
+
+  const onCategoryChange = (categoryTag: string) => {
+    setEditState({
+      ...editState,
+      categoryTag,
+    });
+    GAEvent("Image", "Edit-image_category-changed", props.categoryTag);
+  };
+
+  const onDescriptionChange = (
+    event: React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    setEditState({ ...editState, description: event.target.value });
+    GAEvent("Image", "Edit-image_description-changed", props.categoryTag);
   };
 
   /* --------------------- state updates end ------------------------- */
@@ -132,6 +158,7 @@ const EditImage: React.FunctionComponent<editImageProps> = (
     document.dispatchEvent(
       new CustomEvent(toggleModalEventName, { detail: image })
     );
+    GAEvent("Image", "Enlarge", props.categoryTag);
   };
 
   const updateImageMetadata = async (event: React.FormEvent) => {
@@ -301,20 +328,13 @@ const EditImage: React.FunctionComponent<editImageProps> = (
     <section className="imageActionFormContainer">
       <form className="editForm" onSubmit={updateImageMetadata}>
         <Categories
-          onSelectCategory={(categoryTag) => {
-            setEditState({
-              ...editState,
-              categoryTag: categoryTag,
-            });
-          }}
+          onSelectCategory={onCategoryChange}
           routeCategoryTag={props.categoryTag}
         />
         <textarea
           placeholder="Give some new description"
           value={editState.description}
-          onChange={(event) =>
-            setEditState({ ...editState, description: event.target.value })
-          }
+          onChange={onDescriptionChange}
         />
         <div className="actionAndStatus">
           {renderActionStatus()}
