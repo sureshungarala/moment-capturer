@@ -1,28 +1,22 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import GA4 from "react-ga4";
+import { event, initialize, set, pageview } from "react-ga";
 
 export const InitializeGA = () => {
   let location = useLocation();
 
   useEffect(() => {
-    GA4.initialize("G-4SPG22W5ZZ");
-    GA4.send({
-      hitType: "pageview",
-      page: window.location.pathname + window.location.search,
-    });
+    initialize("UA-211895538-1");
+    pageview(window.location.pathname + window.location.search);
   });
 
   useEffect(() => {
     const path = location.pathname + location.search;
-    GA4.set({ page: path });
-    GA4.send({
-      hitType: "pageview",
-      page: path,
-    });
+    set({ page: path });
+    pageview(path);
   }, [location]);
 };
 
 export const GAEvent = (category: string, action: string, label?: string) => {
-  GA4.event({ category, action, label });
+  event({ category, action, label });
 };
