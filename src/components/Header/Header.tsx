@@ -1,10 +1,11 @@
-import React from "react";
-import { NavLink, RouteComponentProps, withRouter } from "react-router-dom";
+import React from 'react';
+import { NavLink, RouteComponentProps, withRouter } from 'react-router-dom';
 
-import Categories from "../Utils/Categories";
-import { GAEvent } from "../Utils/GA-Tracker";
-
-import Profiles from "./Profiles";
+import Categories from '../Utils/Categories';
+import { GAEvent } from '../Utils/GA-Tracker';
+import { ReactComponent as Logo } from '../../logo.svg';
+import { ReactComponent as Title } from '../../assets/title.svg';
+import Profiles from './Profiles';
 
 interface HeaderRouterProps {
   //contains history object and ...
@@ -17,26 +18,28 @@ class Header extends React.Component<headerProps> {
   // `this.props.location` gives browser url
   updateCategory = (categoryTag: string) => {
     this.props.history.push(`/${categoryTag}`);
-    GAEvent("Header", "Navigate_to", `/${categoryTag}`);
+    GAEvent('Header', 'Navigate_to', `/${categoryTag}`);
   };
 
   redirectToHome = () => {
     this.props.history.push(`/`);
-    GAEvent("Header", "Navigate_to", "Home");
+    GAEvent('Header', 'Navigate_to', 'Home');
   };
 
   render() {
-    const routeCategoryTag = this.props.location.pathname.split("/")[1].trim();
+    const routeCategoryTag = this.props.location.pathname.split('/')[1].trim();
 
     return (
-      <header className="mcHeader">
-        <NavLink to="/" className="logoSection" aria-label="link to home page">
-          <span className="logo" role="img"></span>
-          <h3 className="branding-title" id="brand-name">
+      <header className='mcHeader'>
+        <NavLink to='/' className='logoSection' aria-label='link to home page'>
+          {/* <span className='logo' role='img'></span> */}
+          <Logo className='logo' />
+          <Title className='brand-title' />
+          {/* <h3 className='branding-title' id='brand-name'>
             Moment Capturer
-          </h3>
+          </h3> */}
         </NavLink>
-        <div className="actionSection">
+        <div className='actionSection'>
           <Categories
             onSelectCategory={this.updateCategory}
             routeCategoryTag={routeCategoryTag}

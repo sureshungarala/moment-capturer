@@ -1,10 +1,10 @@
-@import "./styles/fonts.scss";
-@import "./styles/common.scss";
-@import "./styles/screens/handhelds.scss";
-@import "./styles/screens/tablets.scss";
-@import "./styles/screens/laptops.scss";
-@import "./styles/screens/desktops.scss";
-@import "./styles/print.scss";
+@import './styles/fonts.scss';
+@import './styles/common.scss';
+@import './styles/screens/handhelds.scss';
+@import './styles/screens/tablets.scss';
+@import './styles/screens/laptops.scss';
+@import './styles/screens/desktops.scss';
+@import './styles/print.scss';
 
 .MC-App {
   font-weight: 400;
@@ -23,13 +23,14 @@
       }
 
       .logo {
-        background-image: url("logo.svg");
+        background-image: url('logo.svg');
         background-repeat: no-repeat;
         background-position: center;
+        transform: translateY(-2px);
       }
 
-      #brand-name {
-        font-weight: 700;
+      .brand-title {
+        height: 100%;
       }
     }
 
@@ -152,14 +153,14 @@
 
         .linkedin {
           display: inline-block;
-          background-image: url("./assets/linkedin.svg");
+          background-image: url('./assets/linkedin.svg');
           background-position: center;
           margin-left: 0.5rem;
         }
 
         .github {
           display: inline-block;
-          background-image: url("./assets/github.svg");
+          background-image: url('./assets/github.svg');
           margin: 0 1rem;
         }
       }
