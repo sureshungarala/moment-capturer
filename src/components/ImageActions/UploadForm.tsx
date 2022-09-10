@@ -1,11 +1,11 @@
-import React from "react";
-import { Auth } from "@aws-amplify/auth";
-import { CognitoUserSession } from "amazon-cognito-identity-js";
+import React from 'react';
+import { Auth } from '@aws-amplify/auth';
+import { CognitoUserSession } from 'amazon-cognito-identity-js';
 
-import { GAEvent } from "../Utils/GA-Tracker";
+import { GAEvent } from '../Utils/GA-Tracker';
 
-import { MAX_IMAGE_SIZE_IN_MB, getFirstCategory } from "../../utils/helpers";
-import Categories from "../Utils/Categories";
+import { MAX_IMAGE_SIZE_IN_MB, getFirstCategory } from '../../utils/helpers';
+import Categories from '../Utils/Categories';
 
 interface uploadProps {}
 
@@ -33,8 +33,8 @@ class UploadForm extends React.Component<uploadProps, uploadState> {
     this.state = {
       files: null,
       fileStatusSuccess: true,
-      fileStatusMsg: "No file selected",
-      description: "",
+      fileStatusMsg: 'No file selected',
+      description: '',
       categorySelected: getFirstCategory().tag,
       isBiotc: false,
       isPanorama: false,
@@ -42,7 +42,7 @@ class UploadForm extends React.Component<uploadProps, uploadState> {
       requestStarted: false,
       requestProcessing: false,
       requestStatusSuccess: false,
-      requestStatusMsg: "",
+      requestStatusMsg: '',
     };
     this.fileRef = React.createRef();
     this.descriptionRef = React.createRef();
@@ -77,7 +77,7 @@ class UploadForm extends React.Component<uploadProps, uploadState> {
       this.setState({
         files,
         fileStatusSuccess: true,
-        fileStatusMsg: "No file selected",
+        fileStatusMsg: 'No file selected',
       });
     }
   };
@@ -94,7 +94,7 @@ class UploadForm extends React.Component<uploadProps, uploadState> {
         requestStatusSuccess: false,
         requestStatusMsg: `Failed to upload ${imageName}. Try again!`,
       });
-      GAEvent("Upload", this.state.categorySelected, "failed");
+      GAEvent('Upload', this.state.categorySelected, 'failed');
     };
     if (
       this.state.files &&
@@ -110,12 +110,12 @@ class UploadForm extends React.Component<uploadProps, uploadState> {
         image = new Image(),
         imageName = this.state.files[0].name;
 
-      reader.addEventListener("load", () => {
-        image.addEventListener("load", () => {
+      reader.addEventListener('load', () => {
+        image.addEventListener('load', () => {
           let body = JSON.stringify({
             image: reader.result,
             imageName: imageName,
-            resolution: image.width + ":" + image.height,
+            resolution: image.width + ':' + image.height,
             category: this.state.categorySelected,
             biotc: this.state.isBiotc,
             panorama: this.state.isPanorama,
@@ -124,12 +124,12 @@ class UploadForm extends React.Component<uploadProps, uploadState> {
           });
           Auth.currentSession().then(
             (session: CognitoUserSession) => {
-              fetch("https://api.momentcapturer.com/csr", {
-                method: "POST",
-                mode: "cors",
+              fetch('https://api.momentcapturer.com/csr', {
+                method: 'POST',
+                mode: 'cors',
                 headers: {
-                  "content-type": "application/json",
-                  accept: "application/json",
+                  'content-type': 'application/json',
+                  accept: 'application/json',
                   Authorization: session.getIdToken().getJwtToken(),
                 },
                 body,
@@ -142,9 +142,9 @@ class UploadForm extends React.Component<uploadProps, uploadState> {
                       requestStatusMsg: `${imageName} uploaded successfully.`,
                     });
                     GAEvent(
-                      "Upload",
+                      'Upload',
                       this.state.categorySelected,
-                      "successful"
+                      'successful'
                     );
                   } else {
                     uploadFailed(imageName);
@@ -152,13 +152,13 @@ class UploadForm extends React.Component<uploadProps, uploadState> {
                 },
                 (error) => {
                   uploadFailed(imageName);
-                  GAEvent("Upload", this.state.categorySelected, "auth-failed");
-                  console.error("CSR failed with error: ", error);
+                  GAEvent('Upload', this.state.categorySelected, 'auth-failed');
+                  console.error('CSR failed with error: ', error);
                 }
               );
             },
             (error) => {
-              console.error("Authorization failed: ", error);
+              console.error('Authorization failed: ', error);
               window.location.reload();
             }
           );
@@ -171,7 +171,7 @@ class UploadForm extends React.Component<uploadProps, uploadState> {
 
   textArea = () => (
     <textarea
-      placeholder="Give some description"
+      placeholder='Give some description'
       ref={this.descriptionRef}
       value={this.state.description}
       onBlur={(event) => {
@@ -182,9 +182,9 @@ class UploadForm extends React.Component<uploadProps, uploadState> {
           () => {
             if (this.descriptionRef.current) {
               if (!this.state.description.length) {
-                this.descriptionRef.current.classList.add("error");
+                this.descriptionRef.current.classList.add('error');
               } else {
-                this.descriptionRef.current.classList.remove("error");
+                this.descriptionRef.current.classList.remove('error');
               }
             }
           }
@@ -198,9 +198,9 @@ class UploadForm extends React.Component<uploadProps, uploadState> {
           () => {
             if (this.descriptionRef.current) {
               if (!this.state.description.length) {
-                this.descriptionRef.current.classList.add("error");
+                this.descriptionRef.current.classList.add('error');
               } else {
-                this.descriptionRef.current.classList.remove("error");
+                this.descriptionRef.current.classList.remove('error');
               }
             }
           }
@@ -210,11 +210,11 @@ class UploadForm extends React.Component<uploadProps, uploadState> {
   );
 
   checkBoxToggles = () => (
-    <div className="resolutionCbToggles">
-      <label htmlFor="biotcCb" className="mcCheckboxContainer">
+    <div className='resolutionCbToggles'>
+      <label htmlFor='biotcCb' className='mcCheckboxContainer'>
         <input
-          type="checkbox"
-          id="biotcCb"
+          type='checkbox'
+          id='biotcCb'
           checked={this.state.isBiotc}
           onChange={(event) =>
             this.setState({
@@ -222,15 +222,15 @@ class UploadForm extends React.Component<uploadProps, uploadState> {
             })
           }
         />
-        <div className="mcCheckboxHidden"></div>
-        <span className="mcCheckboxLabel" title="Best Image of the Category">
+        <div className='mcCheckboxHidden'></div>
+        <span className='mcCheckboxLabel' title='Best Image of the Category'>
           Biotc
         </span>
       </label>
-      <label htmlFor="portraitCb" className="mcCheckboxContainer">
+      <label htmlFor='portraitCb' className='mcCheckboxContainer'>
         <input
-          type="checkbox"
-          id="portraitCb"
+          type='checkbox'
+          id='portraitCb'
           checked={this.state.isPortrait}
           onChange={(event) => {
             const isChecked = event.target.checked;
@@ -241,15 +241,15 @@ class UploadForm extends React.Component<uploadProps, uploadState> {
             }));
           }}
         />
-        <div className="mcCheckboxHidden"></div>
-        <span className="mcCheckboxLabel" title="Portrait">
+        <div className='mcCheckboxHidden'></div>
+        <span className='mcCheckboxLabel' title='Portrait'>
           Portrait
         </span>
       </label>
-      <label htmlFor="panaromaCb" className="mcCheckboxContainer">
+      <label htmlFor='panaromaCb' className='mcCheckboxContainer'>
         <input
-          type="checkbox"
-          id="panaromaCb"
+          type='checkbox'
+          id='panaromaCb'
           checked={this.state.isPanorama}
           onChange={(event) => {
             const isChecked = event.target.checked;
@@ -259,8 +259,8 @@ class UploadForm extends React.Component<uploadProps, uploadState> {
             }));
           }}
         />
-        <div className="mcCheckboxHidden"></div>
-        <span className="mcCheckboxLabel" title="Panorama">
+        <div className='mcCheckboxHidden'></div>
+        <span className='mcCheckboxLabel' title='Panorama'>
           Panorama
         </span>
       </label>
@@ -269,25 +269,25 @@ class UploadForm extends React.Component<uploadProps, uploadState> {
 
   render() {
     return (
-      <div className="uploadOrSignInContainer">
-        <section className="upload-form">
+      <div className='uploadOrSignInContainer'>
+        <section className='upload-form'>
           <form onSubmit={this.handleSubmit}>
             <input
-              type="button"
-              value="Choose file to Upload"
+              type='button'
+              value='Choose file to Upload'
               onClick={this.openFileDialog}
             />
             <span
-              style={{ color: this.state.fileStatusSuccess ? "black" : "red" }}
+              style={{ color: this.state.fileStatusSuccess ? 'black' : 'red' }}
             >
               {this.state.fileStatusMsg}
             </span>
             <input
-              type="file"
-              accept="image/*"
+              type='file'
+              accept='image/*'
               ref={this.fileRef}
               onChange={this.handleChange}
-              style={{ visibility: "hidden" }}
+              style={{ visibility: 'hidden' }}
             />
             {this.textArea()}
             <Categories
@@ -299,19 +299,19 @@ class UploadForm extends React.Component<uploadProps, uploadState> {
             />
             {this.checkBoxToggles()}
             <input
-              type="submit"
-              value="Upload"
+              type='submit'
+              value='Upload'
               className={
                 this.state.files?.length && this.state.description.length
-                  ? ""
-                  : "disabled"
+                  ? ''
+                  : 'disabled'
               }
             />
             {this.state.requestStarted && (
-              <div className="requestStatus">
+              <div className='requestStatus'>
                 {this.state.requestProcessing && (
                   <div>
-                    <span className="processing"></span>
+                    <span className='processing'></span>
                     &nbsp;&nbsp;
                     <span> Processing...</span>
                   </div>
@@ -319,7 +319,7 @@ class UploadForm extends React.Component<uploadProps, uploadState> {
                 {!this.state.requestProcessing && (
                   <div
                     className={`${
-                      this.state.requestStatusSuccess ? "success" : "error"
+                      this.state.requestStatusSuccess ? 'success' : 'error'
                     }`}
                   >
                     {this.state.requestStatusMsg}

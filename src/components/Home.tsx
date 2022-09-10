@@ -1,11 +1,11 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from 'react';
 
-import CategoryCard from "./Utils/CategoryCard";
+import CategoryCard from './Utils/CategoryCard';
 
-import { fetchBestImagePerCategory } from "../utils/apis";
-import { getAllCategories } from "../utils/helpers";
-import { CardImage, Category } from "../info/types";
-import "../styles/templates/home.scss";
+import { fetchBestImagePerCategory } from '../utils/apis';
+import { getAllCategories } from '../utils/helpers';
+import { CardImage, Category } from '../info/types';
+import '../styles/templates/home.scss';
 
 interface HomeProps {}
 
@@ -15,7 +15,7 @@ const Home: React.FunctionComponent<HomeProps> = () => {
     categories.map((category: Category) => ({
       category: category.name,
       tag: category.tag,
-      src: "",
+      src: '',
       fetching: true,
     }))
   );
@@ -23,8 +23,8 @@ const Home: React.FunctionComponent<HomeProps> = () => {
 
   const updateCategoryCard = (index: number, image: CardImage | undefined) => {
     const cardsToUpdate = [...cardsRef.current];
-    cardsToUpdate[index]["src"] = image ? image.src : "";
-    cardsToUpdate[index]["fetching"] = false;
+    cardsToUpdate[index]['src'] = image ? image.src : '';
+    cardsToUpdate[index]['fetching'] = false;
     cardsRef.current = cardsToUpdate;
     setCards(cardsToUpdate);
   };
@@ -46,10 +46,11 @@ const Home: React.FunctionComponent<HomeProps> = () => {
           updateCategoryCard(index, undefined);
         });
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
-    <div className="home">
+    <div className='home'>
       {cards.map((card) => (
         <CategoryCard
           key={card.tag}

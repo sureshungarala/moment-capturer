@@ -1,12 +1,12 @@
-import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import { event, initialize, set, pageview } from "react-ga";
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import { event, initialize, set, pageview } from 'react-ga';
 
 export const InitializeGA = () => {
   let location = useLocation();
 
   useEffect(() => {
-    initialize("UA-211895538-1");
+    initialize('UA-211895538-1');
     pageview(window.location.pathname + window.location.search);
   });
 

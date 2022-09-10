@@ -1,26 +1,22 @@
-import React, { useState, useEffect } from "react";
-import { withRouter, RouteComponentProps } from "react-router-dom";
-import { Auth } from "@aws-amplify/auth";
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { Auth } from '@aws-amplify/auth';
 
-import Loader from "./Utils/Loader";
-import Banner from "./Utils/Banner";
-import ImageComponent from "./Utils/Image";
-import "../styles/templates/categoryHome.scss";
+import Loader from './Utils/Loader';
+import Banner from './Utils/Banner';
+import ImageComponent from './Utils/Image';
+import '../styles/templates/categoryHome.scss';
 
-import { fetchImages, checkIfUserSignedIn } from "../utils/apis";
-import { Image, McMoments } from "../info/types";
-import { getMappedCategory, distachSignedInEvent } from "../utils/helpers";
-import { initMoments } from "../utils/constants";
+import { fetchImages, checkIfUserSignedIn } from '../utils/apis';
+import { Image, McMoments } from '../info/types';
+import { getMappedCategory, distachSignedInEvent } from '../utils/helpers';
+import { initMoments } from '../utils/constants';
 
-interface categoryHomeRouterProps {
-  //contains history object and ...
-}
+interface homeProps {}
 
-interface homeProps extends RouteComponentProps<categoryHomeRouterProps> {}
-
-const Home: React.FunctionComponent<homeProps> = (props: homeProps) => {
-  const routeCategoryTag = props.location.pathname.split("/")[1].trim();
-  const { tag } = getMappedCategory(routeCategoryTag);
+const Home: React.FunctionComponent<homeProps> = () => {
+  const params = useParams();
+  const { tag } = getMappedCategory(params.categoryTag!);
 
   const [categoryHomeState, setCategoryHomeState] = useState({
     images: initMoments,
@@ -62,6 +58,7 @@ const Home: React.FunctionComponent<homeProps> = (props: homeProps) => {
         });
       }
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tag]);
   /* --------------------- data fetch end---------------------- */
 
@@ -81,7 +78,7 @@ const Home: React.FunctionComponent<homeProps> = (props: homeProps) => {
     categoryHome = (
       <Banner
         title={
-          "No moments recorded for this category as of yet. Check back again later."
+          'No moments recorded for this category as of yet. Check back again later.'
         }
       />
     );
@@ -95,7 +92,7 @@ const Home: React.FunctionComponent<homeProps> = (props: homeProps) => {
             categoryTag={tag}
           />
         )}
-        <div className="images-container">
+        <div className='images-container'>
           {images.map((image: Image) => {
             return (
               <ImageComponent
@@ -110,7 +107,7 @@ const Home: React.FunctionComponent<homeProps> = (props: homeProps) => {
       </React.Fragment>
     );
   }
-  return <div className="category-home">{categoryHome}</div>;
+  return <div className='category-home'>{categoryHome}</div>;
 };
 
-export default withRouter(Home);
+export default Home;

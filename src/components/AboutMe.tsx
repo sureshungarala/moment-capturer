@@ -1,72 +1,72 @@
-import React from "react";
+import React from 'react';
 
-import { GAEvent } from "./Utils/GA-Tracker";
+import { GAEvent } from './Utils/GA-Tracker';
 
-import "../styles/templates/aboutMe.scss";
+import '../styles/templates/aboutMe.scss';
 
 const AboutMe: React.FunctionComponent = () => {
   return (
-    <section className="aboutme">
+    <section className='aboutme'>
       <section>
-        <div className="intro sub-section">
-          <span className="title">About me</span>
+        <div className='intro sub-section'>
+          <span className='title'>About me</span>
           <div>
             Hello there, enthusiast!
             <div>
               A warm, whole-hearted welcome to the empire of a professional
-              photography aficionado, Mr. Sai Vamsi aka{" "}
-              <span className="highlight">Moment Capturer</span>. While as a
+              photography aficionado, Mr. Sai Vamsi aka{' '}
+              <span className='highlight'>Moment Capturer</span>. While as a
               business owner or as a digitalized social being, you are feeding
               your mind with new intellectual ideologies and inspirations, I am
               nourishing my heart with the affection of photography.
             </div>
           </div>
         </div>
-        <div className="profile">
-          <span className="picture" />
-          <span className="name">Moment Capturer</span>
-          <div className="social">
+        <div className='profile'>
+          <span className='picture' />
+          <span className='name'>Moment Capturer</span>
+          <div className='social'>
             <a
-              href="https://wa.me/919393633334"
-              target="_blank"
-              rel="noopener noreferrer"
-              title="Whatsapp"
-              onClick={() => GAEvent("AboutMe", "Whatsapp", "clicked")}
+              href='https://wa.me/919393633334'
+              target='_blank'
+              rel='noopener noreferrer'
+              title='Whatsapp'
+              onClick={() => GAEvent('AboutMe', 'Whatsapp', 'clicked')}
             >
-              <span className="whatsapp"></span>
+              <span className='whatsapp'></span>
             </a>
             <a
-              href="https://www.instagram.com/i_am_the_moment_capturer/"
-              target="_blank"
-              rel="noopener noreferrer"
-              title="Instagram"
-              onClick={() => GAEvent("AboutMe", "Instagram", "clicked")}
+              href='https://www.instagram.com/i_am_the_moment_capturer/'
+              target='_blank'
+              rel='noopener noreferrer'
+              title='Instagram'
+              onClick={() => GAEvent('AboutMe', 'Instagram', 'clicked')}
             >
-              <span className="instagram"></span>
+              <span className='instagram'></span>
             </a>
             <a
-              href="https://www.facebook.com/momentcapturer77"
-              target="_blank"
-              rel="noopener noreferrer"
-              title="Facebook"
-              onClick={() => GAEvent("AboutMe", "Facebook", "clicked")}
+              href='https://www.facebook.com/momentcapturer77'
+              target='_blank'
+              rel='noopener noreferrer'
+              title='Facebook'
+              onClick={() => GAEvent('AboutMe', 'Facebook', 'clicked')}
             >
-              <span className="facebook"></span>
+              <span className='facebook'></span>
             </a>
           </div>
         </div>
       </section>
-      <section className="sub-section">
-        <span className="highlight">Moment Capturer</span> is the representation
-        of my accumulated efforts and hustling. As the name{" "}
-        <span className="highlight">Moment Capturer</span> itself speaks about
+      <section className='sub-section'>
+        <span className='highlight'>Moment Capturer</span> is the representation
+        of my accumulated efforts and hustling. As the name{' '}
+        <span className='highlight'>Moment Capturer</span> itself speaks about
         the purpose of this venture, I love to capture every moment going on in
         front of me. May it be Travel photography, Product photography, wedding
         photography, or anything related to photography and cinematography. Give
         me any moment to be captured and get it done hassle-free without any
         flaws at all!
       </section>
-      <section className="sub-section">
+      <section className='sub-section'>
         <span>My journey</span>
         <div>
           Growing up in Andhra Pradesh, India, in close proximity to nature, I
@@ -85,12 +85,12 @@ const AboutMe: React.FunctionComponent = () => {
           introduced myself to real-world photography services!
         </div>
       </section>
-      <section className="sub-section">
+      <section className='sub-section'>
         <span>Top skills</span>
         <div>
           Extensive experience of more than 5 Years makes me worthy to offer you
-          the most in-demand photography services.{" "}
-          <span className="highlight">Moment Capturer</span> is a
+          the most in-demand photography services.{' '}
+          <span className='highlight'>Moment Capturer</span> is a
           one-size-fits-all solution for you to get all your requirements
           fulfilled without any ball and chain! Though I am capable of
           accomplishing all of your requirements, my best of the best skills are
@@ -134,7 +134,7 @@ const AboutMe: React.FunctionComponent = () => {
           </li>
         </ul>
       </section>
-      <section className="sub-section">
+      <section className='sub-section'>
         <span>Top recognitions</span>
         <div>
           My photography career was not like a fairy tale filled with success
@@ -169,9 +169,9 @@ const AboutMe: React.FunctionComponent = () => {
           </li>
         </ul>
       </section>
-      <section className="sub-section">
+      <section className='sub-section'>
         <span>So,</span>
-        <div style={{ textIndent: "3ch" }}>
+        <div style={{ textIndent: '3ch' }}>
           you've learned about me and my experience, as well as how you can
           benefit from my skill sets.I also want to mention that I am an amateur
           drone cinematographer who loves experiencing the aerial view of this

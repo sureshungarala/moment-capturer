@@ -1,19 +1,19 @@
-import { McMoments } from "../info/types";
+import { McMoments } from '../info/types';
 
 export const initMoments: McMoments = {
   biotc: {
-    original: "",
+    original: '',
     updateTime: 0,
     srcSet: {},
-    description: "",
+    description: '',
     biotc: false,
     panorama: false,
     portrait: false,
-    resolution: "",
+    resolution: '',
   },
   moments: [],
 };
 
-export const toggleModalEventName = "showModal";
-export const signIncustomEventName = "userSignInStatus";
-export const swEventName = "serviceWorkerStatus";
+export const toggleModalEventName = 'showModal';
+export const signIncustomEventName = 'userSignInStatus';
+export const swEventName = 'serviceWorkerStatus';

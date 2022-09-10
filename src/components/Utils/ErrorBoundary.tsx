@@ -1,8 +1,10 @@
-import React from "react";
+import React from 'react';
 
-import Banner from "./Banner";
+import Banner from './Banner';
 
-interface ErrorBoundaryProps {}
+interface ErrorBoundaryProps {
+  children: React.ReactNode;
+}
 
 interface ErrorBoundaryState {
   hasError: boolean;
@@ -18,7 +20,7 @@ class ErrorBoundary extends React.Component<
   }
 
   static getDerivedStateFromError(error: Error) {
-    console.error("Failed to load page route ", error);
+    console.error('Failed to load page route ', error);
     return { hasError: true };
   }
 

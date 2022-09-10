@@ -1,11 +1,11 @@
-import React from "react";
+import React from 'react';
 
-import EditImage from "../ImageActions/EditImage";
+import EditImage from '../ImageActions/EditImage';
 
-import { Image as imageType } from "../../info/types";
+import { Image as imageType } from '../../info/types';
 
 interface imageState {
-  children: React.ReactFragment;
+  children: React.ReactElement;
   imageLoaded: boolean;
 }
 
@@ -43,7 +43,7 @@ class Image extends React.Component<imageProps, imageState> {
               <source
                 media={`(max-width: ${key})`}
                 srcSet={srcSet[key]}
-                type="image/jpeg"
+                type='image/jpeg'
                 key={key}
               />
             );
@@ -54,7 +54,7 @@ class Image extends React.Component<imageProps, imageState> {
                 <picture>
                   {sources}
                   <img
-                    alt=""
+                    alt=''
                     src={original}
                     title={title}
                     onLoad={() => this.setState({ imageLoaded: true })}
@@ -69,7 +69,7 @@ class Image extends React.Component<imageProps, imageState> {
       },
       {
         root: null,
-        rootMargin: "0px 0px 200px 0px",
+        rootMargin: '0px 0px 200px 0px',
       }
     );
     observer.observe(this.containerRef.current as Element);
@@ -80,14 +80,14 @@ class Image extends React.Component<imageProps, imageState> {
     return (
       <div
         className={`imageContainer ${
-          panorama ? "panorama" : portrait ? "portrait" : "landscape"
+          panorama ? 'panorama' : portrait ? 'portrait' : 'landscape'
         }`}
         ref={this.containerRef}
       >
         {this.state.children}
 
         {this.state.imageLoaded && (
-          <div className="descriptionContainer">{description}</div>
+          <div className='descriptionContainer'>{description}</div>
         )}
         <EditImage {...this.props} />
       </div>

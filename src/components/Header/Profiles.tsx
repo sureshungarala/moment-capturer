@@ -7,16 +7,16 @@ import { signIncustomEventName } from '../../utils/constants';
 
 interface profileProps {}
 
-const Profiles: React.FunctionComponent<profileProps> = (props) => {
+const Profiles: React.FunctionComponent<profileProps> = (_props) => {
   const [isUserSignedIn, userSignedIn] = useState(false);
   const [isFocussed, setIfFocussed] = useState(false);
 
-  let stopFocusUseEffect = false;
-
+  let stopFocusUseEffectRef = useRef(false);
   const focusRef = useRef(isFocussed);
   const profilesRef = useRef<HTMLDivElement>(null);
-  let listItems: NodeListOf<HTMLLIElement> | undefined =
-    profilesRef.current?.querySelectorAll('ul > li');
+  let listItems = useRef<NodeListOf<HTMLLIElement> | undefined>(
+    profilesRef.current?.querySelectorAll('ul > li')
+  );
   let focussedElem: HTMLLIElement | null | undefined = null;
 
   /* --------------------------- Event handlers start(a11y) ------------------------------ */
@@ -83,7 +83,7 @@ const Profiles: React.FunctionComponent<profileProps> = (props) => {
       current?.removeEventListener('keydown', keydownHandler);
       current?.removeEventListener('focus', focusHandler);
       current?.removeEventListener('mouseover', focusHandler);
-      listItems?.forEach((elem: HTMLLIElement) => {
+      listItems.current?.forEach((elem: HTMLLIElement) => {
         elem.removeEventListener('mouseover', () => mouseoverHandler(elem));
         elem.removeEventListener('click', clickHandler);
       });
@@ -92,17 +92,19 @@ const Profiles: React.FunctionComponent<profileProps> = (props) => {
         signInWatchHandler as EventListener
       );
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    if (isFocussed && !stopFocusUseEffect) {
-      stopFocusUseEffect = true;
-      listItems = profilesRef.current?.querySelectorAll('ul > li');
-      listItems?.forEach((elem: HTMLLIElement) => {
+    if (isFocussed && !stopFocusUseEffectRef.current) {
+      stopFocusUseEffectRef.current = true;
+      listItems.current = profilesRef.current?.querySelectorAll('ul > li');
+      listItems.current?.forEach((elem: HTMLLIElement) => {
         elem.addEventListener('mouseover', () => mouseoverHandler(elem));
         elem.addEventListener('click', clickHandler);
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFocussed]);
 
   const signInOrSignOut = () => (

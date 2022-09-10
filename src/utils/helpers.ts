@@ -1,6 +1,6 @@
-import { Image, ModalDimensions, Category } from "../info/types";
-import { signIncustomEventName } from "./constants";
-import categories from "../info/categories.json";
+import { Image, ModalDimensions, Category } from '../info/types';
+import { signIncustomEventName } from './constants';
+import categories from '../info/categories.json';
 
 /**
  * represents max size of the upload image
@@ -15,7 +15,7 @@ export function getModalDimensions(image: Image): ModalDimensions {
   const deviceWidth = window.innerWidth - 20;
   const deviceHeight = window.innerHeight - 20;
   const deviceAspectRatio = deviceWidth / deviceHeight;
-  const [imageWidth, imageHeight] = image.resolution.split(":").map(Number);
+  const [imageWidth, imageHeight] = image.resolution.split(':').map(Number);
   const aspectRatio = imageWidth / imageHeight;
   let width: number = deviceWidth;
   let height: number = deviceHeight;

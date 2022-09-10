@@ -1,11 +1,11 @@
-import { AuthClass } from "@aws-amplify/auth/lib-esm/Auth";
+import { AuthClass } from '@aws-amplify/auth/lib-esm/Auth';
 
 export const fetchBestImagePerCategory = async (categoryTag: String) =>
   fetch(
     `https://api.momentcapturer.com/getBestImagePerCategory?category=${categoryTag}`,
     {
       headers: {
-        accept: "application/json",
+        accept: 'application/json',
       },
     }
   );
@@ -15,7 +15,7 @@ export const fetchImages = async (categoryTag: string) => {
     `https://api.momentcapturer.com/getData?category=${categoryTag}`,
     {
       headers: {
-        accept: "application/json",
+        accept: 'application/json',
       },
     }
   );
@@ -24,24 +24,24 @@ export const fetchImages = async (categoryTag: string) => {
 };
 
 export const editImage = (idToken: string, body: string) =>
-  fetch("https://api.momentcapturer.com/editImageMetadata", {
-    method: "POST",
-    mode: "cors",
+  fetch('https://api.momentcapturer.com/editImageMetadata', {
+    method: 'POST',
+    mode: 'cors',
     headers: {
-      "content-type": "application/json",
-      accept: "application/json",
+      'content-type': 'application/json',
+      accept: 'application/json',
       Authorization: idToken,
     },
     body,
   });
 
 export const deleteImage = (idToken: string, body: string) =>
-  fetch("https://api.momentcapturer.com/deleteImage", {
-    method: "POST",
-    mode: "cors",
+  fetch('https://api.momentcapturer.com/deleteImage', {
+    method: 'POST',
+    mode: 'cors',
     headers: {
-      "content-type": "application/json",
-      accept: "application/json",
+      'content-type': 'application/json',
+      accept: 'application/json',
       Authorization: idToken,
     },
     body,

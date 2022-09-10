@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 
-import { getModalDimensions } from "../../utils/helpers";
-import { Image } from "../../info/types";
-import { GAEvent } from "../Utils/GA-Tracker";
-import "../../styles/templates/mcModal.scss";
+import { getModalDimensions } from '../../utils/helpers';
+import { Image } from '../../info/types';
+import { GAEvent } from '../Utils/GA-Tracker';
+import '../../styles/templates/mcModal.scss';
 
-import { toggleModalEventName } from "../../utils/constants";
+import { toggleModalEventName } from '../../utils/constants';
 
 const McModal: React.FunctionComponent = () => {
   const [showModal, toggleModal] = useState(false);
@@ -16,10 +16,10 @@ const McModal: React.FunctionComponent = () => {
   });
 
   const escapeModal = (event: KeyboardEvent) => {
-    if (event.key === "Escape" || event.keyCode === 27) {
+    if (event.key === 'Escape' || event.keyCode === 27) {
       if (showModal) {
         toggleModal(false);
-        GAEvent("Image", "Modal", "Escaped");
+        GAEvent('Image', 'Modal', 'Escaped');
       }
     }
   };
@@ -36,9 +36,9 @@ const McModal: React.FunctionComponent = () => {
       toggleModalEventName,
       renderModal as EventListener
     );
-    document.addEventListener("keyup", escapeModal);
+    document.addEventListener('keyup', escapeModal);
     return () => {
-      document.removeEventListener("keyup", escapeModal);
+      document.removeEventListener('keyup', escapeModal);
       document.removeEventListener(
         toggleModalEventName,
         renderModal as EventListener
@@ -47,25 +47,25 @@ const McModal: React.FunctionComponent = () => {
   });
 
   return showModal ? (
-    <div className="mcModal">
+    <div className='mcModal'>
       <div
-        className="mcModalContent"
+        className='mcModalContent'
         style={{
-          width: dimensions.width + "px",
-          height: dimensions.height + "px",
+          width: dimensions.width + 'px',
+          height: dimensions.height + 'px',
         }}
       >
-        <div className="mcModalBody">
+        <div className='mcModalBody'>
           <img src={image!.original} alt={image!.description} tabIndex={0} />
         </div>
       </div>
       <div
-        className="close"
+        className='close'
         onClick={() => {
           toggleModal(false);
-          GAEvent("Image", "Modal", "Closed");
+          GAEvent('Image', 'Modal', 'Closed');
         }}
-        title="close"
+        title='close'
         tabIndex={0}
       ></div>
     </div>
