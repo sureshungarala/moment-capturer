@@ -24,6 +24,7 @@ const CategoriesDropDown: React.FunctionComponent<dropDownProps> = (
           custom-tag={category.tag}
           key={category.name}
           role='option'
+          aria-selected='false'
           tabIndex={-1}
         >
           {category.name}
@@ -33,9 +34,7 @@ const CategoriesDropDown: React.FunctionComponent<dropDownProps> = (
           custom-value=''
           custom-tag=''
           key={category.name}
-          role='option'
-          aria-haspopup='true'
-          aria-expanded='false'
+          role='listbox'
           tabIndex={-1}
         >
           {category.name}
@@ -108,7 +107,6 @@ const Categories: React.FunctionComponent<categoriesProps> = (
       parentListItem.setAttribute('aria-expanded', 'true');
       parentListItem.classList.add('focus');
     }
-    focussedElem?.focus();
   };
 
   const updateFocus = (focussed: boolean) => {
@@ -120,8 +118,9 @@ const Categories: React.FunctionComponent<categoriesProps> = (
     updateFocus(true);
   };
 
-  const mouseoverHandler = (elem: HTMLLIElement) => {
-    focussedElemRef.current = elem;
+  const mouseoverHandler = (event: any) => {
+    event.preventDefault();
+    focussedElemRef.current = event.target as HTMLLIElement;
     focus();
   };
 
@@ -206,7 +205,9 @@ const Categories: React.FunctionComponent<categoriesProps> = (
       hoverListenerAddedOnLiElemsRef.current = true;
       listItemsRef.current = categoriesRef.current?.querySelectorAll('ul > li');
       listItemsRef.current?.forEach((elem: HTMLLIElement) => {
-        elem.addEventListener('mouseover', () => mouseoverHandler(elem));
+        elem.addEventListener('mouseover', (event) => {
+          mouseoverHandler(event);
+        });
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -249,6 +250,10 @@ const Categories: React.FunctionComponent<categoriesProps> = (
         closeDropdown: true,
       });
       updateFocus(false);
+      listItemsRef.current?.forEach((li) => {
+        li.setAttribute('aria-selected', 'false');
+      });
+      (event.target as HTMLLIElement).setAttribute('aria-selected', 'true');
     }
   };
 

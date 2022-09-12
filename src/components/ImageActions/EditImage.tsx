@@ -377,7 +377,6 @@ const EditImage: React.FunctionComponent<editImageProps> = (
                   onDeleteBtnClick();
                 }
               }}
-              role='img'
               aria-haspopup='true'
               tabIndex={0}
             ></div>
@@ -392,7 +391,6 @@ const EditImage: React.FunctionComponent<editImageProps> = (
                   onEditBtnClick();
                 }
               }}
-              role='img'
               aria-haspopup='true'
               tabIndex={0}
             ></div>
@@ -407,7 +405,6 @@ const EditImage: React.FunctionComponent<editImageProps> = (
               enlargeImage();
             }
           }}
-          role='img'
           aria-haspopup='true'
           tabIndex={0}
         ></div>
