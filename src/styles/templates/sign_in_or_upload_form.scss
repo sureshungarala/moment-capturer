@@ -40,8 +40,8 @@
         width: 100%;
       }
 
-      input[type="submit"],
-      input[type="button"],
+      input[type='submit'],
+      input[type='button'],
       textarea,
       .categories {
         font-size: 1.5em;
@@ -83,11 +83,11 @@
         }
       }
 
-      input[type="submit"] {
+      input[type='submit'] {
         font-weight: 600;
       }
 
-      input[type="file"] {
+      input[type='file'] {
         visibility: hidden;
         height: 1px;
         width: 1px;
@@ -109,7 +109,7 @@
           font-size: 1.25em;
           margin: 5px 0px;
           &::after {
-            content: "*";
+            content: '*';
             color: var(--alternate-dark-orange);
           }
         }

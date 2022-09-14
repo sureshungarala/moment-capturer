@@ -123,7 +123,7 @@ const Profiles: React.FunctionComponent<profileProps> = (_props) => {
 
   return (
     <div className='profiles' tabIndex={0} ref={profilesRef}>
-      <div className='profileMenu' aria-haspopup='menu' aria-label='Menu'></div>
+      <div className='profileMenu'></div>
       {isFocussed && (
         <ul role='menu'>
           <li role='menuitem'>

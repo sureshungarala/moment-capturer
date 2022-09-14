@@ -1,15 +1,20 @@
+import { clientsClaim } from 'workbox-core';
 import { CacheableResponsePlugin } from 'workbox-cacheable-response/CacheableResponsePlugin';
 import { ExpirationPlugin } from 'workbox-expiration';
 import { registerRoute } from 'workbox-routing';
 import { CacheFirst, StaleWhileRevalidate } from 'workbox-strategies';
 import { precacheAndRoute, precache } from 'workbox-precaching';
 
+clientsClaim();
 precache(['favicon.png']);
-precacheAndRoute(window.self.__WB_MANIFEST);
+/* eslint-disable-next-line no-restricted-globals */
+precacheAndRoute(self.__WB_MANIFEST);
 
-window.self.addEventListener('message', (event) => {
+/* eslint-disable-next-line no-restricted-globals */
+self.addEventListener('message', (event) => {
   if (event.data?.type === 'SKIP_WAITING') {
-    window.self.skipWaiting();
+    /* eslint-disable-next-line no-restricted-globals */
+    self.skipWaiting();
   }
 });
 

@@ -35,7 +35,7 @@
 
       .fallback {
         color: var(--secondary-color);
-        background-color: var(--secondary-color-inverted);
+        background-color: white;
         text-align: center;
 
         span {
@@ -62,7 +62,7 @@
 
     .loader_facade:before {
       position: absolute;
-      content: "";
+      content: '';
       width: 100%;
       height: 100%;
       animation: facade_shade 1.5s ease-in-out 0s infinite;

@@ -21,8 +21,8 @@
 
 // Removing @mixins and scss variables to avoid cluttering duplicate CSS from this file.
 
-input[type="button"],
-input[type="submit"],
+input[type='button'],
+input[type='submit'],
 form,
 a {
   -moz-appearance: none;
@@ -43,8 +43,8 @@ h4 {
 }
 
 button,
-input[type="button"],
-input[type="submit"] {
+input[type='button'],
+input[type='submit'] {
   background-color: var(--secondary-color);
   color: var(--secondary-color-inverted);
   cursor: pointer;
@@ -55,7 +55,7 @@ input[type="submit"] {
   }
 }
 
-input[type="submit"].disabled {
+input[type='submit'].disabled {
   background-color: var(--secondary-color-disabled);
   pointer-events: none;
   cursor: not-allowed;
@@ -66,7 +66,7 @@ input[type="submit"].disabled {
   }
 }
 
-input[type="button"] {
+input[type='button'] {
   background-color: var(--secondary-color-disabled);
 
   &:hover,
@@ -225,7 +225,7 @@ textarea,
       font-weight: 600;
       width: 7rem;
 
-      &[data-content="-"] {
+      &[data-content='-'] {
         width: 5rem;
         text-align: center;
       }
@@ -234,7 +234,7 @@ textarea,
         position: absolute;
         top: 50%;
         right: 0.5em;
-        content: "\00a0\00a0\25BC";
+        content: '\00a0\00a0\25BC';
         font-size: 0.5em;
         transform: translateY(-50%);
       }
@@ -289,7 +289,7 @@ textarea,
   display: flex;
   cursor: pointer;
 
-  input[type="checkbox"] {
+  input[type='checkbox'] {
     position: absolute;
     width: 1px;
     height: 1px;
@@ -298,7 +298,7 @@ textarea,
     z-index: -1;
   }
 
-  input[type="checkbox"] + .mcCheckboxHidden {
+  input[type='checkbox'] + .mcCheckboxHidden {
     position: absolute;
     width: var(--mc-checkbox-size);
     height: var(--mc-checkbox-size);
@@ -308,27 +308,27 @@ textarea,
     z-index: 1;
   }
 
-  input[type="checkbox"] + .mcCheckboxHidden:hover,
-  input[type="checkbox"] + .mcCheckboxHidden:focus {
+  input[type='checkbox'] + .mcCheckboxHidden:hover,
+  input[type='checkbox'] + .mcCheckboxHidden:focus {
     box-shadow: 0 0 2px 2px var(--primary-color);
   }
 
-  input[type="checkbox"]:active,
-  input[type="checkbox"]:focus,
-  input[type="checkbox"]:focus-within {
+  input[type='checkbox']:active,
+  input[type='checkbox']:focus,
+  input[type='checkbox']:focus-within {
     & + .mcCheckboxHidden {
       box-shadow: 0 0 2px 2px var(--primary-color);
     }
   }
 
-  input[type="checkbox"]:checked + .mcCheckboxHidden {
+  input[type='checkbox']:checked + .mcCheckboxHidden {
     background-color: var(--secondary-color);
   }
 
-  input[type="checkbox"]:checked + .mcCheckboxHidden::before {
+  input[type='checkbox']:checked + .mcCheckboxHidden::before {
     top: 0px;
     left: 6px;
-    content: "";
+    content: '';
     width: 4px;
     position: absolute;
     height: 14px;
@@ -351,24 +351,24 @@ textarea,
 }
 
 .profileMenu {
-  background-image: url("../assets/menu.svg");
+  background-image: url('../assets/menu.svg');
   background-size: cover;
 }
 
 .enlarge {
-  background-image: url("../assets/enlarge.svg");
+  background-image: url('../assets/enlarge.svg');
 }
 
 .edit {
-  background-image: url("../assets/edit.svg");
+  background-image: url('../assets/edit.svg');
 }
 
 .delete {
-  background-image: url("../assets/delete.svg");
+  background-image: url('../assets/delete.svg');
 }
 
 .close {
-  background-image: url("../assets/close.svg");
+  background-image: url('../assets/close.svg');
 }
 
 // imageActionBtn
@@ -392,7 +392,7 @@ textarea,
 .uploadOrSignInContainer .processing,
 .fetchingCurrentUserDetails {
   display: inline-block;
-  background-image: url("../assets/spinner.svg");
+  background-image: url('../assets/spinner.svg');
   margin: 0 auto;
   background-size: cover;
   background-repeat: no-repeat;

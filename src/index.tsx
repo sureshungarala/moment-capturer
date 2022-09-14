@@ -27,7 +27,7 @@ serviceWorker.register({
       window.location.reload();
     }) as EventListener);
   },
-  onSuccess: (registration: ServiceWorkerRegistration) => {
+  onSuccess: (_registration: ServiceWorkerRegistration) => {
     document.dispatchEvent(new CustomEvent(swEventName, { detail: 'success' }));
   },
 });
