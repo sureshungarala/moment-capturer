@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "./",
   "dependencies": {
+    "node-sass": "^8.0.0",
     "@aws-amplify/ui-react": "^3.5.1",
     "@craco/craco": "7.0.0-alpha.7",
     "aws-amplify": "^4.3.35",
