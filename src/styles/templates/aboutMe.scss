@@ -1,0 +1,98 @@
+.aboutme {
+  display: flex;
+  flex-direction: column;
+  color: var(--secondary-color-inverted);
+  background-color: var(--secondary-color);
+  font-size: 1.25rem;
+  max-width: 1024px;
+  margin: 15px;
+  border-radius: 4px;
+  padding: 35px 30px 30px 45px;
+  overflow: auto;
+  box-sizing: border-box;
+  line-height: 2.5rem;
+
+  section:nth-child(1) {
+    display: flex;
+    .intro {
+      display: flex;
+      flex-direction: column;
+      width: 70%;
+      margin-bottom: 15px;
+      .title {
+        font-size: 3.75rem;
+        margin-bottom: 20px;
+      }
+    }
+    .profile {
+      width: 30%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      line-height: 4.5rem;
+      margin: 1.25rem 0;
+
+      .picture {
+        width: 150px;
+        height: 150px;
+        background-image: url('../../assets/vamsi_dp.jpg');
+        background-repeat: no-repeat;
+        background-size: contain;
+        border-radius: 50%;
+        border: 1px solid var(--primary-color);
+      }
+      .name {
+        color: var(--primary-color);
+        font-size: 2rem;
+        font-weight: 600;
+      }
+      .social {
+        display: flex;
+        justify-content: space-evenly;
+        width: 100%;
+        margin-top: 5px;
+
+        & > a {
+          text-decoration: none;
+          & > span {
+            display: block;
+            background-repeat: no-repeat;
+            background-size: contain;
+            width: 25px;
+            height: 25px;
+          }
+          .whatsapp {
+            background-image: url('../../assets/whatsapp.svg');
+          }
+          .instagram {
+            background-image: url('../../assets/instagram.svg');
+          }
+          .facebook {
+            background-image: url('../../assets/facebook.svg');
+          }
+        }
+      }
+    }
+  }
+
+  section:nth-child(n + 3) {
+    display: flex;
+    flex-direction: column;
+    margin: 12px 0px;
+    & > span:nth-child(1) {
+      color: var(--primary-color);
+      font-size: 1.75rem;
+      font-weight: 600;
+      font-family: var(--headings-font-family);
+      font-style: normal;
+      text-decoration: underline;
+    }
+    ul {
+      margin: 0;
+    }
+  }
+
+  section:last-child > span:nth-child(1) {
+    text-decoration: none;
+  }
+}

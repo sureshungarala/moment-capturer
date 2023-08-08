@@ -1,0 +1,125 @@
+.editImage {
+  .actions {
+    display: none;
+    & > * {
+      width: 2rem;
+      height: 2rem;
+      position: absolute;
+      padding: 3px;
+      border: none;
+      border-radius: 3px;
+      &:hover {
+        transform: scale3d(1.1, 1.1, 1.1);
+      }
+    }
+
+    .edit {
+      right: calc(2rem + 30px);
+    }
+
+    .delete {
+      right: calc(4rem + 45px);
+    }
+  }
+
+  .imageActionFormContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 5px;
+    background-color: var(--secondary-color-inverted);
+    cursor: auto;
+
+    .deleteConfirmation,
+    .editForm {
+      position: absolute;
+      background-color: var(--secondary-color);
+      box-shadow: var(--form-box-shadow);
+      border-radius: 5px;
+      padding: 1vmax;
+      top: 30%;
+
+      .confirmationTxt {
+        font-size: 1.5em;
+        font-weight: 600;
+      }
+
+      textarea {
+        resize: none;
+        border: 1px solid var(--secondary-color);
+        border-radius: 3px;
+        margin-top: 1rem;
+        outline: 0;
+        width: calc(100% - 4px);
+        font-size: 1.1em;
+      }
+
+      .categories .categories-dd,
+      .categories .categories-dd .selectedCategory {
+        font-size: 1em;
+      }
+      .actionAndStatus {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-top: 1rem;
+        min-height: 2rem;
+        line-height: 2rem;
+
+        .deleteActions,
+        .editActions {
+          display: flex;
+          justify-content: flex-end;
+          & > * {
+            padding: 0 1.25rem;
+            border-radius: 2px;
+            border: 1px solid var(--secondary-color-inverted);
+            font-size: 1em;
+            font-weight: 600;
+          }
+          .yesDelete,
+          .yesEdit {
+            margin-left: 2rem;
+            background-color: var(--alert-color);
+            &:hover,
+            &:focus {
+              border-color: var(--alternate-dark-orange);
+            }
+            &:disabled {
+              background-color: lightgray;
+              cursor: not-allowed;
+            }
+          }
+
+          .yesEdit {
+            background-color: var(--alternate-dark-orange);
+            &:not([disabled]):hover,
+            &:not([disabled]):focus {
+              border-color: var(--alternate-dark-orange-hovered);
+            }
+          }
+
+          .cancel:hover,
+          .cancel:focus {
+            border-color: var(--primary-color);
+          }
+        }
+
+        .requestStatus {
+          display: flex;
+          align-items: baseline;
+
+          & > * {
+            font-size: 1.25em;
+          }
+          .processing {
+            width: 16px;
+            height: 16px;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from "react";
-import { Auth } from "@aws-amplify/auth";
+import React, { useState, useEffect } from 'react';
+import { Auth } from '@aws-amplify/auth';
 
-import Loader from "./Utils/Loader";
-import SignInForm from "./SignIn/SignInForm";
-import UploadForm from "./ImageActions/UploadForm";
-import { checkIfUserSignedIn } from "../utils/apis";
-import { distachSignedInEvent } from "../utils/helpers";
+import Loader from './Utils/Loader';
+import SignInForm from './SignIn/SignInForm';
+import UploadForm from './ImageActions/UploadForm';
+import { checkIfUserSignedIn } from '../utils/apis';
+import { distachSignedInEvent } from '../utils/helpers';
+
+import '../styles/templates/sign_in_or_upload_form.scss';
 
 const Upload: React.FunctionComponent = () => {
   const [uploadState, setUploadState] = useState({
@@ -26,6 +28,7 @@ const Upload: React.FunctionComponent = () => {
       });
       if (userSignedIn) distachSignedInEvent();
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const { checkingIfUserSignedIn, userSignedIn } = uploadState;

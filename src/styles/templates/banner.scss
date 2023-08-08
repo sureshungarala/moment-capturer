@@ -1,0 +1,28 @@
+.banner {
+  position: absolute;
+  flex-direction: column;
+  width: 100%;
+  top: 30%;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+
+  .title {
+    font-weight: 600;
+    font-size: 2rem;
+  }
+
+  .refresh {
+    padding: 5px 20px;
+    color: var(--primary-color);
+    background-color: var(--secondary-color);
+    border-radius: 4px;
+    font-size: 1.3rem;
+    transform: translateY(10px);
+    outline: none;
+
+    &:hover {
+      background-color: var(--secondary-color-hovered);
+    }
+  }
+}

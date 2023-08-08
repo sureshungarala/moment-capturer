@@ -1,0 +1,52 @@
+.swStatus {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  border-radius: 5px;
+  transform: translateY(calc(100vh - 250%)) translateX(-50%);
+
+  & > * {
+    font-size: 1.25rem;
+  }
+
+  .updateAvailable,
+  .updateDone {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    color: var(--primary-color);
+    background-color: var(--secondary-color);
+    border-radius: 5px;
+    padding: 10px;
+    border: 1px solid var(--primary-color);
+    color: var(--secondary-color-inverted);
+
+    button {
+      padding: 5px 10px;
+      margin: 10px;
+      font-size: inherit;
+      font-weight: bold;
+      background-color: transparent;
+      border: none;
+      text-decoration: underline;
+      color: var(--primary-color);
+    }
+
+    .close {
+      border: none;
+      width: 25px;
+      height: 25px;
+    }
+
+    & > * {
+      margin: 0px 10px;
+      white-space: nowrap;
+    }
+  }
+
+  .updateDone {
+    color: var(--primary-color);
+    border: 1px solid var(--secondary-color-inverted);
+  }
+}

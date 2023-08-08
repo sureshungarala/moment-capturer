@@ -1,25 +1,28 @@
-$fontFamily: "Caveat", "Monaco";
-$primaryColor: #5bba47;
-$primaryColorHovered: #54744d;
-$secondaryColor: rgba(0, 0, 0, 0.85);
-$secondaryColorInverted: invert(
-  $color: $secondaryColor,
-);
-$secondaryColorHovered: rgba(0, 0, 0, 0.75);
-$secondaryColorDisabled: rgba(0, 0, 0, 0.5);
-$alternateDarkOrange: rgba(230, 128, 3, 1);
-$alternateDarkOrangeHovered: rgba(230, 128, 3, 0.75);
-$alertColor: #c91818;
-$mcCheckboxSize: 18px;
-$ulHandheldWidthOnHover: 110px;
-$formBoxShadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-$focusBoxShadow: 0px 0px 0px 2px #5bba47;
-$focusBoxShadowInset: inset 0px 0px 2px 2px #5bba47;
-$focusBoxShadowSecondary: 0px 0px 2px 2px rgba(0, 0, 0, 0.85);
-$transition: all 0.5s ease-in-out;
+:root {
+  --headings-font-family: Caveat, Roboto;
+  --body-font-family: Lato, Roboto;
+  --primary-color: #5bba47;
+  --secondary-color: rgba(0, 0, 0, 0.85);
+  --secondary-color-inverted: rgba(255, 255, 255, 0.85);
+  --secondary-color-hovered: rgba(0, 0, 0, 0.75);
+  --secondary-color-disabled: rgba(0, 0, 0, 0.5);
+  --alternate-dark-orange: rgba(230, 128, 3, 1);
+  --alternate-dark-orange-hovered: rgba(230, 128, 3, 0.75);
+  --alert-color: #c91818;
+  --mc-checkbox-size: 18px;
+  --ul-handheld-width-on-hover: 110px;
+  --form-box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  --focus-box-shadow: 0px 0px 0px 2px #5bba47;
+  --focus-box-shadow-inset: inset 0px 0px 2px 2px #5bba47;
+  --focus-box-shadow-secondary: 0px 0px 2px 2px rgba(0, 0, 0, 0.85);
+  --transition: all 0.5s ease-in-out;
+  --loader-gradient: #3d443b;
+}
 
-input[type="button"],
-input[type="submit"],
+// Removing @mixins and scss variables to avoid cluttering duplicate CSS from this file.
+
+input[type='button'],
+input[type='submit'],
 form,
 a {
   -moz-appearance: none;
@@ -29,110 +32,165 @@ a {
   margin: 0;
   outline: 0;
   text-decoration: none;
-  color: $secondaryColorInverted;
-  font-family: $fontFamily;
+  color: var(--secondary-color-inverted);
+  font-family: var(--headings-font-family) !important;
+  font-style: normal;
 }
 
-h3 {
+h3,
+h4 {
   margin: 0;
 }
 
-textarea {
-  font-family: $fontFamily;
-}
-
 button,
-input[type="button"],
-input[type="submit"] {
-  background-color: $secondaryColor;
-  color: $secondaryColorInverted;
+input[type='button'],
+input[type='submit'] {
+  background-color: var(--secondary-color);
+  color: var(--secondary-color-inverted);
   cursor: pointer;
 
   &:hover,
   &:focus {
-    background-color: $secondaryColorHovered;
+    background-color: var(--secondary-color-hovered);
   }
 }
 
-input[type="submit"].disabled {
-  background-color: $secondaryColorDisabled;
+input[type='submit'].disabled {
+  background-color: var(--secondary-color-disabled);
   pointer-events: none;
   cursor: not-allowed;
 
   &:active,
   &:focus {
-    border: 2px solid $primaryColor;
+    border: 2px solid var(--primary-color);
   }
 }
 
-input[type="button"] {
-  background-color: $secondaryColorDisabled;
+input[type='button'] {
+  background-color: var(--secondary-color-disabled);
 
   &:hover,
   &:focus {
-    background-color: $secondaryColorHovered;
+    background-color: var(--secondary-color-hovered);
   }
 
   &:active,
   &:focus {
-    border: 1px solid $secondaryColor;
+    border: 1px solid var(--secondary-color);
   }
 }
 
-@mixin flexXjustifyCentered {
+.mcHeader,
+.mcFooter,
+.highlight,
+.aboutme .title,
+.aboutme .name {
+  font-family: var(--headings-font-family);
+  font-style: normal;
+}
+
+textarea,
+.MC-App,
+.banner .refresh,
+.home .fallback span,
+.signin-form form input,
+.swStatus button {
+  font-family: var(--body-font-family);
+  font-style: italic;
+}
+
+// flexXjustifyCentered
+.mcBody,
+.loadingContainer,
+.home,
+.uploadOrSignInContainer,
+.uploadOrSignInContainer form {
   display: flex;
   justify-content: center;
 }
 
-@mixin flexXalignCentered {
+// flexXalignCentered
+.mcHeader,
+.mcHeader .logoSection,
+.mcHeader .actionSection,
+.mcHeader .row,
+.home .fallback,
+.mcFooter {
   display: flex;
   align-items: center;
 }
 
-@mixin flexXcentered {
+// flexXcentered
+.categories,
+.banner,
+.imageActionFormContainer,
+.upload-form,
+.signin-form {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-@mixin initDropdownState {
+// initDropdownState => check ul li ul
+.categories-dd ul,
+.categories-dd ul li ul,
+.profiles ul {
   opacity: 0;
-  background-color: $secondaryColor;
+  background-color: var(--secondary-color);
   display: none; //disable to get transition
   position: absolute;
   list-style: none;
   margin: 0;
   height: 0;
   top: 0;
-  transition: $transition;
+  transition: var(--transition);
 }
 
-@mixin showDropdown {
-  opacity: 1;
-  display: flex;
-  height: auto;
-  flex-direction: column;
-  padding: 10px 0px;
-  background-color: #f1f1f1;
-  border-radius: 5px;
-  width: 150px;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  top: 100%;
+// showDropdown
+.categories-dd,
+.profiles {
+  &:hover > ul,
+  &:focus > ul,
+  &:focus-within > ul,
+  ul:hover,
+  ul:focus,
+  ul:focus-within,
+  ul li:hover ul,
+  ul li:focus ul,
+  ul li:focus-within ul,
+  ul li ul:hover,
+  ul li ul:focus,
+  ul li ul:focus-within,
+  li.active ul,
+  li.focus ul {
+    opacity: 1;
+    display: flex;
+    height: auto;
+    flex-direction: column;
+    padding: 10px 0px;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    width: 150px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    top: 100%;
+  }
 }
 
-@mixin focus {
+// focus
+.categories-dd:hover .selectedCategory,
+.categories-dd:focus .selectedCategory,
+.editImage .actions > *:focus,
+.banner .refresh:focus,
+.images-container picture img:focus,
+.categoryCard > a:focus,
+.swStatus .close:focus {
   outline: none;
-  box-shadow: $focusBoxShadow;
+  box-shadow: var(--focus-box-shadow);
 }
 
-@mixin focusInset {
+.logoSection:focus {
   outline: none;
-  box-shadow: $focusBoxShadowInset;
-}
-
-@mixin focusBoxShadowSecondary {
-  outline: none;
-  box-shadow: $focusBoxShadowSecondary;
+  box-shadow: var(--focus-box-shadow-inset);
 }
 
 @keyframes rotation {
@@ -146,51 +204,40 @@ input[type="button"] {
 }
 
 .categories {
-  @include flexXjustifyCentered;
+  outline: none;
 
   .title {
-    padding-right: 0.75em;
+    transform: translateX(-0.75em);
   }
 
   .categories-dd {
     position: relative;
     display: flex;
     justify-content: flex-start;
-    font-size: calc(10px + 1.25vmin);
+    font-size: 1.25rem;
     outline: none;
 
     .selectedCategory {
       position: relative;
-      border: 1px solid $primaryColor;
+      border: 1px solid var(--primary-color);
       border-radius: 4px;
-      padding: 0px 10px;
-      font-size: calc(10px + 1.25vmin);
+      padding: 0px 1.25rem 0 0.5rem;
       font-weight: 600;
+      width: 7rem;
 
-      &[data-content="-"] {
-        min-width: 10vmin;
+      &[data-content='-'] {
+        width: 5rem;
         text-align: center;
-        &::after {
-          position: absolute;
-          top: calc(2.5px + 0.625vmin);
-          right: 1vmin;
-        }
       }
 
       &::after {
-        content: "\00a0\00a0\25BC";
-        font-size: 0.6em;
+        position: absolute;
+        top: 50%;
+        right: 0.5em;
+        content: '\00a0\00a0\25BC';
+        font-size: 0.5em;
+        transform: translateY(-50%);
       }
-    }
-
-    ul,
-    ul li ul {
-      @include initDropdownState;
-    }
-
-    &:hover .selectedCategory,
-    &:focus .selectedCategory {
-      @include focus;
     }
 
     &:hover > ul,
@@ -198,14 +245,13 @@ input[type="button"] {
     ul:hover,
     ul:focus,
     ul:focus-within {
-      @include showDropdown;
-      background-color: $secondaryColor;
+      background-color: var(--secondary-color);
       z-index: 10;
     }
 
     li {
       position: relative;
-      color: $secondaryColorInverted;
+      color: var(--secondary-color-inverted);
       padding: 5px 0px 5px 10px;
 
       &:hover,
@@ -213,7 +259,7 @@ input[type="button"] {
       &.active {
         cursor: pointer;
         outline: none;
-        background-color: $primaryColor;
+        background-color: var(--primary-color);
       }
     }
 
@@ -225,16 +271,15 @@ input[type="button"] {
     ul li ul:focus-within,
     li.active ul,
     li.focus ul {
-      @include showDropdown;
       width: 155px;
-      background-color: $secondaryColor;
+      background-color: var(--secondary-color);
       top: 60%;
       left: 60%;
       z-index: 10;
     }
 
     ul li:focus-within {
-      background-color: $primaryColor;
+      background-color: var(--primary-color);
     }
   }
 }
@@ -244,7 +289,7 @@ input[type="button"] {
   display: flex;
   cursor: pointer;
 
-  input[type="checkbox"] {
+  input[type='checkbox'] {
     position: absolute;
     width: 1px;
     height: 1px;
@@ -253,62 +298,52 @@ input[type="button"] {
     z-index: -1;
   }
 
-  @mixin showCheckmark {
-    top: 0px;
-    left: 6px;
-    content: "";
-    width: 4px;
+  input[type='checkbox'] + .mcCheckboxHidden {
     position: absolute;
-    height: 14px;
-    border: solid $primaryColor;
-    border-width: 0 2px 2px 0;
-    transform: rotate(38deg);
-  }
-
-  input[type="checkbox"] + .mcCheckboxHidden {
-    position: absolute;
-    width: $mcCheckboxSize;
-    height: $mcCheckboxSize;
-    border: 1px solid $secondaryColor;
+    width: var(--mc-checkbox-size);
+    height: var(--mc-checkbox-size);
+    border: 1px solid var(--secondary-color);
     border-radius: 3px;
     transition: all 150ms;
     z-index: 1;
   }
 
-  input[type="checkbox"] + .mcCheckboxHidden:hover,
-  input[type="checkbox"] + .mcCheckboxHidden:focus {
-    box-shadow: 0 0 2px 2px $primaryColor;
+  input[type='checkbox'] + .mcCheckboxHidden:hover,
+  input[type='checkbox'] + .mcCheckboxHidden:focus {
+    box-shadow: 0 0 2px 2px var(--primary-color);
   }
 
-  input[type="checkbox"]:active,
-  input[type="checkbox"]:focus,
-  input[type="checkbox"]:focus-within {
+  input[type='checkbox']:active,
+  input[type='checkbox']:focus,
+  input[type='checkbox']:focus-within {
     & + .mcCheckboxHidden {
-      box-shadow: 0 0 2px 2px $primaryColor;
+      box-shadow: 0 0 2px 2px var(--primary-color);
     }
   }
 
-  input[type="checkbox"]:checked + .mcCheckboxHidden {
-    background-color: $secondaryColor;
+  input[type='checkbox']:checked + .mcCheckboxHidden {
+    background-color: var(--secondary-color);
   }
 
-  input[type="checkbox"]:checked + .mcCheckboxHidden::before {
-    @include showCheckmark;
+  input[type='checkbox']:checked + .mcCheckboxHidden::before {
+    top: 0px;
+    left: 6px;
+    content: '';
+    width: 4px;
+    position: absolute;
+    height: 14px;
+    border: solid var(--primary-color);
+    border-width: 0 2px 2px 0;
+    transform: rotate(38deg);
   }
 
   .mcCheckboxLabel {
-    margin-left: calc(10px + #{$mcCheckboxSize});
+    margin-left: calc(10px + #{var(--mc-checkbox-size)});
   }
 }
 
-@mixin borderAroundProfiles {
-  border: 1px solid #54744d;
-  border-radius: 3px;
-  padding: 1vmin;
-}
-
 .success {
-  color: $primaryColor;
+  color: var(--primary-color);
 }
 
 .error {
@@ -316,37 +351,48 @@ input[type="button"] {
 }
 
 .profileMenu {
-  background-image: url("../assets/menu.svg");
+  background-image: url('../assets/menu.svg');
   background-size: cover;
 }
 
 .enlarge {
-  background-image: url("../assets/enlarge.svg");
+  background-image: url('../assets/enlarge.svg');
 }
 
 .edit {
-  background-image: url("../assets/edit.svg");
+  background-image: url('../assets/edit.svg');
 }
 
 .delete {
-  background-image: url("../assets/delete.svg");
+  background-image: url('../assets/delete.svg');
 }
 
-@mixin imageActionBtn {
+.close {
+  background-image: url('../assets/close.svg');
+}
+
+// imageActionBtn
+.editImage .actions > *,
+.mcModal .close,
+.swStatus .close {
   width: 30px;
   height: 30px;
   top: 15px;
   right: 15px;
   background-repeat: no-repeat;
   background-position: center;
-  border: 2px solid $secondaryColor;
+  border: 2px solid var(--secondary-color);
   border-radius: 50px;
   cursor: pointer;
 }
 
-@mixin spinner {
+// spinner
+.loadingContainer .spinner,
+.imageActionFormContainer .processing,
+.uploadOrSignInContainer .processing,
+.fetchingCurrentUserDetails {
   display: inline-block;
-  background-image: url("../assets/spinner.svg");
+  background-image: url('../assets/spinner.svg');
   margin: 0 auto;
   background-size: cover;
   background-repeat: no-repeat;
