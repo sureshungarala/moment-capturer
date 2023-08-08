@@ -1,20 +1,20 @@
 {
-    "prod": {
-        "awscloudformation": {
-            "AuthRoleName": "amplify-momentcapturer-prod-224547-authRole",
-            "UnauthRoleArn": "arn:aws:iam::454922804619:role/amplify-momentcapturer-prod-224547-unauthRole",
-            "AuthRoleArn": "arn:aws:iam::454922804619:role/amplify-momentcapturer-prod-224547-authRole",
-            "Region": "us-east-1",
-            "DeploymentBucketName": "amplify-momentcapturer-prod-224547-deployment",
-            "UnauthRoleName": "amplify-momentcapturer-prod-224547-unauthRole",
-            "StackName": "amplify-momentcapturer-prod-224547",
-            "StackId": "arn:aws:cloudformation:us-east-1:454922804619:stack/amplify-momentcapturer-prod-224547/75bcec20-eae4-11ea-8883-0e2e9aec3a21",
-            "AmplifyAppId": "d1rblcxyns8eyt"
-        },
-        "categories": {
-            "auth": {
-                "momentcapturer19a929f7": {}
-            }
-        }
+  "prod": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-momentcapturer-prod-224547-authRole",
+      "UnauthRoleArn": "arn:aws:iam::454922804619:role/amplify-momentcapturer-prod-224547-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::454922804619:role/amplify-momentcapturer-prod-224547-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-momentcapturer-prod-224547-deployment",
+      "UnauthRoleName": "amplify-momentcapturer-prod-224547-unauthRole",
+      "StackName": "amplify-momentcapturer-prod-224547",
+      "StackId": "arn:aws:cloudformation:us-east-1:454922804619:stack/amplify-momentcapturer-prod-224547/75bcec20-eae4-11ea-8883-0e2e9aec3a21",
+      "AmplifyAppId": "d1rblcxyns8eyt"
+    },
+    "categories": {
+      "auth": {
+        "momentcapturer19a929f7": {}
+      }
     }
+  }
 }
