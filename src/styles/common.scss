@@ -61,7 +61,7 @@ input[type='submit'].disabled {
   cursor: not-allowed;
 
   &:active,
-  &:focus {
+  &:focus-visible {
     border: 2px solid var(--primary-color);
   }
 }
@@ -179,16 +179,16 @@ textarea,
 // focus
 .categories-dd:hover .selectedCategory,
 .categories-dd:focus .selectedCategory,
-.editImage .actions > *:focus,
-.banner .refresh:focus,
-.images-container picture img:focus,
-.categoryCard > a:focus,
-.swStatus .close:focus {
+.editImage .actions > *:focus-visible,
+.banner .refresh:focus-visible,
+.images-container picture img:focus-visible,
+.categoryCard > a:focus-visible,
+.swStatus .close:focus-visible {
   outline: none;
   box-shadow: var(--focus-box-shadow);
 }
 
-.logoSection:focus {
+.logoSection:focus-visible {
   outline: none;
   box-shadow: var(--focus-box-shadow-inset);
 }
