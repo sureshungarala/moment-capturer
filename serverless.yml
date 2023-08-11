@@ -1,7 +1,6 @@
 org: venkatsuresh
 app: tmc-client-s3-copy
-service:
-  name: tmc-client-s3-sync
+service: tmc-client-s3-sync
 
 plugins:
   - serverless-hooks-plugin
@@ -10,8 +9,8 @@ plugins:
 
 provider:
   name: aws
-  runtime: nodejs8.10
-  region: ap-southeast-1
+  runtime: nodejs18.x
+  region: ap-south-1
 
 custom:
   hooks:
@@ -24,14 +23,16 @@ custom:
       defaultContentType: text/html
       params:
         - index.html:
-            CacheControl: "no-cache"
-        - "**/*.js":
-            CacheControl: "public, max-age=31536000"
-        - "**/*.css":
-            CacheControl: "public, max-age=31536000"
-        - "**/*.svg":
-            CacheControl: "public, max-age=31536000"
+            CacheControl: 'no-cache'
+        - '**/*.js':
+            CacheControl: 'public, max-age=31536000'
+        - '**/*.css':
+            CacheControl: 'public, max-age=31536000'
+        - '**/*.svg':
+            CacheControl: 'public, max-age=31536000'
   cloudfrontInvalidate:
-    distributionId: "E4KKDOKS9RE0A"
+    distributionId: 'E4KKDOKS9RE0A'
     items:
-      - "/*"
+      - '/*'
+
+configValidationMode: error
