@@ -111,7 +111,7 @@ export function getAllCategories(categoriesArr?: Category[]) {
 /**
  * Dispatches "User Signed-in event"
  */
-export function distachSignedInEvent() {
+export function dispachSignedInEvent() {
   document.dispatchEvent(
     new CustomEvent(signIncustomEventName, { detail: true })
   );

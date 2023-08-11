@@ -5,7 +5,7 @@ import Loader from './Utils/Loader';
 import SignInForm from './SignIn/SignInForm';
 import UploadForm from './ImageActions/UploadForm';
 import { checkIfUserSignedIn } from '../utils/apis';
-import { distachSignedInEvent } from '../utils/helpers';
+import { dispachSignedInEvent } from '../utils/helpers';
 
 import '../styles/templates/sign_in_or_upload_form.scss';
 
@@ -26,7 +26,7 @@ const Upload: React.FunctionComponent = () => {
         checkingIfUserSignedIn: false,
         userSignedIn,
       });
-      if (userSignedIn) distachSignedInEvent();
+      if (userSignedIn) dispachSignedInEvent();
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
