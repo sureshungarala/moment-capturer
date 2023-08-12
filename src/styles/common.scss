@@ -232,9 +232,9 @@ textarea,
 
       &::after {
         position: absolute;
+        content: '\00a0\00a0\25bc';
         top: 50%;
         right: 0.5em;
-        content: '\00a0\00a0\25BC';
         font-size: 0.5em;
         transform: translateY(-50%);
       }

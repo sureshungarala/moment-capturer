@@ -288,6 +288,7 @@ class UploadForm extends React.Component<uploadProps, uploadState> {
               ref={this.fileRef}
               onChange={this.handleChange}
               style={{ visibility: 'hidden' }}
+              title='Choose file to Upload'
             />
             {this.textArea()}
             <Categories
