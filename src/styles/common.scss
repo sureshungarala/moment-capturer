@@ -1,6 +1,6 @@
 :root {
-  --headings-font-family: Caveat, Roboto;
-  --body-font-family: Lato, Roboto;
+  --headings-font-family: 'Poiret One', cursive;
+  --body-font-family: 'Poiret One', cursive;
   --primary-color: #5bba47;
   --secondary-color: rgba(0, 0, 0, 0.85);
   --secondary-color-inverted: rgba(255, 255, 255, 0.85);
@@ -34,6 +34,7 @@ a {
   text-decoration: none;
   color: var(--secondary-color-inverted);
   font-family: var(--headings-font-family) !important;
+  font-weight: 600;
   font-style: normal;
 }
 
@@ -92,7 +93,6 @@ input[type='button'] {
 textarea,
 .MC-App,
 .banner .refresh,
-.home .fallback span,
 .signin-form form input,
 .swStatus button {
   font-family: var(--body-font-family);
@@ -221,7 +221,8 @@ textarea,
       position: relative;
       border: 1px solid var(--primary-color);
       border-radius: 4px;
-      padding: 0px 1.25rem 0 0.5rem;
+      padding: 2px 1.25rem 2px 0.5rem;
+      font-size: 0.8em;
       font-weight: 600;
       width: 7rem;
 
@@ -238,6 +239,11 @@ textarea,
         font-size: 0.5em;
         transform: translateY(-50%);
       }
+    }
+
+    & > ul {
+      font-size: 0.8em;
+      font-weight: 600;
     }
 
     &:hover > ul,
@@ -271,6 +277,8 @@ textarea,
     ul li ul:focus-within,
     li.active ul,
     li.focus ul {
+      font-size: inherit;
+      font-weight: inherit;
       width: 155px;
       background-color: var(--secondary-color);
       top: 60%;
