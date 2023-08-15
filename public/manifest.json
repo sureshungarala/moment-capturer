@@ -3,8 +3,8 @@
   "name": "Moment Capturer",
   "icons": [
     {
-      "src": "favicon.ico",
-      "type": "image/x-icon",
+      "src": "favicon.png",
+      "type": "image/png",
       "sizes": "64x64"
     },
     {
@@ -18,6 +18,7 @@
       "sizes": "512x512"
     }
   ],
+  "id": "/",
   "start_url": ".",
   "display": "standalone",
   "theme_color": "#000000",
