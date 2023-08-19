@@ -1,11 +1,50 @@
-import { Image, ModalDimensions, Category } from '../info/types';
-import { signIncustomEventName } from './constants';
+import { Image, ModalDimensions, Category, McMoments } from '../info/types';
+import { signIncustomEventName, initMoments } from './constants';
 import categories from '../info/categories.json';
 
 /**
  * represents max size of the upload image
  */
 export const MAX_IMAGE_SIZE_IN_MB = 4.3;
+
+/**
+ * Re-Orders and distributes images evenly on screen
+ * @param moments Image[]
+ * @returns McMoments
+ */
+export function reOrderImages(moments: Image[]) {
+  const images: McMoments = JSON.parse(JSON.stringify(initMoments));
+  const carry: { portraits: Image[]; landscapes: Image[] } = {
+    portraits: [],
+    landscapes: [],
+  };
+  (moments as Image[]).forEach((image: Image) => {
+    if (image.biotc) {
+      images.biotc = image;
+    } else if (image.panorama) {
+      images.moments.push(image);
+    } else if (image.portrait) {
+      carry.portraits.push(image);
+      if (carry.portraits.length === 3) {
+        images.moments.push(...carry.portraits);
+        carry.portraits = [];
+      }
+    } else {
+      carry.landscapes.push(image);
+      if (carry.landscapes.length === 2) {
+        images.moments.push(...carry.landscapes);
+        carry.landscapes = [];
+      }
+    }
+  });
+  if (carry.portraits.length) {
+    images.moments.push(...carry.portraits);
+  }
+  if (carry.landscapes.length) {
+    images.moments.push(...carry.landscapes);
+  }
+  return images;
+}
 
 /**
  * determines dimensions of the modal w.r.to clicked image and device
@@ -111,7 +150,7 @@ export function getAllCategories(categoriesArr?: Category[]) {
 /**
  * Dispatches "User Signed-in event"
  */
-export function distachSignedInEvent() {
+export function dispachSignedInEvent() {
   document.dispatchEvent(
     new CustomEvent(signIncustomEventName, { detail: true })
   );

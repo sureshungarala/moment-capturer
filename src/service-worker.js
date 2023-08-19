@@ -3,10 +3,9 @@ import { CacheableResponsePlugin } from 'workbox-cacheable-response/CacheableRes
 import { ExpirationPlugin } from 'workbox-expiration';
 import { registerRoute } from 'workbox-routing';
 import { CacheFirst, StaleWhileRevalidate } from 'workbox-strategies';
-import { precacheAndRoute, precache } from 'workbox-precaching';
+import { precacheAndRoute } from 'workbox-precaching';
 
 clientsClaim();
-precache(['favicon.png']);
 /* eslint-disable-next-line no-restricted-globals */
 precacheAndRoute(self.__WB_MANIFEST);
 

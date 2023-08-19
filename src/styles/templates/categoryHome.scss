@@ -37,14 +37,14 @@
     flex-wrap: wrap;
 
     & > * {
+      // aspect-ratio set while rendering
+      height: auto;
       &:not(.panorama):not(.portrait) {
-        flex-basis: 48.75vw; //keeping aspect ratio => 3:2
-        height: calc(48.75vw * 0.666); //change them both simultaneously
+        flex-basis: 48.75vw;
       }
 
       &.portrait {
         flex-basis: 31vw;
-        height: calc(31vw * 1.5);
       }
 
       .imageActionFormContainer {
@@ -64,6 +64,7 @@
       box-shadow: 10px 10px 10px #40383830;
 
       picture {
+        display: block;
         width: 100%;
 
         img {

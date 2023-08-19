@@ -76,12 +76,19 @@ class Image extends React.Component<imageProps, imageState> {
   }
 
   render() {
-    const { panorama, portrait, description } = this.props;
+    const { panorama, portrait, description, resolution } = this.props;
+    const [width, height] = resolution.split(':').map(Number);
+    const aspectRatio = (width / height).toFixed(1);
+
     return (
       <div
         className={`imageContainer ${
           panorama ? 'panorama' : portrait ? 'portrait' : 'landscape'
         }`}
+        style={{
+          // somehow only being set if aspect-ratio is a string and not a number
+          aspectRatio,
+        }}
         ref={this.containerRef}
       >
         {this.state.children}

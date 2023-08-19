@@ -1,4 +1,5 @@
 import React from 'react';
+import { ReactComponent as Title } from '../assets/title.svg';
 
 import { GAEvent } from './Utils/GA-Tracker';
 
@@ -24,7 +25,9 @@ const AboutMe: React.FunctionComponent = () => {
         </div>
         <div className='profile'>
           <span className='picture' />
-          <span className='name'>Moment Capturer</span>
+          <span className='name'>
+            <Title />
+          </span>
           <div className='social'>
             <a
               href='https://wa.me/919393633334'

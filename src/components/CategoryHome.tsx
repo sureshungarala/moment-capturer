@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useCallback, useEffect, useReducer } from 'react';
 import { useParams } from 'react-router-dom';
 import { Auth } from '@aws-amplify/auth';
 
@@ -7,57 +7,59 @@ import Banner from './Utils/Banner';
 import ImageComponent from './Utils/Image';
 import '../styles/templates/categoryHome.scss';
 
+import {
+  CategoryHomeReducer,
+  CategoryHomeState,
+  CategoryHomeActions,
+} from '../Reducers/CategoryHomeReducer';
+
 import { fetchImages, checkIfUserSignedIn } from '../utils/apis';
 import { Image, McMoments } from '../info/types';
-import { getMappedCategory, distachSignedInEvent } from '../utils/helpers';
+import {
+  dispachSignedInEvent,
+  getMappedCategory,
+  reOrderImages,
+} from '../utils/helpers';
 import { initMoments } from '../utils/constants';
 
 interface homeProps {}
 
 const Home: React.FunctionComponent<homeProps> = () => {
   const params = useParams();
-  const { tag } = getMappedCategory(params.categoryTag!);
-
-  const [categoryHomeState, setCategoryHomeState] = useState({
+  const [state, dispatch] = useReducer(CategoryHomeReducer, {
     images: initMoments,
     fetchingImages: true,
     fetchingFailed: false,
     userSignedIn: false,
   });
+  const { tag } = getMappedCategory(params.categoryTag!);
 
   /* --------------------- data fetch start---------------------- */
-  useEffect(() => {
-    setCategoryHomeState({
-      ...categoryHomeState,
-      fetchingImages: true,
+  const fetchCategoryImages = useCallback((tag: string) => {
+    dispatch({
+      type: CategoryHomeActions.FETCHING_IMAGES,
     });
 
     Promise.all([fetchImages(tag), checkIfUserSignedIn(Auth)]).then(
-      ([data, isUserSignedIn]) => {
-        const images: McMoments = JSON.parse(JSON.stringify(initMoments));
-        (data.images as Image[]).forEach((image: Image) => {
-          if (image.biotc) {
-            images.biotc = image;
-          } else {
-            images.moments.push(image);
-          }
-        });
-        setCategoryHomeState({
+      ([data, userSignedIn]) => {
+        const images: McMoments = reOrderImages(data.images);
+        dispatch({
+          type: CategoryHomeActions.FETCH_SUCCESS,
           images,
-          fetchingImages: false,
-          fetchingFailed: false,
-          userSignedIn: isUserSignedIn,
+          userSignedIn,
         });
-        if (isUserSignedIn) distachSignedInEvent();
+        if (userSignedIn) dispachSignedInEvent();
       },
-      () => {
-        setCategoryHomeState({
-          ...categoryHomeState,
-          fetchingImages: false,
-          fetchingFailed: true,
+      (_error) => {
+        dispatch({
+          type: CategoryHomeActions.FETCH_FAILED,
         });
       }
     );
+  }, []);
+
+  useEffect(() => {
+    fetchCategoryImages(tag);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tag]);
   /* --------------------- data fetch end---------------------- */
@@ -67,13 +69,15 @@ const Home: React.FunctionComponent<homeProps> = () => {
     fetchingImages,
     fetchingFailed,
     userSignedIn,
-  } = categoryHomeState;
+  }: CategoryHomeState = state;
 
   let categoryHome = <></>;
   if (fetchingImages) {
     categoryHome = <Loader />;
   } else if (fetchingFailed) {
-    categoryHome = <Banner canRefresh />;
+    categoryHome = (
+      <Banner canRefresh onRefresh={() => fetchCategoryImages(tag)} />
+    );
   } else if (!(images.length || biotc.original.length)) {
     categoryHome = (
       <Banner
