@@ -15,7 +15,11 @@ import {
 
 import { fetchImages, checkIfUserSignedIn } from '../utils/apis';
 import { Image, McMoments } from '../info/types';
-import { getMappedCategory, dispachSignedInEvent } from '../utils/helpers';
+import {
+  dispachSignedInEvent,
+  getMappedCategory,
+  reOrderImages,
+} from '../utils/helpers';
 import { initMoments } from '../utils/constants';
 
 interface homeProps {}
@@ -38,14 +42,7 @@ const Home: React.FunctionComponent<homeProps> = () => {
 
     Promise.all([fetchImages(tag), checkIfUserSignedIn(Auth)]).then(
       ([data, userSignedIn]) => {
-        const images: McMoments = JSON.parse(JSON.stringify(initMoments));
-        (data.images as Image[]).forEach((image: Image) => {
-          if (image.biotc) {
-            images.biotc = image;
-          } else {
-            images.moments.push(image);
-          }
-        });
+        const images: McMoments = reOrderImages(data.images);
         dispatch({
           type: CategoryHomeActions.FETCH_SUCCESS,
           images,
