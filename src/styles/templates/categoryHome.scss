@@ -38,7 +38,6 @@
 
     & > * {
       // aspect-ratio set while rendering
-      height: auto;
       &:not(.panorama):not(.portrait) {
         flex-basis: 48.75vw;
       }
@@ -59,9 +58,11 @@
         }
       }
 
+      height: auto;
       margin: 0.5vw;
       border-radius: 5px;
       box-shadow: 10px 10px 10px #40383830;
+      align-self: flex-start;
 
       picture {
         display: block;
