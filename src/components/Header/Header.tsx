@@ -3,8 +3,8 @@ import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 
 import Categories from '../Utils/Categories';
 import { GAEvent } from '../Utils/GA-Tracker';
-import { ReactComponent as Logo } from '../../logo.svg';
-import { ReactComponent as Title } from '../../assets/title.svg';
+import Logo from '../../logo.svg?react';
+import Title from '../../assets/title.svg?react';
 import Profiles from './Profiles';
 
 interface headerProps {}
