@@ -1,7 +1,7 @@
 @media only screen and (min-width: 600px) and (max-width: 1199px) {
   .MC-App {
     .mcHeader {
-      height: 6vmax;
+      min-height: 6vmax;
       justify-content: space-around;
 
       .logoSection {

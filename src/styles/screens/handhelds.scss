@@ -2,7 +2,7 @@
   .MC-App {
     --handheld-header-height: 8vmax;
     .mcHeader {
-      height: 8vmax;
+      min-height: 8vmax;
       justify-content: space-around;
 
       .logoSection {

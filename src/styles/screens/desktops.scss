@@ -2,7 +2,7 @@
   .MC-App {
     --desktop-header-height: 4vmax;
     .mcHeader {
-      height: var(--desktop-header-height);
+      min-height: var(--desktop-header-height);
       justify-content: space-between;
 
       .logoSection {
@@ -27,7 +27,7 @@
 
         .categories,
         .profiles {
-          font-size: 1.75rem;
+          font-size: 1.1rem;
         }
 
         .profiles ul {

@@ -2,7 +2,7 @@
   .MC-App {
     --laptop-header-height: 4vmax;
     .mcHeader {
-      height: var(--laptop-header-height);
+      min-height: var(--laptop-header-height);
       justify-content: space-between;
 
       .logoSection {
