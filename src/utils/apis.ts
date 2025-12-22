@@ -1,11 +1,17 @@
-import { AuthClass } from '@aws-amplify/auth/lib-esm/Auth';
+import {
+  getCurrentUser,
+  signOut,
+  signIn,
+  confirmSignIn,
+  SignInInput,
+} from "aws-amplify/auth";
 
 export const fetchBestImagePerCategory = async (categoryTag: String) =>
   fetch(
     `https://api.momentcapturer.com/getBestImagePerCategory?category=${categoryTag}`,
     {
       headers: {
-        accept: 'application/json',
+        accept: "application/json",
       },
     }
   );
@@ -15,7 +21,7 @@ export const fetchImages = async (categoryTag: string) => {
     `https://api.momentcapturer.com/getData?category=${categoryTag}`,
     {
       headers: {
-        accept: 'application/json',
+        accept: "application/json",
       },
     }
   );
@@ -24,33 +30,33 @@ export const fetchImages = async (categoryTag: string) => {
 };
 
 export const editImage = (idToken: string, body: string) =>
-  fetch('https://api.momentcapturer.com/editImageMetadata', {
-    method: 'POST',
-    mode: 'cors',
+  fetch("https://api.momentcapturer.com/editImageMetadata", {
+    method: "POST",
+    mode: "cors",
     headers: {
-      'content-type': 'application/json',
-      accept: 'application/json',
+      "content-type": "application/json",
+      accept: "application/json",
       Authorization: idToken,
     },
     body,
   });
 
 export const deleteImage = (idToken: string, body: string) =>
-  fetch('https://api.momentcapturer.com/deleteImage', {
-    method: 'POST',
-    mode: 'cors',
+  fetch("https://api.momentcapturer.com/deleteImage", {
+    method: "POST",
+    mode: "cors",
     headers: {
-      'content-type': 'application/json',
-      accept: 'application/json',
+      "content-type": "application/json",
+      accept: "application/json",
       Authorization: idToken,
     },
     body,
   });
 
-export const checkIfUserSignedIn = async (Auth: AuthClass) => {
+export const checkIfUserSignedIn = async () => {
   let isUserSignedIn = false;
   try {
-    await Auth.currentAuthenticatedUser();
+    await getCurrentUser();
     isUserSignedIn = true;
   } catch (error) {
     isUserSignedIn = false;
@@ -58,10 +64,10 @@ export const checkIfUserSignedIn = async (Auth: AuthClass) => {
   return isUserSignedIn;
 };
 
-export const signOutUser = async (Auth: AuthClass) => {
+export const signOutUser = async () => {
   let userSignedOut = false;
   try {
-    await Auth.signOut();
+    await signOut();
     userSignedOut = true;
   } catch (error) {
     userSignedOut = false;
@@ -69,11 +75,10 @@ export const signOutUser = async (Auth: AuthClass) => {
   return userSignedOut;
 };
 
-export const signIn = (Auth: AuthClass, userName: string, password: string) =>
-  Auth.signIn(userName, password);
+export const signInUser = (username: string, password: string) =>
+  signIn({ username, password });
 
 export const changePassword = (
-  Auth: AuthClass,
-  currentUser: Object,
+  currentUser: Object, // kept for compatibility but not used in v6 confirmSignIn directly if flow is simple, but we might need it if the logic implies something else. Actually confirmSignIn just takes input.
   newPassword: string
-) => Auth.completeNewPassword(currentUser, newPassword);
+) => confirmSignIn({ challengeResponse: newPassword });

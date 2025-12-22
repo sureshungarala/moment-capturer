@@ -1,0 +1,42 @@
+:root {
+  /* Brand Colors */
+  --color-primary: #5bba47;
+  --color-primary-hover: #4ca33b;
+  --color-secondary: #000000;
+  --color-accent: #e68003;
+
+  /* Background Colors */
+  --color-background: #ffffff;
+  --color-surface: #f8f9fa;
+  --color-surface-hover: #f1f3f5;
+
+  /* Text Colors */
+  --color-text-main: #212529;
+  --color-text-secondary: #6c757d;
+  --color-text-inverted: #ffffff;
+
+  /* Status Colors */
+  --color-success: #5bba47;
+  --color-error: #dc3545;
+  --color-warning: #ffc107;
+
+  /* Typography */
+  --font-heading: 'Outfit', sans-serif;
+  --font-body: 'Inter', sans-serif;
+
+  /* Effects */
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+
+  /* Component Colors */
+  --color-dropdown-bg: #f1f1f1;
+  --color-shadow: rgba(0, 0, 0, 0.2);
+  --color-overlay: rgba(0, 0, 0, 0.8);
+  --color-loader-gradient: #3d443b;
+}

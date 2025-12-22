@@ -1,15 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Auth } from '@aws-amplify/auth';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
-import { GAEvent } from '../Utils/GA-Tracker';
+import { GAEvent } from "../Utils/GA-Tracker";
 
 import {
-  signIn as CognitoSignIn,
+  signInUser as CognitoSignIn,
   changePassword as CognitoChangePassword,
-} from '../../utils/apis';
-import { getFirstCategory } from '../../utils/helpers';
-import { signIncustomEventName } from '../../utils/constants';
+} from "../../utils/apis";
+import { getFirstCategory } from "../../utils/helpers";
+import { signIncustomEventName } from "../../utils/constants";
 
 interface signInFormState {
   processing: boolean;
@@ -56,26 +55,26 @@ const SignInForm: React.FunctionComponent<signInFormProps> = (
   });
 
   const [credentials, setCredentials] = useState<credentialsState>({
-    username: '',
-    password: '',
+    username: "",
+    password: "",
   });
 
   const [changingPwd, shouldChangePwd] = useState(false);
 
-  const [newPassword, setNewPassword] = useState('');
+  const [newPassword, setNewPassword] = useState("");
 
   const [processingState, setProcessingState] = useState<processingState>({
-    processing: 'Logging in...',
-    succeeded: 'Logged In',
-    failed: 'Failed to login.',
+    processing: "Logging in...",
+    succeeded: "Logged In",
+    failed: "Failed to login.",
   });
   // --------------------------- end state -----------------------------
 
   useEffect(() => {
     setProcessingState({
-      processing: changingPwd ? 'Setting password...' : 'Logging in...',
-      succeeded: changingPwd ? 'Password set.' : 'Logged In.',
-      failed: changingPwd ? 'Failed to set password.' : 'Failed to login.',
+      processing: changingPwd ? "Setting password..." : "Logging in...",
+      succeeded: changingPwd ? "Password set." : "Logged In.",
+      failed: changingPwd ? "Failed to set password." : "Failed to login.",
     });
   }, [changingPwd]);
 
@@ -94,17 +93,20 @@ const SignInForm: React.FunctionComponent<signInFormProps> = (
       succeeded: false,
     });
 
-    CognitoSignIn(Auth, credentials.username, credentials.password).then(
+    CognitoSignIn(credentials.username, credentials.password).then(
       (data) => {
-        setCurrentUser(data);
+        setCurrentUser({ user: data }); // Store the whole output or relevant part
         setFormState({
           processing: false,
           failed: false,
           succeeded: false, // to use the same state in changePwd component
         });
-        if (data.challengeName === 'NEW_PASSWORD_REQUIRED') {
+        if (
+          data.nextStep?.signInStep ===
+          "CONFIRM_SIGN_IN_WITH_NEW_PASSWORD_REQUIRED"
+        ) {
           shouldChangePwd(true);
-          GAEvent('SignIn', 'NEW_PASSWORD_REQUIRED');
+          GAEvent("SignIn", "NEW_PASSWORD_REQUIRED");
         } else {
           setFormState({
             processing: false,
@@ -117,17 +119,17 @@ const SignInForm: React.FunctionComponent<signInFormProps> = (
             props.onSuccessfulSignIn();
           }
           dispatchSignInStatus();
-          GAEvent('SignIn', 'successful');
+          GAEvent("SignIn", "successful");
         }
       },
       (error) => {
-        console.error('Failed to sign with error: ', error);
+        console.error("Failed to sign with error: ", error);
         setFormState({
           processing: false,
           succeeded: false,
           failed: true,
         });
-        GAEvent('SignIn', 'failed');
+        GAEvent("SignIn", "failed");
       }
     );
   };
@@ -139,7 +141,7 @@ const SignInForm: React.FunctionComponent<signInFormProps> = (
       succeeded: false,
     });
 
-    CognitoChangePassword(Auth, currentUser, newPassword).then(
+    CognitoChangePassword(currentUser, newPassword).then(
       () => {
         setFormState({
           processing: false,
@@ -152,16 +154,16 @@ const SignInForm: React.FunctionComponent<signInFormProps> = (
           props.onSuccessfulSignIn();
         }
         dispatchSignInStatus();
-        GAEvent('SignIn', 'Update-password', 'successful');
+        GAEvent("SignIn", "Update-password", "successful");
       },
       (error) => {
-        console.error('Failed to update password with error: ', error);
+        console.error("Failed to update password with error: ", error);
         setFormState({
           processing: false,
           succeeded: false,
           failed: true,
         });
-        GAEvent('SignIn', 'Update-password', 'failed');
+        GAEvent("SignIn", "Update-password", "failed");
       }
     );
   };
@@ -173,17 +175,17 @@ const SignInForm: React.FunctionComponent<signInFormProps> = (
     if (formState.processing) {
       template = (
         <div>
-          <span className='processing'></span>
+          <span className="processing"></span>
           &nbsp;&nbsp;
           <span>{processingState.processing}</span>
         </div>
       );
     } else if (formState.failed) {
-      template = <div className='error'>{processingState.failed}</div>;
+      template = <div className="error">{processingState.failed}</div>;
     } else if (formState.succeeded) {
-      template = <div className='success'>{processingState.succeeded}</div>;
+      template = <div className="success">{processingState.succeeded}</div>;
     }
-    return <div className='loginStatus'>{template}</div>;
+    return <div className="loginStatus">{template}</div>;
   };
 
   const changePwd = () => (
@@ -194,21 +196,21 @@ const SignInForm: React.FunctionComponent<signInFormProps> = (
       }}
     >
       <label>You need to change password to confirm user account</label>
-      <div className='newPassword'>
-        <label htmlFor='newPassword'>New Password</label>
+      <div className="newPassword">
+        <label htmlFor="newPassword">New Password</label>
         <input
-          type='password'
-          id='newPassword'
+          type="password"
+          id="newPassword"
           value={newPassword}
           onChange={(event) => setNewPassword(event.target.value)}
         />
       </div>
-      <div className='changePwd'>
+      <div className="changePwd">
         {renderProcessingState()}
         <input
-          type='submit'
-          value='Change Password'
-          className={!newPassword ? 'disabled' : ''}
+          type="submit"
+          value="Change Password"
+          className={!newPassword ? "disabled" : ""}
         />
       </div>
     </form>
@@ -222,45 +224,45 @@ const SignInForm: React.FunctionComponent<signInFormProps> = (
       }}
     >
       <label>Sign in to upload or edit images</label>
-      <div className='username'>
-        <label htmlFor='username'>Username</label>
+      <div className="username">
+        <label htmlFor="username">Username</label>
         <input
-          type='email'
-          id='username'
+          type="email"
+          id="username"
           value={credentials.username}
           onChange={(event) =>
             setCredentials({ ...credentials, username: event.target.value })
           }
         />
       </div>
-      <div className='password'>
-        <label htmlFor='password'>Password</label>
+      <div className="password">
+        <label htmlFor="password">Password</label>
         <input
-          type='password'
-          id='password'
+          type="password"
+          id="password"
           value={credentials.password}
           onChange={(event) =>
             setCredentials({ ...credentials, password: event.target.value })
           }
         />
       </div>
-      <div className='signin'>
+      <div className="signin">
         {renderProcessingState()}
         <input
-          type='submit'
-          value='Sign In'
+          type="submit"
+          value="Sign In"
           className={
-            !credentials.username || !credentials.password ? 'disabled' : ''
+            !credentials.username || !credentials.password ? "disabled" : ""
           }
         />
       </div>
-      <div className='loginStatus'></div>
+      <div className="loginStatus"></div>
     </form>
   );
 
   return (
-    <div className='uploadOrSignInContainer'>
-      <section className='signin-form'>
+    <div className="uploadOrSignInContainer">
+      <section className="signin-form">
         {changingPwd ? changePwd() : logIn()}
       </section>
     </div>

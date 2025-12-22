@@ -1,10 +1,10 @@
-@import './styles/fonts.scss';
-@import './styles/common.scss';
-@import './styles/screens/handhelds.scss';
-@import './styles/screens/tablets.scss';
-@import './styles/screens/laptops.scss';
-@import './styles/screens/desktops.scss';
-@import './styles/print.scss';
+@use './styles/theme.scss';
+@use './styles/common.scss';
+@use './styles/screens/handhelds.scss';
+@use './styles/screens/tablets.scss';
+@use './styles/screens/laptops.scss';
+@use './styles/screens/desktops.scss';
+@use './styles/print.scss';
 
 .MC-App {
   font-weight: 400;

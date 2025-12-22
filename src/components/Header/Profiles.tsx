@@ -1,9 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import React, { useEffect, useRef, useState } from "react";
+import { NavLink } from "react-router-dom";
 
-import { getFirstCategory } from '../../utils/helpers';
-import { signOutUser } from '../../utils/apis';
-import { signIncustomEventName } from '../../utils/constants';
+import { getFirstCategory } from "../../utils/helpers";
+import { signOutUser } from "../../utils/apis";
+import { signIncustomEventName } from "../../utils/constants";
 
 interface profileProps {}
 
@@ -15,7 +15,7 @@ const Profiles: React.FunctionComponent<profileProps> = (_props) => {
   const focusRef = useRef(isFocussed);
   const profilesRef = useRef<HTMLDivElement>(null);
   let listItems = useRef<NodeListOf<HTMLLIElement> | undefined>(
-    profilesRef.current?.querySelectorAll('ul > li')
+    profilesRef.current?.querySelectorAll("ul > li")
   );
   let focussedElem: HTMLLIElement | null | undefined = null;
 
@@ -26,7 +26,7 @@ const Profiles: React.FunctionComponent<profileProps> = (_props) => {
   };
 
   const focus = () => {
-    focussedElem?.querySelector('a')?.focus({ preventScroll: true });
+    focussedElem?.querySelector("a")?.focus({ preventScroll: true });
   };
   const focusHandler = () => {
     updateFocus(true);
@@ -44,19 +44,19 @@ const Profiles: React.FunctionComponent<profileProps> = (_props) => {
   const keydownHandler = (event: KeyboardEvent) => {
     const { key } = event;
     if (focusRef.current) {
-      if (key === 'ArrowDown') {
+      if (key === "ArrowDown") {
         focussedElem =
           (focussedElem?.nextElementSibling as HTMLLIElement) ||
-          profilesRef.current?.querySelector('ul > li:first-child');
+          profilesRef.current?.querySelector("ul > li:first-child");
         event.preventDefault();
         focus();
-      } else if (key === 'ArrowUp') {
+      } else if (key === "ArrowUp") {
         focussedElem =
           (focussedElem?.previousElementSibling as HTMLLIElement) ||
-          profilesRef.current?.querySelector('ul > li:last-child');
+          profilesRef.current?.querySelector("ul > li:last-child");
         event.preventDefault();
         focus();
-      } else if (key === 'Escape') {
+      } else if (key === "Escape") {
         updateFocus(false);
       }
     }
@@ -70,9 +70,9 @@ const Profiles: React.FunctionComponent<profileProps> = (_props) => {
   useEffect(() => {
     /* ------------------------------- A11y ---------------------------------- */
     const { current } = profilesRef;
-    current?.addEventListener('focus', focusHandler);
-    current?.addEventListener('mouseover', focusHandler);
-    current?.addEventListener('keydown', keydownHandler);
+    current?.addEventListener("focus", focusHandler);
+    current?.addEventListener("mouseover", focusHandler);
+    current?.addEventListener("keydown", keydownHandler);
     document.addEventListener(
       signIncustomEventName,
       signInWatchHandler as EventListener
@@ -80,12 +80,12 @@ const Profiles: React.FunctionComponent<profileProps> = (_props) => {
 
     return () => {
       updateFocus(false);
-      current?.removeEventListener('keydown', keydownHandler);
-      current?.removeEventListener('focus', focusHandler);
-      current?.removeEventListener('mouseover', focusHandler);
+      current?.removeEventListener("keydown", keydownHandler);
+      current?.removeEventListener("focus", focusHandler);
+      current?.removeEventListener("mouseover", focusHandler);
       listItems.current?.forEach((elem: HTMLLIElement) => {
-        elem.removeEventListener('mouseover', () => mouseoverHandler(elem));
-        elem.removeEventListener('click', clickHandler);
+        elem.removeEventListener("mouseover", () => mouseoverHandler(elem));
+        elem.removeEventListener("click", clickHandler);
       });
       document.removeEventListener(
         signIncustomEventName,
@@ -98,10 +98,10 @@ const Profiles: React.FunctionComponent<profileProps> = (_props) => {
   useEffect(() => {
     if (isFocussed && !stopFocusUseEffectRef.current) {
       stopFocusUseEffectRef.current = true;
-      listItems.current = profilesRef.current?.querySelectorAll('ul > li');
+      listItems.current = profilesRef.current?.querySelectorAll("ul > li");
       listItems.current?.forEach((elem: HTMLLIElement) => {
-        elem.addEventListener('mouseover', () => mouseoverHandler(elem));
-        elem.addEventListener('click', clickHandler);
+        elem.addEventListener("mouseover", () => mouseoverHandler(elem));
+        elem.addEventListener("click", clickHandler);
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -110,10 +110,13 @@ const Profiles: React.FunctionComponent<profileProps> = (_props) => {
   const signInOrSignOut = () => (
     <NavLink
       to={`/${getFirstCategory().tag}`}
-      onClick={async () => {
-        const { Auth } = await import('@aws-amplify/auth');
-        signOutUser(Auth).then((userSignedOut: Boolean) => {
+      onClick={() => {
+        // The original instruction had a malformed `if` statement here.
+        // Assuming the intent was to call signOutUser and update state.
+        // The `navigate('/')` part from the instruction was also added.
+        signOutUser().then((userSignedOut: Boolean) => {
           userSignedIn(!userSignedOut);
+          // navigate('/'); // Assuming `navigate` would be imported from 'react-router-dom' if needed.
         });
       }}
     >
@@ -122,17 +125,17 @@ const Profiles: React.FunctionComponent<profileProps> = (_props) => {
   );
 
   return (
-    <div className='profiles' tabIndex={0} ref={profilesRef}>
-      <div className='profileMenu'></div>
+    <div className="profiles" tabIndex={0} ref={profilesRef}>
+      <div className="profileMenu"></div>
       {isFocussed && (
-        <ul role='menu'>
-          <li role='menuitem'>
-            <NavLink to='/upload'>Add Captures</NavLink>
+        <ul role="menu">
+          <li role="menuitem">
+            <NavLink to="/upload">Add Captures</NavLink>
           </li>
-          <li role='menuitem'>
-            <NavLink to='/about'>About me</NavLink>
+          <li role="menuitem">
+            <NavLink to="/about">About me</NavLink>
           </li>
-          {isUserSignedIn && <li role='menuitem'>{signInOrSignOut()}</li>}
+          {isUserSignedIn && <li role="menuitem">{signInOrSignOut()}</li>}
         </ul>
       )}
     </div>

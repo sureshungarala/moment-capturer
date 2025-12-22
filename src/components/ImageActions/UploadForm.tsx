@@ -1,167 +1,135 @@
-import React from 'react';
-import { Auth } from '@aws-amplify/auth';
-import { CognitoUserSession } from 'amazon-cognito-identity-js';
+import React, { useRef, useState } from 'react';
+import { fetchAuthSession } from 'aws-amplify/auth';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { GAEvent } from '../Utils/GA-Tracker';
-
 import { MAX_IMAGE_SIZE_IN_MB, getFirstCategory } from '../../utils/helpers';
 import Categories from '../Utils/Categories';
 
 interface uploadProps {}
 
-interface uploadState {
-  files: FileList | null;
-  fileStatusSuccess: boolean;
-  fileStatusMsg: string;
-  description: string;
-  categorySelected: string;
-  isBiotc: boolean;
-  isPanorama: boolean;
-  isPortrait: boolean;
-  requestStarted: boolean;
-  requestProcessing: boolean;
-  requestStatusSuccess: boolean;
-  requestStatusMsg: string;
-}
+const UploadForm: React.FunctionComponent<uploadProps> = () => {
+  const fileRef = useRef<HTMLInputElement>(null);
+  const descriptionRef = useRef<HTMLTextAreaElement>(null);
+  const queryClient = useQueryClient();
 
-class UploadForm extends React.Component<uploadProps, uploadState> {
-  fileRef: React.RefObject<HTMLInputElement>;
-  descriptionRef: React.RefObject<HTMLTextAreaElement>;
+  const [files, setFiles] = useState<FileList | null>(null);
+  const [fileStatusSuccess, setFileStatusSuccess] = useState(true);
+  const [fileStatusMsg, setFileStatusMsg] = useState('No file selected');
+  const [description, setDescription] = useState('');
+  const [categorySelected, setCategorySelected] = useState(
+    getFirstCategory().tag
+  );
+  const [isBiotc, setIsBiotc] = useState(false);
+  const [isPanorama, setIsPanorama] = useState(false);
+  const [isPortrait, setIsPortrait] = useState(false);
 
-  constructor(props: uploadProps) {
-    super(props);
-    this.state = {
-      files: null,
-      fileStatusSuccess: true,
-      fileStatusMsg: 'No file selected',
-      description: '',
-      categorySelected: getFirstCategory().tag,
-      isBiotc: false,
-      isPanorama: false,
-      isPortrait: false,
-      requestStarted: false,
-      requestProcessing: false,
-      requestStatusSuccess: false,
-      requestStatusMsg: '',
-    };
-    this.fileRef = React.createRef();
-    this.descriptionRef = React.createRef();
-  }
+  /* Request status state */
+  const [requestStatusSuccess, setRequestStatusSuccess] = useState(false);
+  const [requestStatusMsg, setRequestStatusMsg] = useState('');
+  // We use mutation.isPending for processing state
 
-  openFileDialog = () => {
-    this.fileRef.current && this.fileRef.current.click();
+  const {
+    mutate: uploadImage,
+    isPending: requestProcessing,
+    isError: requestFailed,
+    isSuccess: requestSuccess,
+  } = useMutation({
+    mutationFn: async ({
+      body,
+      imageName,
+    }: {
+      body: string;
+      imageName: string;
+    }) => {
+      const { tokens } = await fetchAuthSession();
+      if (!tokens?.idToken) throw new Error('No session');
+
+      const response = await fetch('https://api.momentcapturer.com/csr', {
+        method: 'POST',
+        mode: 'cors',
+        headers: {
+          'content-type': 'application/json',
+          accept: 'application/json',
+          Authorization: tokens.idToken.toString(),
+        },
+        body,
+      });
+
+      if (!response.ok) {
+        throw new Error('Upload failed');
+      }
+      return imageName;
+    },
+    onSuccess: (imageName) => {
+      setRequestStatusSuccess(true);
+      setRequestStatusMsg(`${imageName} uploaded successfully.`);
+      GAEvent('Upload', categorySelected, 'successful');
+      // Invalidate queries if necessary
+      queryClient.invalidateQueries({ queryKey: ['images', categorySelected] });
+    },
+    onError: (error: any, variables) => {
+      console.error('CSR failed with error: ', error);
+      setRequestStatusSuccess(false);
+
+      if (error.message === 'No session') {
+        console.error('Authorization failed: No session');
+      }
+
+      setRequestStatusMsg(
+        `Failed to upload ${variables.imageName}. Try again!`
+      );
+      GAEvent('Upload', categorySelected, 'failed');
+    },
+  });
+
+  const openFileDialog = () => {
+    fileRef.current?.click();
   };
 
-  handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const files = event.target.files;
-    if (files?.length) {
-      if (files[0].size <= MAX_IMAGE_SIZE_IN_MB * 1024 * 1024) {
-        this.setState(
-          {
-            files,
-            fileStatusSuccess: true,
-            fileStatusMsg: `${files[0].name} is selected`,
-          },
-          () => {
-            this.descriptionRef.current?.focus();
-          }
-        );
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedFiles = event.target.files;
+    if (selectedFiles?.length) {
+      if (selectedFiles[0].size <= MAX_IMAGE_SIZE_IN_MB * 1024 * 1024) {
+        setFiles(selectedFiles);
+        setFileStatusSuccess(true);
+        setFileStatusMsg(`${selectedFiles[0].name} is selected`);
+        descriptionRef.current?.focus();
       } else {
-        this.setState({
-          files: files,
-          fileStatusSuccess: false,
-          fileStatusMsg: `Max file size: ${MAX_IMAGE_SIZE_IN_MB}MB`,
-        });
+        setFiles(selectedFiles);
+        setFileStatusSuccess(false);
+        setFileStatusMsg(`Max file size: ${MAX_IMAGE_SIZE_IN_MB}MB`);
       }
     } else {
-      this.setState({
-        files,
-        fileStatusSuccess: true,
-        fileStatusMsg: 'No file selected',
-      });
+      setFiles(null);
+      setFileStatusSuccess(true);
+      setFileStatusMsg('No file selected');
     }
   };
 
-  /**
-   * Checks user authorization and uploads
-   * @param event
-   */
-  handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    const uploadFailed = (imageName: string) => {
-      this.setState({
-        requestProcessing: false,
-        requestStatusSuccess: false,
-        requestStatusMsg: `Failed to upload ${imageName}. Try again!`,
-      });
-      GAEvent('Upload', this.state.categorySelected, 'failed');
-    };
-    if (
-      this.state.files &&
-      this.state.files.length !== 0 &&
-      this.state.description.length
-    ) {
-      this.setState({
-        requestStarted: true,
-        requestProcessing: true,
-      });
-      const file = this.state.files[0];
-      let reader = new FileReader(),
-        image = new Image(),
-        imageName = this.state.files[0].name;
+
+    if (files && files.length !== 0 && description.length) {
+      const file = files[0];
+      const reader = new FileReader();
+      const image = new Image();
+      const imageName = files[0].name;
 
       reader.addEventListener('load', () => {
         image.addEventListener('load', () => {
-          let body = JSON.stringify({
+          const body = JSON.stringify({
             image: reader.result,
             imageName: imageName,
             resolution: image.width + ':' + image.height,
-            category: this.state.categorySelected,
-            biotc: this.state.isBiotc,
-            panorama: this.state.isPanorama,
-            portrait: this.state.isPortrait,
-            description: this.state.description,
+            category: categorySelected,
+            biotc: isBiotc,
+            panorama: isPanorama,
+            portrait: isPortrait,
+            description: description,
           });
-          Auth.currentSession().then(
-            (session: CognitoUserSession) => {
-              fetch('https://api.momentcapturer.com/csr', {
-                method: 'POST',
-                mode: 'cors',
-                headers: {
-                  'content-type': 'application/json',
-                  accept: 'application/json',
-                  Authorization: session.getIdToken().getJwtToken(),
-                },
-                body,
-              }).then(
-                (response: Response) => {
-                  if (response.ok) {
-                    this.setState({
-                      requestProcessing: false,
-                      requestStatusSuccess: true,
-                      requestStatusMsg: `${imageName} uploaded successfully.`,
-                    });
-                    GAEvent(
-                      'Upload',
-                      this.state.categorySelected,
-                      'successful'
-                    );
-                  } else {
-                    uploadFailed(imageName);
-                  }
-                },
-                (error) => {
-                  uploadFailed(imageName);
-                  GAEvent('Upload', this.state.categorySelected, 'auth-failed');
-                  console.error('CSR failed with error: ', error);
-                }
-              );
-            },
-            (error) => {
-              console.error('Authorization failed: ', error);
-              window.location.reload();
-            }
-          );
+
+          uploadImage({ body, imageName });
         });
         image.src = window.URL.createObjectURL(file);
       });
@@ -169,58 +137,38 @@ class UploadForm extends React.Component<uploadProps, uploadState> {
     }
   };
 
-  textArea = () => (
+  const renderTextArea = () => (
     <textarea
       placeholder='Give some description'
-      ref={this.descriptionRef}
-      value={this.state.description}
+      ref={descriptionRef}
+      value={description}
       onBlur={(event) => {
-        this.setState(
-          {
-            description: event.target.value.trim(),
-          },
-          () => {
-            if (this.descriptionRef.current) {
-              if (!this.state.description.length) {
-                this.descriptionRef.current.classList.add('error');
-              } else {
-                this.descriptionRef.current.classList.remove('error');
-              }
-            }
-          }
-        );
+        const val = event.target.value.trim();
+        setDescription(val);
+        if (descriptionRef.current) {
+          if (!val.length) descriptionRef.current.classList.add('error');
+          else descriptionRef.current.classList.remove('error');
+        }
       }}
       onChange={(event) => {
-        this.setState(
-          {
-            description: event.target.value,
-          },
-          () => {
-            if (this.descriptionRef.current) {
-              if (!this.state.description.length) {
-                this.descriptionRef.current.classList.add('error');
-              } else {
-                this.descriptionRef.current.classList.remove('error');
-              }
-            }
-          }
-        );
+        const val = event.target.value;
+        setDescription(val);
+        if (descriptionRef.current) {
+          if (!val.length) descriptionRef.current.classList.add('error');
+          else descriptionRef.current.classList.remove('error');
+        }
       }}
     ></textarea>
   );
 
-  checkBoxToggles = () => (
+  const renderCheckBoxToggles = () => (
     <div className='resolutionCbToggles'>
       <label htmlFor='biotcCb' className='mcCheckboxContainer'>
         <input
           type='checkbox'
           id='biotcCb'
-          checked={this.state.isBiotc}
-          onChange={(event) =>
-            this.setState({
-              isBiotc: event.target.checked,
-            })
-          }
+          checked={isBiotc}
+          onChange={(event) => setIsBiotc(event.target.checked)}
         />
         <div className='mcCheckboxHidden'></div>
         <span className='mcCheckboxLabel' title='Best Image of the Category'>
@@ -231,14 +179,11 @@ class UploadForm extends React.Component<uploadProps, uploadState> {
         <input
           type='checkbox'
           id='portraitCb'
-          checked={this.state.isPortrait}
+          checked={isPortrait}
           onChange={(event) => {
             const isChecked = event.target.checked;
-            this.setState((state: uploadState) => ({
-              // should negate each other
-              isPortrait: isChecked,
-              isPanorama: isChecked ? false : state.isPanorama,
-            }));
+            setIsPortrait(isChecked);
+            if (isChecked) setIsPanorama(false);
           }}
         />
         <div className='mcCheckboxHidden'></div>
@@ -250,13 +195,11 @@ class UploadForm extends React.Component<uploadProps, uploadState> {
         <input
           type='checkbox'
           id='panaromaCb'
-          checked={this.state.isPanorama}
+          checked={isPanorama}
           onChange={(event) => {
             const isChecked = event.target.checked;
-            this.setState((state: uploadState) => ({
-              isPanorama: isChecked,
-              isPortrait: isChecked ? false : state.isPortrait,
-            }));
+            setIsPanorama(isChecked);
+            if (isChecked) setIsPortrait(false);
           }}
         />
         <div className='mcCheckboxHidden'></div>
@@ -267,72 +210,62 @@ class UploadForm extends React.Component<uploadProps, uploadState> {
     </div>
   );
 
-  render() {
-    return (
-      <div className='uploadOrSignInContainer'>
-        <section className='upload-form'>
-          <form onSubmit={this.handleSubmit}>
-            <input
-              type='button'
-              value='Choose file to Upload'
-              onClick={this.openFileDialog}
-            />
-            <span
-              style={{ color: this.state.fileStatusSuccess ? 'black' : 'red' }}
-            >
-              {this.state.fileStatusMsg}
-            </span>
-            <input
-              type='file'
-              accept='image/*'
-              ref={this.fileRef}
-              onChange={this.handleChange}
-              style={{ visibility: 'hidden' }}
-              title='Choose file to Upload'
-            />
-            {this.textArea()}
-            <Categories
-              onSelectCategory={(categoryTag) => {
-                this.setState({
-                  categorySelected: categoryTag,
-                });
-              }}
-            />
-            {this.checkBoxToggles()}
-            <input
-              type='submit'
-              value='Upload'
-              className={
-                this.state.files?.length && this.state.description.length
-                  ? ''
-                  : 'disabled'
-              }
-            />
-            {this.state.requestStarted && (
-              <div className='requestStatus'>
-                {this.state.requestProcessing && (
-                  <div>
-                    <span className='processing'></span>
-                    &nbsp;&nbsp;
-                    <span> Processing...</span>
-                  </div>
-                )}
-                {!this.state.requestProcessing && (
-                  <div
-                    className={`${
-                      this.state.requestStatusSuccess ? 'success' : 'error'
-                    }`}
-                  >
-                    {this.state.requestStatusMsg}
-                  </div>
-                )}
-              </div>
-            )}
-          </form>
-        </section>
-      </div>
-    );
-  }
-}
+  const requestStarted = requestProcessing || requestFailed || requestSuccess;
+
+  return (
+    <div className='uploadOrSignInContainer'>
+      <section className='upload-form'>
+        <form onSubmit={handleSubmit}>
+          <input
+            type='button'
+            value='Choose file to Upload'
+            onClick={openFileDialog}
+          />
+          <span style={{ color: fileStatusSuccess ? 'black' : 'red' }}>
+            {fileStatusMsg}
+          </span>
+          <input
+            type='file'
+            accept='image/*'
+            ref={fileRef}
+            onChange={handleChange}
+            style={{ visibility: 'hidden' }}
+            title='Choose file to Upload'
+          />
+          {renderTextArea()}
+          <Categories
+            onSelectCategory={(categoryTag) => {
+              setCategorySelected(categoryTag);
+            }}
+          />
+          {renderCheckBoxToggles()}
+          <input
+            type='submit'
+            value='Upload'
+            className={files?.length && description.length ? '' : 'disabled'}
+          />
+          {requestStarted && (
+            <div className='requestStatus'>
+              {requestProcessing && (
+                <div>
+                  <span className='processing'></span>
+                  &nbsp;&nbsp;
+                  <span> Processing...</span>
+                </div>
+              )}
+              {!requestProcessing && (
+                <div
+                  className={`${requestStatusSuccess ? 'success' : 'error'}`}
+                >
+                  {requestStatusMsg}
+                </div>
+              )}
+            </div>
+          )}
+        </form>
+      </section>
+    </div>
+  );
+};
 
 export default UploadForm;
