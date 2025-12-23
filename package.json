@@ -23,7 +23,7 @@
     "start": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "deploy": "serverless deploy",
+    "deploy": "export NODE_TLS_REJECT_UNAUTHORIZED=0 && serverless deploy",
     "analyze": "source-map-explorer 'build/static/js/*.js'"
   },
   "eslintConfig": {
