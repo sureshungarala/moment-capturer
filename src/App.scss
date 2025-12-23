@@ -34,7 +34,9 @@
     }
 
     .actionSection {
-      justify-content: space-around;
+      justify-content: flex-end;
+      column-gap: 2rem;
+      padding-right: 2rem;
       flex-basis: 40%;
 
       & > * {
