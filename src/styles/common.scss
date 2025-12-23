@@ -376,24 +376,24 @@ textarea,
 }
 
 .profileMenu {
-  background-image: url('../assets/menu.svg');
+  background-image: url('/assets/menu.svg');
   background-size: cover;
 }
 
 .enlarge {
-  background-image: url('../assets/enlarge.svg');
+  background-image: url('/assets/enlarge.svg');
 }
 
 .edit {
-  background-image: url('../assets/edit.svg');
+  background-image: url('/assets/edit.svg');
 }
 
 .delete {
-  background-image: url('../assets/delete.svg');
+  background-image: url('/assets/delete.svg');
 }
 
 .close {
-  background-image: url('../assets/close.svg');
+  background-image: url('/assets/close.svg');
 }
 
 // imageActionBtn
@@ -417,8 +417,10 @@ textarea,
 .uploadOrSignInContainer .processing,
 .fetchingCurrentUserDetails {
   display: inline-block;
-  background-image: url('../assets/spinner.svg');
+  background-image: url('/assets/spinner.svg');
   margin: 0 auto;
+  width: 50px;
+  height: 50px;
   background-size: cover;
   background-repeat: no-repeat;
   animation: rotation 0.5s infinite linear;

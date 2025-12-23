@@ -4,7 +4,7 @@ import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import Categories from '../Utils/Categories';
 import { GAEvent } from '../Utils/GA-Tracker';
 import Logo from '../../logo.svg?react';
-import Title from '../../assets/title.svg?react';
+// import Title from '../../assets/title.svg?react';
 import Profiles from './Profiles';
 
 interface headerProps {}
@@ -25,7 +25,11 @@ const Header: React.FunctionComponent<headerProps> = (_props: headerProps) => {
     <header className='mcHeader'>
       <NavLink to='/' className='logoSection' aria-label='link to home page'>
         <Logo className='logo' />
-        <Title className='brand-title' />
+        <img
+          src='/assets/title.svg'
+          alt='Moment Capturer'
+          className='brand-title'
+        />
       </NavLink>
       <div className='actionSection'>
         <Categories

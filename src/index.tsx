@@ -1,14 +1,19 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import { BrowserRouter as Router } from "react-router-dom";
+// Polyfill global for Amplify
+if (typeof window !== 'undefined') {
+  (window as any).global = window;
+}
 
-import App from "./App";
-import "./index.css";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
+
+import App from './App';
+import './index.css';
 
 // import * as serviceWorker from './serviceWorker';
 // import { swEventName } from './utils/constants';
 
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 const queryClient = new QueryClient();
 
@@ -19,7 +24,7 @@ ReactDOM.render(
       <App />
     </Router>
   </QueryClientProvider>,
-  document.getElementById("root")
+  document.getElementById('root')
 );
 
 // Learn more about service workers: https://bit.ly/CRA-PWA

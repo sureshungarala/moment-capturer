@@ -153,14 +153,14 @@
 
         .linkedin {
           display: inline-block;
-          background-image: url('./assets/linkedin.svg');
+          background-image: url('/assets/linkedin.svg');
           background-position: center;
           margin-left: 0.5rem;
         }
 
         .github {
           display: inline-block;
-          background-image: url('./assets/github.svg');
+          background-image: url('/assets/github.svg');
           margin: 0 1rem;
         }
       }
