@@ -3,11 +3,12 @@
     --handheld-header-height: 8vmax;
     .mcHeader {
       min-height: 8vmax;
-      justify-content: space-around;
+      justify-content: space-between;
+      padding-right: 1rem;
 
       .logoSection {
-        flex-basis: 55%;
-        margin-left: 1vmax;
+        flex-basis: auto;
+        margin-left: 0;
 
         .logo {
           width: 6vmax;
@@ -22,8 +23,8 @@
       }
 
       .actionSection {
-        justify-content: space-evenly;
-        flex-basis: 45% !important;
+        justify-content: flex-end;
+        flex-basis: auto !important;
 
         & > * {
           cursor: pointer;
@@ -189,7 +190,8 @@
     }
 
     .mcFooter {
-      height: 2rem;
+      height: auto;
+      min-height: 2rem;
       padding: 0.25rem 0;
       font-size: 0.75rem !important;
       margin-top: var(--handheld-header-height);
