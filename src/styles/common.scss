@@ -223,7 +223,7 @@ textarea,
       position: relative;
       border: 1px solid var(--primary-color);
       border-radius: 4px;
-      padding: 2px 1.25rem 2px 0.5rem;
+      padding: 2px 2.5rem 2px 0.5rem;
       font-size: 0.8em;
       font-weight: 600;
       width: auto;
@@ -240,7 +240,7 @@ textarea,
       &::after {
         position: absolute;
         content: '\00a0\00a0\203A'; /* Minimalistic chevron */
-        top: 50%;
+        top: 35%;
         right: 0.5em;
         font-size: 1.2em; /* Larger due to thinness */
         transform: translateY(-50%) rotate(90deg); /* Point down */
