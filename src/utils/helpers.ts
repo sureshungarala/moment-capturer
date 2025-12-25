@@ -4,8 +4,10 @@ import categories from '../info/categories.json';
 
 /**
  * represents max size of the upload image
+ * Increased to 25MB since we now use S3 pre-signed URLs
+ * which bypass Lambda's 6MB payload limit
  */
-export const MAX_IMAGE_SIZE_IN_MB = 4.3;
+export const MAX_IMAGE_SIZE_IN_MB = 25;
 
 /**
  * Re-Orders and distributes images evenly on screen

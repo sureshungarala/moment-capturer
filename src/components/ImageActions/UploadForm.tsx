@@ -4,6 +4,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { GAEvent } from '../Utils/GA-Tracker';
 import { MAX_IMAGE_SIZE_IN_MB, getFirstCategory } from '../../utils/helpers';
+import { getUploadUrl, uploadToS3, processUpload } from '../../utils/apis';
 import Categories from '../Utils/Categories';
 
 interface uploadProps {}
@@ -36,28 +37,50 @@ const UploadForm: React.FunctionComponent<uploadProps> = () => {
     isSuccess: requestSuccess,
   } = useMutation({
     mutationFn: async ({
-      body,
+      file,
       imageName,
+      metadata,
     }: {
-      body: string;
+      file: File;
       imageName: string;
+      metadata: {
+        imageName: string;
+        resolution: string;
+        category: string;
+        biotc: boolean;
+        panorama: boolean;
+        portrait: boolean;
+        description: string;
+      };
     }) => {
       const { tokens } = await fetchAuthSession();
       if (!tokens?.idToken) throw new Error('No session');
+      const idToken = tokens.idToken.toString();
 
-      const response = await fetch('https://api.momentcapturer.com/csr', {
-        method: 'POST',
-        mode: 'cors',
-        headers: {
-          'content-type': 'application/json',
-          accept: 'application/json',
-          Authorization: tokens.idToken.toString(),
-        },
-        body,
-      });
+      // Step 1: Get pre-signed URL for S3 upload
+      const { uploadUrl, objectKey } = await getUploadUrl(
+        idToken,
+        imageName,
+        file.type
+      );
+
+      // Step 2: Upload file directly to S3 (bypasses Lambda 6MB limit)
+      const uploadSuccess = await uploadToS3(uploadUrl, file);
+      if (!uploadSuccess) {
+        throw new Error('S3 upload failed');
+      }
+
+      // Step 3: Trigger image processing
+      const response = await processUpload(
+        idToken,
+        JSON.stringify({
+          objectKey,
+          ...metadata,
+        })
+      );
 
       if (!response.ok) {
-        throw new Error('Upload failed');
+        throw new Error('Processing failed');
       }
       return imageName;
     },
@@ -69,7 +92,7 @@ const UploadForm: React.FunctionComponent<uploadProps> = () => {
       queryClient.invalidateQueries({ queryKey: ['images', categorySelected] });
     },
     onError: (error: any, variables) => {
-      console.error('CSR failed with error: ', error);
+      console.error('Upload failed with error: ', error);
       setRequestStatusSuccess(false);
 
       if (error.message === 'No session') {
@@ -112,28 +135,29 @@ const UploadForm: React.FunctionComponent<uploadProps> = () => {
 
     if (files && files.length !== 0 && description.length) {
       const file = files[0];
-      const reader = new FileReader();
-      const image = new Image();
-      const imageName = files[0].name;
+      const imageName = file.name;
 
-      reader.addEventListener('load', () => {
-        image.addEventListener('load', () => {
-          const body = JSON.stringify({
-            image: reader.result,
-            imageName: imageName,
-            resolution: image.width + ':' + image.height,
-            category: categorySelected,
-            biotc: isBiotc,
-            panorama: isPanorama,
-            portrait: isPortrait,
-            description: description,
-          });
+      // Get image dimensions without base64 conversion
+      const image = new window.Image();
+      const objectUrl = window.URL.createObjectURL(file);
 
-          uploadImage({ body, imageName });
-        });
-        image.src = window.URL.createObjectURL(file);
-      });
-      reader.readAsDataURL(file);
+      image.onload = () => {
+        window.URL.revokeObjectURL(objectUrl);
+
+        const metadata = {
+          imageName,
+          resolution: `${image.width}:${image.height}`,
+          category: categorySelected,
+          biotc: isBiotc,
+          panorama: isPanorama,
+          portrait: isPortrait,
+          description,
+        };
+
+        uploadImage({ file, imageName, metadata });
+      };
+
+      image.src = objectUrl;
     }
   };
 
