@@ -85,23 +85,10 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // API calls - Network first with cache fallback
+  // API calls - Let React Query handle caching, just pass through
   if (url.origin === 'https://api.momentcapturer.com') {
-    event.respondWith(
-      fetch(request)
-        .then((networkResponse) => {
-          if (networkResponse.ok) {
-            const responseClone = networkResponse.clone();
-            caches.open(STATIC_CACHE).then((cache) => {
-              cache.put(request, responseClone);
-            });
-          }
-          return networkResponse;
-        })
-        .catch(() => {
-          return caches.match(request);
-        })
-    );
+    // Don't cache API responses in Service Worker
+    // React Query handles caching with proper invalidation after mutations
     return;
   }
 

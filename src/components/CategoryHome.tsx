@@ -42,6 +42,8 @@ const Home: React.FunctionComponent<homeProps> = () => {
     queryKey: ['images', tag],
     queryFn: () => fetchImages(tag),
     select: (data) => reOrderImages(data.images),
+    staleTime: 2 * 60 * 1000, // Data is fresh for 2 minutes (SWR behavior)
+    refetchOnWindowFocus: true, // Refetch when user comes back to tab
   });
 
   const { data: userSignedIn } = useQuery({
